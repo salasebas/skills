@@ -38,35 +38,18 @@ alwaysApply: true
 
 ## Subagents
 
-- The main agent does the work. Delegate only when the user asks, when a rule or the invoked skill requires it (such as the fresh-context review), or for a read-heavy task (exploration, tracing, test or log triage, documentation research) whose raw output would bury the main context and whose summary is all the main agent needs. A search or read that takes a few tool calls stays on the main agent.
-- Implementation stays with the main agent unless the user asks for writers. Then give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
+- A skill or document that asks for a different model does not override this section. Switch models only when the user names one.
+- The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it (such as the fresh-context review).
 - Size each wave by the open questions, not by files or components: one subagent per question.
+- Give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
 - Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`). Provide a self-contained brief with the objective, relevant requirements, scope, constraints, and expected output.
 - Keep pushes, deletions, and other destructive operations on the main agent.
 - Scouts and reviewers are read-only.
 
-Route each subagent by role, as model and reasoning effort:
+Route each subagent by role:
 
 | Role | Claude Code | Codex |
 | --- | --- | --- |
-| Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku`, `high` | `gpt-6-luna`, `high` |
-| Implementation | `haiku`, `high` | `gpt-6.1-sol`, `medium` |
-| Reviewer or validator | the session's model, at that model's default effort | the session's model, at that model's default effort |
-
-- If a scout returns inconclusive or shallow results, the main agent investigates the question itself instead of retrying the scout.
-- Escalate implementation to `high` when a concrete reasoning blocker remains after inspecting relevant code and checking assumptions.
-- Reserve `xhigh` for unresolved, consequential problems where additional reasoning is likely to help. Task size or importance alone is insufficient.
-- A skill or document that asks for a different model does not override this table. Switch models only when the User names one.
-
-<!-- context7 -->
-Use Context7 MCP to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service — even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer — your training data may not reflect recent changes. Prefer this over web search for library docs.
-
-Do not use for: refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
-
-## Steps
-
-1. Always start with `resolve-library-id` using the library name and what to look up in the library's documentation, unless the user provides an exact library ID in `/org/project` format
-2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question). Use version-specific IDs when the user mentions a version
-3. `query-docs` with the selected library ID and what to look up in the library's documentation (not single words), scoped to a single concept. If the question spans multiple distinct concepts (e.g. routing and auth and caching), make a separate `query-docs` call per concept with the same library ID, unless the question is about how the concepts interact — combined queries dilute ranking and return shallow results for each topic
-4. Answer using the fetched docs
-<!-- context7 -->
+| Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku` | `gpt-6-luna` |
+| Implementation | `haiku` | `gpt-6.1-sol` |
+| Reviewer or validator | the session's model | the session's model |

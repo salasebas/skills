@@ -39,8 +39,6 @@ npx skills add salasebas/skills -g -s review-changes -s python-development -s ty
 | Claude Code | `~/.claude/CLAUDE.md`, a symlink to `~/.agents/AGENTS.md` |
 | Cursor | `~/.cursor/rules/agents.mdc`, a symlink to `~/.agents/AGENTS.md`. The frontmatter at the top of the file is for Cursor. |
 
-The block between the `<!-- context7 -->` markers at the end of the file is Context7's own rule for its MCP server, pasted as they publish it.
-
 The Comments section is the list of allowed comments from pstack's Comment Sicko ([`comment-sicko.md`](./skills/no-comments/references/comment-sicko.md)), without the persona or the review flow. It stops comments from being written; `/no-comments` removes the ones that got through.
 
 ## Skills installed from other people
