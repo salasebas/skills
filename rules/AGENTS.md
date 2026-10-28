@@ -19,9 +19,14 @@ alwaysApply: true
 - To review changes, use the `review-changes` skill. When this session wrote the changes, run the review in a fresh-context subagent.
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
+## Verification
+- Before calling work done, run a check that passes or fails: the tests, a build, a typecheck, or for UI the running app. Show the command and its output, or a screenshot.
+
 ## Tests
 - Before adding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario.
 - Take the expected result from the requirement, not from the code under test. Passing tests or another agent's agreement do not establish correctness.
+- See a new test fail before trusting it: run it against the code without the change, or break the behavior it covers.
+- When an existing test fails, fix the code. Change the test's expected result only when the requirement changed, and name that requirement.
 - Prefer a test that enters where a client does (the endpoint, the job, the command, the UI) and runs the real database, faking only third-party services. Go lower only when that layer cannot reach the failure cheaply.
 - Test a business rule once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation.
 - Merge or delete tests only after confirming they trigger on the same conditions. Keep the regression test of a fixed bug.
