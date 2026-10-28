@@ -38,7 +38,7 @@ alwaysApply: true
 
 ## Subagents
 
-- The main agent does the work. Delegate only when the user asks, when a rule or the invoked skill requires it (such as the fresh-context review), or for a read-heavy task (exploration, tracing, test or log triage, documentation research) whose raw output would bury the main context and whose summary is all the main agent needs. A search or read that takes a few tool calls stays on the main agent.
+- The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it (such as the fresh-context review).
 - Implementation stays with the main agent unless the user asks for writers. Then give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
 - Size each wave by the open questions, not by files or components: one subagent per question.
 - Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`). Provide a self-contained brief with the objective, relevant requirements, scope, constraints, and expected output.
