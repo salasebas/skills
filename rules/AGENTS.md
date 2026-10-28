@@ -26,6 +26,16 @@ alwaysApply: true
 - Test a business rule once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation.
 - Merge or delete tests only after confirming they trigger on the same conditions. Keep the regression test of a fixed bug.
 
+## Comments
+- Code carries only these comments:
+  - Legal or license headers.
+  - Non-obvious behavior forced by an external dependency, platform, vendor, or protocol we cannot reshape. Surprises in our own code get a rename, extract, type, or rearchitecture that makes the behavior obvious without prose.
+  - `// prettier-ignore`. Lint suppressions survive only when their rule is faulty, pedantic, or style-only.
+  - Doc comments that define a public API contract.
+  - Issue or RFC links that explain a constraint code cannot express.
+- When you are not sure an exception applies, leave the comment out.
+- Before writing `eslint-disable`, `@ts-ignore`, `@ts-expect-error`, or a similar suppression, look up the rule. If it catches real bugs or protects correctness or safety, fix the code instead.
+
 ## Subagents
 
 - The main agent does the work. Delegate only when the user asks, when a rule or the invoked skill requires it (such as the fresh-context review), or for a read-heavy task (exploration, tracing, test or log triage, documentation research) whose raw output would bury the main context and whose summary is all the main agent needs. A search or read that takes a few tool calls stays on the main agent.
