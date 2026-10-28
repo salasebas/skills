@@ -38,22 +38,18 @@ alwaysApply: true
 
 ## Subagents
 
+- A skill or document that asks for a different model does not override this section. Switch models only when the user names one.
 - The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it (such as the fresh-context review).
-- Implementation stays with the main agent unless the user asks for writers. Then give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
 - Size each wave by the open questions, not by files or components: one subagent per question.
+- Give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
 - Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`). Provide a self-contained brief with the objective, relevant requirements, scope, constraints, and expected output.
 - Keep pushes, deletions, and other destructive operations on the main agent.
 - Scouts and reviewers are read-only.
 
-Route each subagent by role, as model and reasoning effort:
+Route each subagent by role:
 
 | Role | Claude Code | Codex |
 | --- | --- | --- |
-| Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku`, `high` | `gpt-6-luna`, `high` |
-| Implementation | `haiku`, `high` | `gpt-6.1-sol`, `medium` |
-| Reviewer or validator | the session's model, at that model's default effort | the session's model, at that model's default effort |
-
-- If a scout returns inconclusive or shallow results, the main agent investigates the question itself instead of retrying the scout.
-- Escalate implementation to `high` when a concrete reasoning blocker remains after inspecting relevant code and checking assumptions.
-- Reserve `xhigh` for unresolved, consequential problems where additional reasoning is likely to help. Task size or importance alone is insufficient.
-- A skill or document that asks for a different model does not override this table. Switch models only when the User names one.
+| Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku` | `gpt-6-luna` |
+| Implementation | `haiku` | `gpt-6.1-sol` |
+| Reviewer or validator | the session's model | the session's model |
