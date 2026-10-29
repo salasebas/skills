@@ -15,7 +15,7 @@ Review a change like the senior developer who will be paged when it breaks.
 2. Gather the diff and any file/context excerpts needed to evaluate the change without guessing, plus the original requirements and the project instructions.
 3. Review the change, following each reference file in turn:
    - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
-   - [`references/structure.md`](references/structure.md): the change against the code-quality rules in the project's instructions, plus orchestration and atomicity.
+   - [`references/structure.md`](references/structure.md): maintainability and structure, against the code-quality rules in the project's instructions.
 4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Require a concrete failure scenario, location, impact, and evidence. Zero findings is an acceptable outcome.
 5. Deduplicate the findings.
 6. Validate every finding. See [Validate](#validate).

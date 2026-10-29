@@ -29,7 +29,7 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | `references/bugs.md` | Prompt, scope, guidelines, final response, critical rules | `thermo-nuclear-review`, whole |
 | `references/bugs.md` | "Enum & Value Completeness" | gstack `review/checklist.md`, whole section |
 | `references/bugs.md` | "Gate Integrity" | gstack `review/checklist.md`, cut down |
-| `references/structure.md` | Opening, standard 7, first two lines of "Approval Bar" | `thermo-nuclear-code-quality-review` |
+| `references/structure.md` | Opening, first two lines of "Approval Bar" | `thermo-nuclear-code-quality-review` |
 | `references/structure.md` | Structural remedies | `code-review-and-quality` |
 
 ## Local edits
@@ -50,12 +50,12 @@ Written for this repo, with no upstream: the scope commands and the rule for a r
 
 ## Quality rules in AGENTS.md
 
-Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer checks the change against the code-quality rules of the loaded instruction files and keeps standard 7, which is about system design more than everyday code. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
+Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer keeps its opening, the remedies and a one-line approval bar; the rules themselves reach it through the instructions every session loads. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
 
 ## Left out on purpose
 
 - From `code-review-and-quality`: the five review axes and their question lists, tests first, verify the verification, change sizing, dead code hygiene, dependency discipline, the multi-model review pattern, review speed, handling disagreements, change descriptions, the severity prefix table, the review checklist, common rationalisations, red flags, and the `references/` checklists. See "Why the reviewers are short".
-- From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. Standards 0 to 6 and the Approval Bar list moved out: see "Quality rules in AGENTS.md".
+- From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. Its standards and the Approval Bar list moved out: see "Quality rules in AGENTS.md".
 - From `ponytail-review`: the `shortcut:` comment convention and the `Lean:` line.
 - From `review-loop`: the 1 to 10 score, the quality gate, and model selection.
 

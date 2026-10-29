@@ -4,17 +4,6 @@ Perform a strict review focused on implementation quality, maintainability, abst
 
 Above all, be **ambitious** about code structure. Do not merely identify local cleanup opportunities. Actively search for "code judo" moves: restructurings that preserve behavior while making the implementation dramatically simpler, smaller, more direct, and more elegant.
 
-## Standards
-
-The code-quality rules in the instructions loaded for this project (`AGENTS.md`, `CLAUDE.md`) are the standards. Flag code in the change that breaks one, and quote the rule.
-
-Also:
-
-- **Treat unnecessary sequential orchestration and non-atomic updates as design smells when the cleaner structure is obvious.**
-  - If independent work is serialized for no good reason, ask whether the flow should run in parallel instead.
-  - If related updates can leave state half-applied, push for a more atomic structure.
-  - Do not over-index on micro-optimizations, but do flag avoidable orchestration complexity that makes the implementation more brittle.
-
 ## Structural Remedies
 
 When you flag a structural problem, propose the move — not just the problem. A review that only says "this is complex" leaves the author guessing. Reach for a named restructuring:
@@ -35,4 +24,4 @@ Prefer the remedy that removes moving pieces over one that spreads the same comp
 Do not flood the review with low-value nits if there are larger structural issues.
 Prefer a smaller number of high-conviction comments over a long list of cosmetic notes.
 
-Treat a broken code-quality rule as a presumptive blocker unless the author can justify it clearly.
+Treat a broken code-quality rule from the project's instructions as a presumptive blocker unless the author can justify it clearly.
