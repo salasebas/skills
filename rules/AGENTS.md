@@ -16,6 +16,14 @@ alwaysApply: true
 - Use `rg` instead of `grep` and `fd` instead of `find`.
 - Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
 
+## Code quality
+- Prefer the version that deletes complexity over one that moves it around: when behavior can stay the same with fewer branches, helpers, modes, or layers, write that version.
+- Put logic in the module that owns the concept and reuse the project's existing helpers. Keep feature checks out of shared paths, and add no special-case branches to flows the change is not about.
+- Write direct, boring code: no wrapper that only passes a call through, and no generic mechanism that hides a simple data shape.
+- Make an unclear case explicit instead of covering it with a silent fallback or default.
+- When you add a value to an enum, status, or type, or widen what an input accepts, update every place that switches on, filters, stores, or displays it.
+- Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
+
 ## Review
 - To review changes, use the `review-changes` skill. When this session wrote the changes, run the review in a fresh-context subagent.
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
