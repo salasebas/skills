@@ -20,7 +20,7 @@ alwaysApply: true
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
 ## Verification
-- Before calling work done, run a check that passes or fails: the tests, a build, a typecheck, or for UI the running app. Show the command and its output, or a screenshot.
+- Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. The full suite runs in CI; run it locally only when the user asks.
 
 ## Tests
 - Before adding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario.
