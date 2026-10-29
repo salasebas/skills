@@ -45,13 +45,8 @@ These are the only places where the text differs from upstream. Reapply them aft
 - In "Loop", the max_loops check comes after the revision where `review-loop` checks it before, so the findings of the last pass are fixed too. The revision step also runs the checks its fixes need.
 - "Gate Integrity" keeps gstack's definition, its one question, the two unlabelled patterns and the grouping rule. The `gstack-gate-diff` scan, the `RH-*` tags, the confidence score and the fix options are gone; the tagged patterns read as one sentence.
 - The three quoting bullets drop gstack's confidence score. An unverified finding follows the existing completion rule: it is dropped or named under `Not checked`.
-- In "Loop", max_loops defaults to 3 where `review-loop` uses 4. See "Convergence".
 
 Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the in-session review in steps 3 to 5, the concrete case for a structure finding, the validation completion rule, the blocker rule and the "Final report" section of the loop, and the one-line "Coverage" section of the bugs reviewer.
-
-## Convergence
-
-Three rules come from the Claude Code team's [How the Claude Code team does code review](https://claude.dev/blog/solving-code-review-at-anthropic/) (2026-10-15), written in this repo's words: one finding per class of bug in step 5, diff-only review of the fixes from loop 3 on, and the cap of three passes with a suggestion to rethink the approach. The team saw an agent author and an agent reviewer run more than fifty rounds on one pull request, and about 59% of what the reviewer kept flagging was code it had already seen on the first pass.
 
 ## Left out on purpose
 

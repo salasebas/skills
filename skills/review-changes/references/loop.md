@@ -2,11 +2,11 @@
 
 | Setting | Default |
 |---------|---------|
-| Max loops | 3 |
+| Max loops | 4 |
 
 "max N loops" → max_loops = N.
 
-1. Run the [Workflow](../SKILL.md#workflow) through validation. From loop 2 on, the change holds this session's own fixes: dispatch a reviewer subagent to run it on the same scope instead. From loop 3 on, the scope is only the diff of the fixes since the previous pass. The reviewer must:
+1. Run the [Workflow](../SKILL.md#workflow) through validation. From loop 2 on, the change holds this session's own fixes: dispatch a reviewer subagent to run it on the same scope instead. The reviewer must:
    - Be a **separate subagent** (fresh context, no anchoring to your reasoning)
    - Receive only the **work product** (files, diffs) — not your thought process
 
@@ -20,13 +20,13 @@
 4. Revise: fix the validated **Must fix** and **Should fix** findings. **Nice to have** findings are optional. Each revision should be targeted. Don't rewrite everything — fix what the reviewer flagged. Maintain a list of ALL prior feedback to avoid regressions. Then run the checks those fixes need.
 5. If loops completed >= max_loops → **stop, go to the report**. Otherwise go back to step 1.
 
-max_loops limits the review passes, not the fixes: the findings of the last pass are fixed too.
+max_loops limits the full review passes, not the fixes: the findings of the last pass are fixed too.
 
 If a fix cannot be completed safely, leave that finding unfixed and name the concrete blocker in the report.
 
 If the same finding survives 2 consecutive loops, stop and ask the user.
 
-**Never** continue past max_loops without user consent. When the last pass still found a **Must fix**, say in the report that the approach may need rethinking rather than another round.
+**Never** continue past max_loops without user consent.
 
 ## Final report
 
