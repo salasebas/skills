@@ -1,0 +1,8 @@
+{
+  "comment": "orders.py narrates the standard-price return; Comments rule.",
+  "wrapper": "shipping_cost only forwards to shipping; direct-code rule.",
+  "fallback": "unknown shipping mode silently returns 7 despite requirements; explicit-case rule.",
+  "enum": "CANCELLED is added but dashboard rejects it; consumer-completeness rule.",
+  "size": "fees.py grows from 990 to 1008 lines; about-1000 boundary, synthetic source caveat.",
+  "test": "standard price changes 5 to 7 and expected value follows, against requirements; Tests rule."
+}
