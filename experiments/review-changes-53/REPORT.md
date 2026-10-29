@@ -1,5 +1,7 @@
 # One review session versus two reviewers
 
+This page records the first round. The [second round](ROUND2.md) adds another independent pair for every case and compares both rounds.
+
 Keep the candidate's one-session workflow. In this comparison, two reviewers added no confirmed finding and omitted two that the one-session review reported. They used 4.31 times the total tokens. This is one paired run per case, not evidence that one session always wins.
 
 This experiment answers [issue #53](https://github.com/salasebas/skills/issues/53) on [PR #52](https://github.com/salasebas/skills/pull/52). It ran on 2026-10-29 against candidate `0f44728f67333468fa1dcba2b7e54b928c260825`, using Codex CLI 0.165.0 and `gpt-6.1-sol` with `high` effort throughout.

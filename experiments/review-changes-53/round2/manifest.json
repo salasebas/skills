@@ -1,0 +1,19 @@
+{
+  "round": 2,
+  "candidate": "0f44728f67333468fa1dcba2b7e54b928c260825",
+  "runner_commit": "613f95738d9b68296fe3c6770a92be01f429b0d3",
+  "runner_sha256": "0289ba2398d188169d2b34684f4279d5b576c26e52ac741c8f78ae3607e4e171",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "high",
+  "cli_version": "0.165.0",
+  "repetitions_per_case_variant": 1,
+  "max_root_sessions": 8,
+  "fixture_sha256": {
+    "AGENTS.md": "3b78535b588e785375b288ed890404044419549559f1e6eb668eb7ef227d7023",
+    "requirements.md": "b8b20659965611cc227b9227e110a0739e45b3f68289fd3ed4bb67e37da2caa0",
+    "orders.py": "85a8cc6889126c84d2464e1b489b2169e37a26e898b8a0cc31d138f2b2140714",
+    "fees.py": "688d3fccf8156121982847ea16fda57fdfacaefb2007d33e4c10d48565342f71",
+    "test_orders.py": "4e6946dbf81b23bab3129acef78636d458453c51baae62d26a3b5c7e17e82a75"
+  },
+  "selection": "First completed infrastructure-valid run per case and variant; no retries based on findings."
+}
