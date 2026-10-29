@@ -13,7 +13,7 @@ alwaysApply: true
 - Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
 - Diagnose the root cause before implementing a fix, and prefer durable corrections over workarounds or symptom suppression.
 - When opening a pull or merge request that finishes an issue, put `Closes #<issue>` in the description.
-- Search code with `rg` instead of `grep`.
+- Use `rg` instead of `grep`.
 - Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
 
 ## Review
