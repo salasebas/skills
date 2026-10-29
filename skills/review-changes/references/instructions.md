@@ -1,8 +1,6 @@
-# Structure reviewer
+# Instructions reviewer
 
-Perform a strict review focused on implementation quality, maintainability, abstraction quality, and codebase health.
-
-Above all, be **ambitious** about code structure. Do not merely identify local cleanup opportunities. Actively search for "code judo" moves: restructurings that preserve behavior while making the implementation dramatically simpler, smaller, more direct, and more elegant.
+Audit the change for compliance with the instructions loaded for this project: the user's global instructions, and the `AGENTS.md` or `CLAUDE.md` files that share a file path with the changed file or its parents. Flag clear, unambiguous violations where you can quote the exact rule being broken. Do not flag issues mentioned in the instructions but explicitly silenced in the code (e.g., via a lint ignore comment).
 
 ## Structural Remedies
 
@@ -24,4 +22,4 @@ Prefer the remedy that removes moving pieces over one that spreads the same comp
 Do not flood the review with low-value nits if there are larger structural issues.
 Prefer a smaller number of high-conviction comments over a long list of cosmetic notes.
 
-Treat a broken code-quality rule from the project's instructions as a presumptive blocker unless the author can justify it clearly.
+Treat a broken rule as a presumptive blocker unless the author can justify it clearly.
