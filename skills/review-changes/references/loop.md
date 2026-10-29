@@ -1,39 +1,83 @@
 # Loop
 
-| Setting | Default |
-|---------|---------|
-| Max loops | 3 |
+Use a reviewer to review your code in a loop.
 
-"max N loops" → max_loops = N.
+Make the most minimal possible changes to appease the reviewer. Be careful
+of scope creep and don't be scared to push back.
 
-1. Run the [Workflow](../SKILL.md#workflow) through validation. From loop 2 on, the change holds this session's own fixes: dispatch a reviewer subagent to run it on the same scope instead. From loop 3 on, the scope is only the diff of the fixes since the previous pass. The reviewer must:
-   - Be a **separate subagent** (fresh context, no anchoring to your reasoning)
-   - Receive only the **work product** (files, diffs) — not your thought process
+## Budget
 
-   The reviewer subagent has no memory of prior loops — include prior feedback context explicitly in each reviewer prompt to avoid repeating resolved issues. Give it the original requirements too. Confirm each finding it returns against the code it quotes before you fix it.
-2. Report to the user:
-   ```
-   Loop {N}/{max}:
-   - {summary of key feedback points}
-   ```
-3. If the loop ended with no validated **Must fix** or **Should fix** finding → **stop, go to the report**
-4. Revise: fix the validated **Must fix** and **Should fix** findings. **Nice to have** findings are optional. Each revision should be targeted. Don't rewrite everything — fix what the reviewer flagged. Maintain a list of ALL prior feedback to avoid regressions. Then run the checks those fixes need.
-5. If loops completed >= max_loops → **stop, go to the report**. Otherwise go back to step 1.
+- Default: 3 rounds total. Round 1 is full. Later rounds check only
+  changed code and open findings.
+- Extend to 5 only for security, permissions, auth, data loss, or
+  state/concurrency, while a Must fix or Should fix stays open with evidence. Or when
+  the user asks.
+- Stop early if a round returns only Nice to have findings. Declined findings and comment,
+  doc, or format-only fixes need no new round.
+- One reviewer only. The reviewer must not start subagents or reviewers.
+- Keep a ledger: id, severity, outcome. Never guess it.
 
-max_loops limits the review passes, not the fixes: the findings of the last pass are fixed too.
+## 1. Scope
 
-If a fix cannot be completed safely, leave that finding unfixed and name the concrete blocker in the report.
+Find the scope as in [Scope](../SKILL.md#scope). Use one diff command all rounds. State intent and out-of-scope in 1-2
+sentences. Run covering checks. Do not send code this change breaks. Note
+missing or pre-failing checks in the brief.
 
-If the same finding survives 2 consecutive loops, stop and ask the user.
+## 2. Start the reviewer
 
-**Never** continue past max_loops without user consent. When the last pass still found a **Must fix**, say in the report that the approach may need rethinking rather than another round.
+Start a new subagent with fresh context every round. When the user names a model (`loop with <model>`), the reviewer runs on that model. Otherwise it runs on the session's model. If no route runs the named model, report the blocker. Do
+not substitute a model.
 
-## Final report
+Do not edit scoped files while review runs. Wait for the notice. Do not
+poll or start a second reviewer. Timeout, error, or no reply is not
+approval.
 
-After the [Report](../SKILL.md#report) of the last pass, add:
+Round 1 brief (the reviewer gets no history):
 
-- `Fixed:` the findings fixed, by loop.
-- `Not fixed:` each finding left unfixed, with its concrete blocker.
-- `Verification:` for the fixes of the last pass, which checks ran and their result, and whether those fixes were reviewed again. Fixes made after the last review pass have not been reviewed: say so, and never present them as reviewed.
+```
+Review only. Do not edit, commit, push, comment on PRs, or start subagents.
+Repo: <abs path> Base: <sha> Intent: <intent> Out of scope: <scope> Checks: <results>
+See: git diff <base> [-- <paths>]; git status --short (read untracked).
+Follow the review-changes skill's Workflow through validation.
+Reply:
+VERDICT: APPROVE or CHANGES
+S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (stable ids)
+```
 
-Skip an empty `Fixed:` or `Not fixed:` line.
+## 3. Answer findings
+
+Check each finding and severity yourself. Another path, rare case, or
+small cost is Nice to have, whatever label it came with.
+
+- Agree: smallest fix. Prefer delete or narrow over new lock, cache,
+  helper, or option. Fix the case that happened. Add one focused test
+  that fails without the fix, if intent needs it.
+- Disagree: say why, with evidence (file:line, test, output).
+- Out of scope or Nice to have: decline in one line. List as follow-up.
+
+Update the ledger. Re-run checks and `git diff --shortstat <base>`. If
+review grew the diff, cut first. Do not agree just to end the loop.
+
+## 4. Next round
+
+Start one only if budget remains and a Must fix or Should fix is open, behavior code
+changed, or approval does not cover the current behavior diff. Send the round 1 brief,
+the ledger (`fixed:` / `disagree:` / `declined:` + evidence), the same base
+diff, and the change since last round. Tell the reviewer: open ids and changed code only.
+Mark each old id `resolved` or `still open: <reason>`.
+
+## 5. Stop and ship
+
+Agreed: APPROVE on the current behavior diff, no Must fix or Should fix open,
+no concern of your own. Stuck: an item stays disputed after two replies,
+or budget ends. Show both sides in 2-3 lines each. The user decides.
+Budget end is not approval.
+
+Do not push during the loop. Push after agreement only if the user asked
+to push, ship, or update the PR. If you push to a PR, add above the model
+blurb:
+
+`Reviewed with review-changes loop: <N> rounds with <model>. Verdict: approved`.
+
+Report: rounds, model, what the reviewer changed, diff size before/after, fixed and
+declined findings with reasons, pushed or not. Fixes made after the last round have not been reviewed: say so, and never present them as reviewed.

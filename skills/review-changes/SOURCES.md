@@ -14,7 +14,7 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | `cursor/plugins` `thermos/skills/thermo-nuclear-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/bugs.md` | MIT, Copyright (c) 2026 Cursor |
 | `cursor/plugins` `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/structure.md` | MIT, Copyright (c) 2026 Cursor |
 | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) `skills/ponytail-review/SKILL.md` | `2a1fe842d078` (2026-10-08) | `SKILL.md` | MIT, Copyright (c) 2026 DietrichGebert |
-| [`2dmurali/review-loop-skill`](https://github.com/2dmurali/review-loop-skill) `review-loop/SKILL.md` | `dec43b15b0e3` (2026-05-08) | `references/loop.md` | MIT, as stated in its `SKILL.md`; the repository has no licence file |
+| [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) `skills/sol-loop/SKILL.md` | `6efae364201a` (2026-10-24) | `references/loop.md` | MIT, Copyright (c) 2026 Theo Browne |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `references/bugs.md` | MIT, Copyright (c) 2026 Garry Tan |
 
 ## What each file takes
@@ -25,7 +25,7 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | `SKILL.md` | Workflow steps 1 and 2, and the two reviewer descriptions in step 3 | `thermos` |
 | `SKILL.md` | Opening line, scope default, "Validate" bullets, "Report" format | `ponytail-review` |
 | `SKILL.md` | Three "Validate" bullets on quoting the code | gstack `review/SKILL.md`, "Pre-emit verification gate" |
-| `references/loop.md` | Defaults, stop conditions, revision and memory rules, the two reviewer subagent rules and its no-memory limitation | `review-loop` |
+| `references/loop.md` | Whole file | `sol-loop` |
 | `references/bugs.md` | Prompt, scope, guidelines, final response, critical rules | `thermo-nuclear-review`, whole |
 | `references/bugs.md` | "Enum & Value Completeness" | gstack `review/checklist.md`, whole section |
 | `references/bugs.md` | "Gate Integrity" | gstack `review/checklist.md`, cut down |
@@ -40,25 +40,22 @@ These are the only places where the text differs from upstream. Reapply them aft
 - In "Report", "Very simple English" reads "Very simple language".
 - The reviewers say "the change" where upstream says "this PR" or "the branch", and Must fix where it says High priority, so one skill serves any scope and one scale.
 - The bugs reviewer's "Final Response" is shortened and no longer names BugBot.
-- In "Loop", the stop condition is "no validated Must fix or Should fix finding" where `review-loop` uses a score, and its Critical / Important / Minor labels read Must fix / Should fix / Nice to have.
-- In "Loop", the first pass runs in the session where `review-loop` spawns a reviewer subagent for every pass; from loop 2 on it spawns one as `review-loop` does, and that reviewer runs this skill's workflow where `review-loop` gives it a scoring prompt. See "Why the review does not delegate".
-- In "Loop", the max_loops check comes after the revision where `review-loop` checks it before, so the findings of the last pass are fixed too. The revision step also runs the checks its fixes need.
 - "Gate Integrity" keeps gstack's definition, its one question, the two unlabelled patterns and the grouping rule. The `gstack-gate-diff` scan, the `RH-*` tags, the confidence score and the fix options are gone; the tagged patterns read as one sentence.
 - The three quoting bullets drop gstack's confidence score. An unverified finding follows the existing completion rule: it is dropped or named under `Not checked`.
-- In "Loop", max_loops defaults to 3 where `review-loop` uses 4. See "Convergence".
+- In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 orchestration steps, the Sol model choice, the `git fetch` base rules and usage reporting are gone: "Scope" points to this skill's Scope, and the reviewer is a new subagent each round on the session's model or the one the user names. The round 1 brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
 
-Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the in-session review in steps 3 to 5, the concrete case for a structure finding, the validation completion rule, the blocker rule and the "Final report" section of the loop, and the one-line "Coverage" section of the bugs reviewer.
+Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the in-session review in steps 3 to 5, the concrete case for a structure finding, the validation completion rule, and the one-line "Coverage" section of the bugs reviewer.
 
 ## Convergence
 
-Three rules come from the Claude Code team's [How the Claude Code team does code review](https://claude.dev/blog/solving-code-review-at-anthropic/) (2026-10-15), written in this repo's words: one finding per class of bug in step 5, diff-only review of the fixes from loop 3 on, and the cap of three passes with a suggestion to rethink the approach. The team saw an agent author and an agent reviewer run more than fifty rounds on one pull request, and about 59% of what the reviewer kept flagging was code it had already seen on the first pass.
+Step 5's one finding per class of bug comes from the Claude Code team's [How the Claude Code team does code review](https://claude.dev/blog/solving-code-review-at-anthropic/) (2026-10-15), written in this repo's words. The same post caps review at three rounds and re-reviews only the diff after the first, as `sol-loop` does: the team saw an agent author and an agent reviewer run more than fifty rounds on one pull request, and about 59% of what the reviewer kept flagging was code it had already seen on the first pass.
 
 ## Left out on purpose
 
 - From `code-review-and-quality`: the five review axes and their question lists, tests first, verify the verification, change sizing, dead code hygiene, dependency discipline, the multi-model review pattern, review speed, handling disagreements, change descriptions, the severity prefix table, the review checklist, common rationalisations, red flags, and the `references/` checklists. See "Why the reviewers are short".
 - From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. All eight of its standards are kept.
 - From `ponytail-review`: the `shortcut:` comment convention and the `Lean:` line.
-- From `review-loop`: the 1 to 10 score, the quality gate, and model selection.
+- From `sol-loop`: the T3 tools, the default to Sol, and the token usage line.
 
 ## Why the reviewers are short
 
@@ -97,7 +94,7 @@ In the session, by effort, one run per pull request at `medium` and `low`:
 
 Delegating did 2.5 to 4 times the work for the same result: each subagent re-read the diff and the surrounding files, and the session that launched it re-read the code again to validate findings it had not investigated. Hits were counted by matching the defect's file and symbol in the report. Every run started from a clean session, so none measured a session reviewing its own change.
 
-The loop is that unmeasured case from its second pass on: the session re-reviews fixes it has just written, with its earlier conclusions still in context. So those passes go to a fresh reviewer subagent, as `review-loop` does for every pass. This rests on `review-loop`'s reasoning (anchoring), not on a comparison here; none has been run on loop passes.
+The loop is that unmeasured case: the session would re-review code it has just written, with its own conclusions still in context. So every round goes to a new reviewer subagent, as `sol-loop` does with a separate reviewer model. This rests on that reasoning (anchoring), not on a comparison here; none has been run on loop rounds.
 
 ## How to update from upstream
 

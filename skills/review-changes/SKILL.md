@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: Review a change — staged or uncommitted work, a commit, a branch diff, or a PR — along two lenses (bugs, structure), with findings validated before they are reported. Use for "review this", "code review", "review my PR". `loop` fixes and re-reviews until no findings remain.
+description: Review a change — staged or uncommitted work, a commit, a branch diff, or a PR — along two lenses (bugs, structure), with findings validated before they are reported. Use for "review this", "code review", "review my PR". `loop` has a reviewer subagent review in rounds while this session fixes; `loop with <model>` picks its model.
 ---
 
 # Review Changes
@@ -95,4 +95,4 @@ When reviewing code — whether written by you, another agent, or a human:
 
 ## Loop
 
-Runs when the user passes `loop` with the request: follow [`references/loop.md`](references/loop.md). Without it, the review is a single pass.
+Runs when the user passes `loop` or `loop with <model>` with the request: follow [`references/loop.md`](references/loop.md). Without it, the review is a single pass.
