@@ -1,6 +1,6 @@
 ---
 name: no-comments
-description: "Spawn Comment Sicko, fix accepted findings, and offer encodings for claimed constraints."
+description: Removes comments from a diff with a fresh-context subagent and fixes the code they were excusing.
 disable-model-invocation: true
 ---
 
