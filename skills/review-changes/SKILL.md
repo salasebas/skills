@@ -21,7 +21,7 @@ Review a change like the senior developer who will be paged when it breaks.
 6. Validate every finding. See [Validate](#validate).
 7. Report. See [Report](#report).
 
-The review is read-only: it lists findings, changes no code. [Loop](#loop) is the one mode that edits.
+The review is read-only: it lists findings, changes no code, and runs no project code, tests, or network commands. [Loop](#loop) is the one mode that edits.
 
 ## Scope
 
