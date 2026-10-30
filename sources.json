@@ -22,13 +22,6 @@
       "skillFolderHash": "d6a0d9bf3cdc78cbfcbd6466ac5fd3deffb52877",
       "updatedAt": "2026-10-11T08:22:04.461Z"
     },
-    "code-review": {
-      "source": "mattpocock/skills",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/code-review/SKILL.md",
-      "skillFolderHash": "a8ef561571acbb611de8ff19ba6da75b197c63a8",
-      "updatedAt": "2026-10-30T05:48:32.780Z"
-    },
     "codebase-design": {
       "source": "mattpocock/skills",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
@@ -105,20 +98,6 @@
       "skillPath": "skills/productivity/handoff/SKILL.md",
       "skillFolderHash": "ce24892bd2d4b9e7fd5ac9b95c03175e18bef388",
       "updatedAt": "2026-10-11T08:22:04.525Z"
-    },
-    "implement": {
-      "source": "mattpocock/skills",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/implement/SKILL.md",
-      "skillFolderHash": "4804b466ab26c9b9d8d42917547db133d1f20a9f",
-      "updatedAt": "2026-10-11T08:22:04.493Z"
-    },
-    "implement-spec": {
-      "source": "mattpocock/skills",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/implement-spec/SKILL.md",
-      "skillFolderHash": "407c196f5c88af53c71efc8f31ee37c02dbb12e7",
-      "updatedAt": "2026-10-30T05:48:35.931Z"
     },
     "improve-codebase-architecture": {
       "source": "mattpocock/skills",
