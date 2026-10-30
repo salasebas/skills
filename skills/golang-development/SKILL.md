@@ -1,6 +1,6 @@
 ---
 name: golang-development
-description: You MUST activate this skill when working on Go projects
+description: "Use whenever you write or change Go code: conventions and testing."
 ---
 
 # Go

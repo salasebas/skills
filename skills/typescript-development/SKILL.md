@@ -1,6 +1,6 @@
 ---
 name: typescript-development
-description: You MUST activate this skill when working on TypeScript or JavaScript projects
+description: "Use whenever you write or change TypeScript or JavaScript code: strict mode, pnpm, modelling types."
 ---
 
 # TypeScript
