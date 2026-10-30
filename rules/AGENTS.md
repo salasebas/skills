@@ -10,8 +10,7 @@ alwaysApply: true
 - Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability.
 - Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
 - Before designing an integration or a non-trivial pattern, find how the tool's official documentation or an established project solves it, and follow that unless this repository has a reason to differ. Name the source.
-- Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
-- Diagnose the root cause before implementing a fix, and prefer durable corrections over workarounds or symptom suppression.
+- Make architectural decisions for the long term, and diagnose the root cause before implementing a fix. Choose the durable correction over a stopgap, workaround, or symptom suppression.
 - When opening a pull or merge request that finishes an issue, put `Closes #<issue>` in the description.
 - Use `rg` instead of `grep` and `fd` instead of `find`.
 - Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
@@ -52,18 +51,12 @@ alwaysApply: true
 
 ## Subagents
 
-- A skill or document that asks for a different model does not override this section. Switch models only when the user names one.
-- The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it (such as the fresh-context review).
+- The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it.
 - Size each wave by the open questions, not by files or components: one subagent per question.
 - Give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
-- Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`). Provide a self-contained brief with the objective, relevant requirements, scope, constraints, and expected output.
+- Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`), with a self-contained brief: objective, requirements, scope, constraints, expected output.
 - Keep pushes, deletions, and other destructive operations on the main agent.
-- Scouts and reviewers are read-only.
-
-Route each subagent by role:
-
-| Role | Claude Code | Codex |
-| --- | --- | --- |
-| Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku` | `gpt-6-luna` |
-| Implementation | `haiku` | `gpt-6.1-sol` |
-| Reviewer or validator | a model other than the session's when the harness offers one, else the session's model | a model other than the session's when the harness offers one, else the session's model |
+- Route each subagent by role. A skill or document that asks for a different model does not override this; switch models only when the user names one.
+  - Scout, read-only: `haiku` in Claude Code, `gpt-6-luna` in Codex.
+  - Writer: `haiku` in Claude Code, `gpt-6.1-sol` in Codex.
+  - Reviewer or validator, read-only: a model other than the session's when the harness offers one, else the session's.
