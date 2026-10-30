@@ -15,7 +15,7 @@ assume full autonomy. If they did, everything below applies.
 
 The user grants you permission to:
 
-- Merge the PR once the merge gate passes.
+- Merge the PR once the merge gate passes, unless the change is high risk.
 - Force-push the PR's own branch with `--force-with-lease` after a rebase.
 - Use the test methods that Proof needs, without asking first.
 
@@ -52,7 +52,8 @@ one appears.
    the change.
 5. **Babysit the PR** with the `babysit-pr` skill. Fix real findings and CI
    failures. Get proof for each fix before you push it.
-6. **Merge** when the merge gate passes.
+6. **Merge** when the merge gate passes. If the change is high risk, ask first.
+   See "Asking the user".
 7. **Report** in your final message: the PR link, the merge commit, your proof,
    and each decision you made for the user.
 
@@ -114,6 +115,9 @@ Ask only when you cannot continue alone:
   branch.
 - The goal is ambiguous in a way that changes the result.
 - Another PR makes this one obsolete.
+- The change is high risk: it touches CI workflows, authentication or permissions,
+  payments, or data migrations. Get it through the merge gate first, then ask
+  before you merge.
 
 Decide everything else yourself with sensible defaults, and list those decisions
 in the report.
