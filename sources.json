@@ -330,13 +330,6 @@
       "skillFolderHash": "ed352dce7c3f58076bdd0723927a308e284c3031",
       "updatedAt": "2026-10-30T05:19:30.016Z"
     },
-    "leaving-pr-comments": {
-      "source": "t3dotgg/tstack",
-      "sourceUrl": "https://github.com/t3dotgg/tstack.git",
-      "skillPath": "skills/leaving-pr-comments/SKILL.md",
-      "skillFolderHash": "3905d758fb70b4e660038456f86ac02343a3dedf",
-      "updatedAt": "2026-10-30T05:19:30.019Z"
-    },
     "modernize": {
       "source": "t3dotgg/tstack",
       "sourceUrl": "https://github.com/t3dotgg/tstack.git",
