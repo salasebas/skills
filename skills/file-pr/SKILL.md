@@ -1,6 +1,6 @@
 ---
 name: file-pr
-description: File a concise pull request. Use when the user asks to file, open, or create a PR.
+description: Use when the user asks to open or file a PR. Checks for an existing one, writes a title that says why, takes the body from the pr skill, and opens a real PR.
 ---
 
 # File PR

@@ -12,6 +12,8 @@ These skills are copies of other people's work, kept here so they stay available
 | `typescript-development`, the Types table and `references/patterns.md` | [`cursor/plugins`](https://github.com/cursor/plugins) `pstack/skills/typescript-best-practices` | `23e4138daa01` | MIT | Drops the pointers to pstack's principle skills, which are not installed here |
 | `golang-development` | `sammcj/agentic-coding` `Skills/golang-development` | `2f25cede7b08` | Apache-2.0 | Drops the line that copies a golangci config from the author's machine |
 
+Each copy's description is rewritten to say when to use the skill and what it does.
+
 The licence texts are in [`LICENSES/Apache-2.0.txt`](../LICENSES/Apache-2.0.txt) and [`LICENSES/MIT-pstack.txt`](../LICENSES/MIT-pstack.txt).
 
 `review-changes` is assembled from several skills. Its sources are in [`review-changes/SOURCES.md`](./review-changes/SOURCES.md).

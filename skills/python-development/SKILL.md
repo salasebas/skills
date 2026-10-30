@@ -1,6 +1,6 @@
 ---
 name: python-development
-description: You MUST activate this skill when working on Python projects
+description: "Use whenever you write or change Python code: uv, type hints, PEP 723 scripts."
 ---
 
 # Python

@@ -1,6 +1,6 @@
 ---
 name: rust-development
-description: You MUST activate this skill when working on Rust projects
+description: "Use whenever you write or change Rust code: workspaces, crate features, public APIs."
 ---
 
 # Rust
