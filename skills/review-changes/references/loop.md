@@ -25,9 +25,10 @@ missing or pre-failing checks in the brief.
 
 ## 2. Start the reviewer
 
-Start a new subagent with fresh context every round, through the environment's orchestrator when it has one, else through the harness's own subagents. An orchestrator can run another vendor's model. Orchestrators:
+Start one new subagent with fresh context every round, through the environment's orchestrator when it has one, since it can run another vendor's model, else through the harness's own subagents:
 
 - T3 Code: `delegate_task`, role `review`.
+- Codex: `spawn_agent` with `fork_turns: "none"`.
 
 The subagent runs on the model the user asks for. Otherwise it runs on a model other than the session's when the harness offers one, preferring another vendor's; otherwise on the session's model. If no route runs a model the user asked for, report the blocker. Do not substitute a model.
 
