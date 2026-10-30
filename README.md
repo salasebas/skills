@@ -2,6 +2,45 @@
 
 My setup for coding agents: the global rules, the skills I keep, and the skills I install from other people.
 
+## For agents: set up or update
+
+Follow these steps when the user asks to install or update this setup. The same steps do both.
+
+1. **Rules.** Fetch the current file:
+
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/salasebas/skills/main/rules/AGENTS.md -o /tmp/AGENTS.md
+   ```
+
+   If `~/.agents/AGENTS.md` exists and differs, show the user the differences and ask which local changes to keep. Merge those into the new file, then copy it to `~/.agents/AGENTS.md`. Create the links in [Global rules](#global-rules) that are missing.
+
+2. **Skills kept here.**
+
+   ```bash
+   npx skills add salasebas/skills -g -s '*' -y
+   ```
+
+3. **Skills from other people.** Ask which groups the user wants, then install every skill listed for those sources in [Skills installed from other people](#skills-installed-from-other-people) with `npx skills add <source> -g -s <skill> -s <skill> -y`.
+
+   | Group | Sources |
+   | --- | --- |
+   | Always: skills here call `pr`, `tdd` and `babysit-pr` | `mattpocock/skills`, `t3dotgg/tstack` |
+   | Frontend | `emilkowalski/skills`, `vercel-labs/agent-skills`, `vojtaholik/good-css`, `motiondivision/ai-kit`, `currents-dev/playwright-best-practices-skill`, `vercel-labs/agent-browser` |
+   | Writing | `cursor/plugins`, `sammcj/agentic-coding` |
+   | Everything else | `addyosmani/agent-skills`, `vercel-labs/skills` |
+
+   `writing-documentation-with-diataxis` no longer installs, because its author disabled it. Never pass `-s '*'` for `mattpocock/skills`. It would replace this repo's `implement` and `implement-spec`, and add a `code-review` that competes with `review-changes`.
+
+4. **Update.** Run step 1, then:
+
+   ```bash
+   npx skills update -g
+   ```
+
+   It compares each skill's folder with the source repo, so it picks up fixes without a version bump. It cannot check `shell-scripting`.
+
+5. **Check.** `npx skills list -g` shows the skills, and `cmp` on the file from step 1 and `~/.agents/AGENTS.md` is silent unless the user kept local changes. An error saying PromptScript does not support global installation is harmless.
+
 ## Skills kept here
 
 | Skill | What it does |
@@ -29,7 +68,7 @@ npx skills add salasebas/skills -g -s review-changes
 ```
 
 ```bash
-npx skills add salasebas/skills -g -s review-changes -s file-pr -s full-send -s full-stop -s implement -s implement-spec -s spec-review -s python-development -s typescript-development -s rust-development -s golang-development -s no-comments
+npx skills add salasebas/skills -g -s '*'
 ```
 
 ## Global rules
@@ -38,7 +77,8 @@ npx skills add salasebas/skills -g -s review-changes -s file-pr -s full-send -s 
 
 | Harness | Where the file goes |
 | --- | --- |
-| Codex, Grok | `~/.agents/AGENTS.md` |
+| Codex | `~/.codex/AGENTS.md`, a symlink to `~/.agents/AGENTS.md` |
+| Grok | `~/.grok/AGENTS.md`, a symlink to `~/.agents/AGENTS.md` |
 | Claude Code | `~/.claude/CLAUDE.md`, a symlink to `~/.agents/AGENTS.md` |
 | Cursor | `~/.cursor/rules/agents.mdc`, a symlink to `~/.agents/AGENTS.md`. The frontmatter at the top of the file is for Cursor. |
 
