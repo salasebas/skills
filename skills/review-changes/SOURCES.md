@@ -8,14 +8,15 @@ Each row is one upstream file, the commit that last changed it when it was copie
 
 | Upstream file | Pinned commit | Copied into | Licence |
 | --- | --- | --- | --- |
-| [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) `skills/code-review-and-quality/SKILL.md` | `28f435ea69a7` (2026-09-26) | `SKILL.md`, `references/structure.md` | MIT, Copyright (c) 2025 Addy Osmani |
+| [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) `skills/code-review-and-quality/SKILL.md` | `28f435ea69a7` (2026-09-26) | `SKILL.md`, `references/instructions.md` | MIT, Copyright (c) 2025 Addy Osmani |
 | [`cursor/plugins`](https://github.com/cursor/plugins) `thermos/skills/thermos/SKILL.md` | `5080d38e4c52` (2026-05-28) | `SKILL.md` | MIT, Copyright (c) 2026 Cursor |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/SKILL.md` | `5d647455f21e` (2026-10-11) | `SKILL.md` | MIT, Copyright (c) 2026 Garry Tan |
 | `cursor/plugins` `thermos/skills/thermo-nuclear-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/bugs.md` | MIT, Copyright (c) 2026 Cursor |
-| `cursor/plugins` `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/structure.md` | MIT, Copyright (c) 2026 Cursor |
+| `cursor/plugins` `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/instructions.md` | MIT, Copyright (c) 2026 Cursor |
 | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) `skills/ponytail-review/SKILL.md` | `2a1fe842d078` (2026-10-08) | `SKILL.md` | MIT, Copyright (c) 2026 DietrichGebert |
 | [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) `skills/sol-loop/SKILL.md` | `6efae364201a` (2026-10-24) | `references/loop.md` | MIT, Copyright (c) 2026 Theo Browne |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `references/bugs.md` | MIT, Copyright (c) 2026 Garry Tan |
+| [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) `plugins/code-review/commands/code-review.md` | `c905cd8fec34` (2026-10-26) | `references/instructions.md` | Apache-2.0, see [`LICENSES/Apache-2.0.txt`](../../LICENSES/Apache-2.0.txt) |
 
 ## What each file takes
 
@@ -29,8 +30,9 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | `references/bugs.md` | Prompt, scope, guidelines, final response, critical rules | `thermo-nuclear-review`, whole |
 | `references/bugs.md` | "Enum & Value Completeness" | gstack `review/checklist.md`, whole section |
 | `references/bugs.md` | "Gate Integrity" | gstack `review/checklist.md`, cut down |
-| `references/structure.md` | Opening, "Standards", "Approval Bar" | `thermo-nuclear-code-quality-review` |
-| `references/structure.md` | Structural remedies | `code-review-and-quality` |
+| `references/instructions.md` | First two lines of "Approval Bar" | `thermo-nuclear-code-quality-review` |
+| `references/instructions.md` | Structural remedies | `code-review-and-quality` |
+| `references/instructions.md` | Opening | `/code-review`, step 4 agents 1 and 2, and its false-positive list |
 
 ## Local edits
 
@@ -46,6 +48,10 @@ These are the only places where the text differs from upstream. Reapply them aft
 
 Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the in-session review in steps 3 to 5, the concrete case for a structure finding, the validation completion rule, and the one-line "Coverage" section of the bugs reviewer.
 
+## Quality rules in AGENTS.md
+
+Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer became the instructions reviewer (`references/instructions.md`): like the `CLAUDE.md` compliance agents of Anthropic's `/code-review`, it checks the change against the loaded `AGENTS.md` and `CLAUDE.md`, code-quality rules included, and keeps the remedies and a one-line approval bar. Its opening is `/code-review`'s wording with `CLAUDE.md` read as the instruction files, and the global instructions added, since they apply to every path. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
+
 ## Convergence
 
 Step 5's one finding per class of bug comes from the Claude Code team's [How the Claude Code team does code review](https://claude.dev/blog/solving-code-review-at-anthropic/) (2026-10-15), written in this repo's words. The same post caps review at three rounds and re-reviews only the diff after the first, as `sol-loop` does: the team saw an agent author and an agent reviewer run more than fifty rounds on one pull request, and about 59% of what the reviewer kept flagging was code it had already seen on the first pass.
@@ -53,7 +59,7 @@ Step 5's one finding per class of bug comes from the Claude Code team's [How the
 ## Left out on purpose
 
 - From `code-review-and-quality`: the five review axes and their question lists, tests first, verify the verification, change sizing, dead code hygiene, dependency discipline, the multi-model review pattern, review speed, handling disagreements, change descriptions, the severity prefix table, the review checklist, common rationalisations, red flags, and the `references/` checklists. See "Why the reviewers are short".
-- From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. All eight of its standards are kept.
+- From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. Its standards and the Approval Bar list moved out: see "Quality rules in AGENTS.md".
 - From `ponytail-review`: the `shortcut:` comment convention and the `Lean:` line.
 - From `sol-loop`: the T3 tools, the default to Sol, and the token usage line.
 
@@ -93,6 +99,10 @@ In the session, by effort, one run per pull request at `medium` and `low`:
 | `low` | 3 of 3 | 2 to 10 | 0.54 |
 
 Delegating did 2.5 to 4 times the work for the same result: each subagent re-read the diff and the surrounding files, and the session that launched it re-read the code again to validate findings it had not investigated. Hits were counted by matching the defect's file and symbol in the report. Every run started from a clean session, so none measured a session reviewing its own change.
+
+The [first 2026-10-29 round for #53](https://github.com/salasebas/skills/blob/08096e507ade1442e52b16fb67eb085540b8c6a5/experiments/review-changes-53/REPORT.md) repeats the question with this candidate's instructions reviewer instead of the old structure reviewer, using `gpt-6.1-sol` at `high` effort. One paired run on each of five cases found both known Mastodon defects in both variants. The one-session variant reported all five clear planted violations and one additional real defect that two reviewers omitted; two reviewers reported four of the five clear violations. Across the five cases, the one-session variant had 15 distinct confirmed problems and two reviewers had 13, excluding an ambiguous synthetic file-size finding. Two reviewers used 4.31 times the total tokens, or 2.28 times when cache-hit input is excluded, and summed review durations were 8.18 versus 9.72 minutes. This small comparison supports keeping the sequential default; it does not measure loop passes or self-review.
+
+A [second round](https://github.com/salasebas/skills/blob/08096e507ade1442e52b16fb67eb085540b8c6a5/experiments/review-changes-53/ROUND2.md) uses the same cases, prompts, fixture, and model with new sessions. It ends at 15 confirmed problems each: two reviewers add two instruction findings but again omit the cross-API bug and narrative comment. They use 4.30 times the total tokens, or 2.31 times with cache-hit input excluded. Across both rounds, each variant finds fifteen distinct problems at least once, with two unique to each. The differing findings do not establish a general recall winner; the sequential workflow remains the cheaper default.
 
 The loop is that unmeasured case: the session would re-review code it has just written, with its own conclusions still in context. So every round goes to a new reviewer subagent, as `sol-loop` does with a separate reviewer model. This rests on that reasoning (anchoring), not on a comparison here; none has been run on loop rounds.
 

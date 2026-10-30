@@ -13,15 +13,29 @@ alwaysApply: true
 - Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
 - Diagnose the root cause before implementing a fix, and prefer durable corrections over workarounds or symptom suppression.
 - When opening a pull or merge request that finishes an issue, put `Closes #<issue>` in the description.
+- Use `rg` instead of `grep` and `fd` instead of `find`.
 - Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
+
+## Code quality
+- Prefer the version that deletes complexity over one that moves it around: when behavior can stay the same with fewer branches, helpers, modes, or layers, write that version.
+- Put logic in the module that owns the concept and reuse the project's existing helpers. Keep feature checks out of shared paths, and add no special-case branches to flows the change is not about.
+- Write direct, boring code: no wrapper that only passes a call through, and no generic mechanism that hides a simple data shape.
+- Make an unclear case explicit instead of covering it with a silent fallback or default.
+- When you add a value to an enum, status, or type, or widen what an input accepts, update every place that switches on, filters, stores, or displays it.
+- Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
 
 ## Review
 - To review changes, use the `review-changes` skill. When this session wrote the changes, run the review in a fresh-context subagent.
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
+## Verification
+- Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. The full suite runs in CI; run it locally only when the user asks.
+
 ## Tests
 - Before adding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario.
 - Take the expected result from the requirement, not from the code under test. Passing tests or another agent's agreement do not establish correctness.
+- See a new test fail before trusting it: run it against the code without the change, or break the behavior it covers.
+- When an existing test fails, fix the code. Change the test's expected result only when the requirement changed, and name that requirement.
 - Prefer a test that enters where a client does (the endpoint, the job, the command, the UI) and runs the real database, faking only third-party services. Go lower only when that layer cannot reach the failure cheaply.
 - Test a business rule once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation.
 - Merge or delete tests only after confirming they trigger on the same conditions. Keep the regression test of a fixed bug.

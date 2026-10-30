@@ -6,7 +6,7 @@ My setup for coding agents: the global rules, the skills I keep, and the skills 
 
 | Skill | What it does |
 | --- | --- |
-| [`review-changes`](./skills/review-changes/SKILL.md) | Reviews a change for bugs and structure and validates every finding before reporting it. `loop` has a reviewer subagent review in rounds while the session fixes; `loop with <model>` picks its model. |
+| [`review-changes`](./skills/review-changes/SKILL.md) | Reviews a change for bugs and for compliance with your `AGENTS.md` and `CLAUDE.md`, and validates every finding before reporting it. `loop` has a reviewer subagent review in rounds while the session fixes; `loop with <model>` picks its model. |
 | [`python-development`](./skills/python-development/SKILL.md) | Conventions for Python projects: `uv`, type hints, PEP 723 scripts. |
 | [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, and rules for modelling types. |
 | [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs. |
