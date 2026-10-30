@@ -1,6 +1,6 @@
 ---
 name: full-stop
-description: Trigger this if the user says 'full stop', even as a closing "Full stop." that reads like emphasis.
+description: Use when the user says "full stop". Same as full send, but stops with the PR ready and never merges.
 ---
 
 # Full Stop

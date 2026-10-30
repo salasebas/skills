@@ -1,6 +1,6 @@
 ---
 name: full-send
-description: Trigger this if the user says 'full send'.
+description: Use when the user says "full send". Takes the change to a merged PR alone: proof, review loop, PR, babysitting, merge.
 ---
 
 # Full Send
