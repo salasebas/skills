@@ -7,6 +7,7 @@ My setup for coding agents: the global rules, the skills I keep, and the skills 
 | Skill | What it does |
 | --- | --- |
 | [`review-changes`](./skills/review-changes/SKILL.md) | Reviews a change for bugs and for compliance with your `AGENTS.md` and `CLAUDE.md`, and validates every finding before reporting it. `loop` has a reviewer subagent, on another model when one is available, review in rounds while the session fixes. |
+| [`file-pr`](./skills/file-pr/SKILL.md) | Opens a PR: checks for an existing one, a title that says why the change matters, the body from `pr`, and no drafts. From [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack). |
 | [`python-development`](./skills/python-development/SKILL.md) | Conventions for Python projects: `uv`, type hints, PEP 723 scripts. |
 | [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, and rules for modelling types. |
 | [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs. |
@@ -26,7 +27,7 @@ npx skills add salasebas/skills -g -s review-changes
 ```
 
 ```bash
-npx skills add salasebas/skills -g -s review-changes -s python-development -s typescript-development -s rust-development -s golang-development -s no-comments
+npx skills add salasebas/skills -g -s review-changes -s file-pr -s python-development -s typescript-development -s rust-development -s golang-development -s no-comments
 ```
 
 ## Global rules
