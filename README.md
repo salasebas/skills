@@ -9,6 +9,7 @@ My setup for coding agents: the global rules, the skills I keep, and the skills 
 | [`review-changes`](./skills/review-changes/SKILL.md) | Reviews a change for bugs and for compliance with your `AGENTS.md` and `CLAUDE.md`, and validates every finding before reporting it. `loop` has a reviewer subagent, on another model when one is available, review in rounds while the session fixes. |
 | [`file-pr`](./skills/file-pr/SKILL.md) | Opens a PR: checks for an existing one, a title that says why the change matters, the body from `pr`, and no drafts. From [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack). |
 | [`full-send`](./skills/full-send/SKILL.md), [`full-stop`](./skills/full-stop/SKILL.md) | Say "full send" or "full stop" and the agent takes the change to a PR alone: proof, `review-changes` loop, `file-pr`, `babysit-pr`. Full send merges when the PR is ready; full stop leaves it for you. From [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack). |
+| [`implement`](./skills/implement/SKILL.md), [`implement-spec`](./skills/implement-spec/SKILL.md), [`spec-review`](./skills/spec-review/SKILL.md) | Matt Pocock's ticket flow, kept here so it calls `spec-review`, his two-axis review (Standards and Spec) renamed from `code-review` so it doesn't run when you just ask for a review. From [`mattpocock/skills`](https://github.com/mattpocock/skills). |
 | [`python-development`](./skills/python-development/SKILL.md) | Conventions for Python projects: `uv`, type hints, PEP 723 scripts. |
 | [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, and rules for modelling types. |
 | [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs. |
@@ -28,7 +29,7 @@ npx skills add salasebas/skills -g -s review-changes
 ```
 
 ```bash
-npx skills add salasebas/skills -g -s review-changes -s file-pr -s full-send -s full-stop -s python-development -s typescript-development -s rust-development -s golang-development -s no-comments
+npx skills add salasebas/skills -g -s review-changes -s file-pr -s full-send -s full-stop -s implement -s implement-spec -s spec-review -s python-development -s typescript-development -s rust-development -s golang-development -s no-comments
 ```
 
 ## Global rules
@@ -49,7 +50,7 @@ These are not copied here. Install any of them with `npx skills add <source> -g 
 
 | Source | Skills |
 | --- | --- |
-| [`mattpocock/skills`](https://github.com/mattpocock/skills) | `ask-matt`, `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `implement`, `implement-spec`, `improve-codebase-architecture`, `pr`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `teach`, `to-spec`, `to-tickets`, `triage`, `wait-what`, `wayfinder`, `writing-for-agents` |
+| [`mattpocock/skills`](https://github.com/mattpocock/skills) | `ask-matt`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `improve-codebase-architecture`, `pr`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `teach`, `to-spec`, `to-tickets`, `triage`, `wait-what`, `wayfinder`, `writing-for-agents` |
 | [`emilkowalski/skills`](https://github.com/emilkowalski/skills) | `animation-performance`, `animation-vocabulary`, `emil-design-eng`, `improve-animations`, `mobile-native`, `pick-ui-library`, `review-animations` |
 | [`sammcj/agentic-coding`](https://github.com/sammcj/agentic-coding) | `shell-scripting`, `writing-documentation-with-diataxis` |
 | [`cursor/plugins`](https://github.com/cursor/plugins), `pstack` | `technical-writing`, `unslop` |
