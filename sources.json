@@ -315,6 +315,34 @@
       "skillPath": "skills/mobile-native/SKILL.md",
       "skillFolderHash": "fdad6e6e91d8bbfda7164c7027269a8389dbadcd",
       "updatedAt": "2026-10-12T04:15:53.766Z"
+    },
+    "babysit-pr": {
+      "source": "t3dotgg/tstack",
+      "sourceUrl": "https://github.com/t3dotgg/tstack.git",
+      "skillPath": "skills/babysit-pr/SKILL.md",
+      "skillFolderHash": "7b4e3e4e0f8b53a1fd049d6a27d5f998395ace52",
+      "updatedAt": "2026-10-30T05:19:30.011Z"
+    },
+    "council": {
+      "source": "t3dotgg/tstack",
+      "sourceUrl": "https://github.com/t3dotgg/tstack.git",
+      "skillPath": "skills/council/SKILL.md",
+      "skillFolderHash": "ed352dce7c3f58076bdd0723927a308e284c3031",
+      "updatedAt": "2026-10-30T05:19:30.016Z"
+    },
+    "leaving-pr-comments": {
+      "source": "t3dotgg/tstack",
+      "sourceUrl": "https://github.com/t3dotgg/tstack.git",
+      "skillPath": "skills/leaving-pr-comments/SKILL.md",
+      "skillFolderHash": "3905d758fb70b4e660038456f86ac02343a3dedf",
+      "updatedAt": "2026-10-30T05:19:30.019Z"
+    },
+    "modernize": {
+      "source": "t3dotgg/tstack",
+      "sourceUrl": "https://github.com/t3dotgg/tstack.git",
+      "skillPath": "skills/modernize/SKILL.md",
+      "skillFolderHash": "149f54a0835d2da770b564eb8624f1e3618a33a7",
+      "updatedAt": "2026-10-30T05:19:30.021Z"
     }
   }
 }

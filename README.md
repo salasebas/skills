@@ -59,6 +59,7 @@ These are not copied here. Install any of them with `npx skills add <source> -g 
 | [`vercel-labs/agent-browser`](https://github.com/vercel-labs/agent-browser) | `agent-browser` |
 | [`currents-dev/playwright-best-practices-skill`](https://github.com/currents-dev/playwright-best-practices-skill) | `playwright-best-practices` |
 | [`vercel-labs/skills`](https://github.com/vercel-labs/skills) | `find-skills` |
+| [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) | `babysit-pr`, `council`, `leaving-pr-comments`, `modernize` |
 
 For the two `cursor/plugins` rows the source is the folder URL, for example `https://github.com/cursor/plugins/tree/main/pstack`.
 
