@@ -25,8 +25,7 @@ missing or pre-failing checks in the brief.
 
 ## 2. Start the reviewer
 
-Start a new subagent with fresh context every round. When the user names a model (`loop with <model>`), the reviewer runs on that model. Otherwise it runs on the session's model. If no route runs the named model, report the blocker. Do
-not substitute a model.
+Start a new subagent with fresh context every round: in T3 Code through its orchestration (`delegate_task`, role `review`), elsewhere through the harness's own subagents. It runs on the model the user asks for. Otherwise it runs on a model other than the session's when the harness offers one, preferring another vendor's; otherwise on the session's model. If no route runs a model the user asked for, report the blocker. Do not substitute a model.
 
 Do not edit scoped files while review runs. Wait for the notice. Do not
 poll or start a second reviewer. Timeout, error, or no reply is not

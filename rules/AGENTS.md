@@ -66,4 +66,4 @@ Route each subagent by role:
 | --- | --- | --- |
 | Scout: locates files, extracts data, follows a flow across modules, or finds the likely cause of a bug | `haiku` | `gpt-6-luna` |
 | Implementation | `haiku` | `gpt-6.1-sol` |
-| Reviewer or validator | the session's model | the session's model |
+| Reviewer or validator | a model other than the session's when the harness offers one, else the session's model | a model other than the session's when the harness offers one, else the session's model |
