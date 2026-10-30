@@ -25,12 +25,12 @@ missing or pre-failing checks in the brief.
 
 ## 2. Start the reviewer
 
-Start one new subagent with fresh context every round, through the environment's orchestrator when it has one, since it can run another vendor's model, else through the harness's own subagents:
+Start one new subagent with fresh context every round, through the environment's orchestrator when it has one, else the harness's own subagents:
 
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
 
-The subagent runs on the model the user asks for. Otherwise it runs on a model other than the session's when the harness offers one, preferring another vendor's; otherwise on the session's model. If no route runs a model the user asked for, report the blocker. Do not substitute a model.
+Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
 
 Do not edit scoped files while review runs. Wait for the notice. Do not
 poll or start a second reviewer. Timeout, error, or no reply is not
