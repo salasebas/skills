@@ -21,7 +21,8 @@ GOOD
 
 > ✅ perf(server): cut websocket frame size by 70%+ with gzipping
 
-Write the description with the `pr` skill.
+Write the description with the `pr` skill. When the approach was a real choice,
+add the alternatives you ruled out and why.
 
 End the description with the public model name and harness that made the
 changes, for example `Created with <model> in <harness>.` Include subagent
