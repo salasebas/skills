@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: Review a change — staged or uncommitted work, a commit, a branch diff, or a PR — along two lenses (bugs, structure), with findings validated before they are reported. Use for "review this", "code review", "review my PR". `loop` fixes and re-reviews until no findings remain.
+description: Use when the user asks to review a change — staged or uncommitted work, a commit, a branch diff, or a PR — or says "review this", "code review", "review my PR". Reviews for bugs and for compliance with AGENTS.md and CLAUDE.md, and validates every finding. `loop` has a reviewer subagent review in rounds while this session fixes.
 ---
 
 # Review Changes
@@ -15,13 +15,13 @@ Review a change like the senior developer who will be paged when it breaks.
 2. Gather the diff and any file/context excerpts needed to evaluate the change without guessing, plus the original requirements and the project instructions.
 3. Review the change, following each reference file in turn:
    - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
-   - [`references/structure.md`](references/structure.md): maintainability, structure, file-size growth, spaghetti, abstractions, and codebase-health risks.
+   - [`references/instructions.md`](references/instructions.md): compliance with the project's `AGENTS.md` and `CLAUDE.md`, code-quality rules included.
 4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Require a concrete failure scenario, location, impact, and evidence. Zero findings is an acceptable outcome.
-5. Deduplicate the findings.
+5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
 6. Validate every finding. See [Validate](#validate).
 7. Report. See [Report](#report).
 
-The review is read-only: it lists findings, changes no code. [Loop](#loop) is the one mode that edits.
+The review is read-only: it lists findings, changes no code, and runs no project code, tests, or network commands. [Loop](#loop) is the one mode that edits.
 
 ## Scope
 
