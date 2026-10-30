@@ -35,7 +35,7 @@ approval.
 Round 1 brief (the reviewer gets no history):
 
 ```
-Review only. Do not edit, commit, push, comment on PRs, or start subagents.
+Review only. Do not edit, commit, push, comment on PRs, start subagents, or run project code, tests, or network commands.
 Repo: <abs path> Base: <sha> Intent: <intent> Out of scope: <scope> Checks: <results>
 See: git diff <base> [-- <paths>]; git status --short (read untracked).
 Follow the review-changes skill's Workflow through validation.
