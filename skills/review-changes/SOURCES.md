@@ -8,37 +8,38 @@ Each row is one upstream file, the commit that last changed it when it was copie
 
 | Upstream file | Pinned commit | Copied into | Licence |
 | --- | --- | --- | --- |
-| [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) `skills/code-review-and-quality/SKILL.md` | `28f435ea69a7` (2026-09-26) | `SKILL.md` | MIT, Copyright (c) 2025 Addy Osmani |
+| [`addyosmani/agent-skills`](https://github.com/addyosmani/agent-skills) `skills/code-review-and-quality/SKILL.md` | `28f435ea69a7` (2026-09-26) | `SKILL.md`, `references/instructions.md` | MIT, Copyright (c) 2025 Addy Osmani |
 | [`cursor/plugins`](https://github.com/cursor/plugins) `thermos/skills/thermos/SKILL.md` | `5080d38e4c52` (2026-05-28) | `SKILL.md` | MIT, Copyright (c) 2026 Cursor |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/SKILL.md` | `5d647455f21e` (2026-10-11) | `SKILL.md` | MIT, Copyright (c) 2026 Garry Tan |
-| `cursor/plugins` `thermos/skills/thermo-nuclear-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `SKILL.md` | MIT, Copyright (c) 2026 Cursor |
-| `cursor/plugins` `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `SKILL.md` | MIT, Copyright (c) 2026 Cursor |
+| `cursor/plugins` `thermos/skills/thermo-nuclear-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/bugs.md` | MIT, Copyright (c) 2026 Cursor |
+| `cursor/plugins` `thermos/skills/thermo-nuclear-code-quality-review/SKILL.md` | `5102244dabd6` (2026-05-28) | `references/instructions.md` | MIT, Copyright (c) 2026 Cursor |
 | [`DietrichGebert/ponytail`](https://github.com/DietrichGebert/ponytail) `skills/ponytail-review/SKILL.md` | `2a1fe842d078` (2026-10-08) | `SKILL.md` | MIT, Copyright (c) 2026 DietrichGebert |
 | [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) `skills/sol-loop/SKILL.md` | `6efae364201a` (2026-10-24) | `references/loop.md` | MIT, Copyright (c) 2026 Theo Browne |
-| [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `SKILL.md` | MIT, Copyright (c) 2026 Garry Tan |
-| [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) `plugins/code-review/commands/code-review.md` | `c905cd8fec34` (2026-10-26) | `SKILL.md` | Apache-2.0, see [`LICENSES/Apache-2.0.txt`](../../LICENSES/Apache-2.0.txt) |
+| [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `references/bugs.md` | MIT, Copyright (c) 2026 Garry Tan |
+| [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) `plugins/code-review/commands/code-review.md` | `c905cd8fec34` (2026-10-26) | `SKILL.md`, `references/bugs.md`, `references/instructions.md` | Apache-2.0, see [`LICENSES/Apache-2.0.txt`](../../LICENSES/Apache-2.0.txt) |
 | [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) `.claude/commands/security-review.md` | `c19afa74097b` (2025-08-06) | `references/security.md` | MIT, Copyright (c) 2025 Anthropic |
 
 ## What each part takes
 
 | Part | Upstream |
 | --- | --- |
-| Opening line, scope default, "Validate" bullets, "Report" format | `ponytail-review` |
-| Approval standard, "Lead with what matters", the three bullets after it, the "Instructions" remedy lines | `code-review-and-quality` |
-| "Workflow" steps 1 and 2 | `thermos` |
-| Three "Validate" bullets on quoting the code | gstack `review/SKILL.md`, "Pre-emit verification gate" |
-| "Bugs": opening, side effects, devex, feature leak, intended breakage, over-reporting, "Before you report" | `thermo-nuclear-review` |
-| "Bugs": "Enum & Value Completeness", "Gate Integrity" | gstack `review/checklist.md` |
-| "Bugs": the line on code the intent does not need; "Reviewer"; `references/loop.md` | `sol-loop` |
-| "Bugs": the line on linters; "Instructions" opening; the bullets in "Post to GitHub" | `/code-review` |
-| "Instructions": the presumptive-blocker line | `thermo-nuclear-code-quality-review` |
+| `SKILL.md`: opening line, scope default, "Validate" bullets, "Report" format | `ponytail-review` |
+| `SKILL.md`: approval standard, "Lead with what matters", the three bullets after it; `references/instructions.md`: the remedy lines | `code-review-and-quality` |
+| `SKILL.md`: "Workflow" steps 1 and 2, and the two reviewer descriptions in step 3 | `thermos` |
+| `SKILL.md`: three "Validate" bullets on quoting the code | gstack `review/SKILL.md`, "Pre-emit verification gate" |
+| `references/bugs.md`: opening, side effects, devex, feature leak, intended breakage, over-reporting, "Before you report" | `thermo-nuclear-review` |
+| `references/bugs.md`: "Enum & Value Completeness", "Gate Integrity" | gstack `review/checklist.md` |
+| `references/bugs.md`: the line on code the intent does not need; `SKILL.md`: "Reviewer"; `references/loop.md` | `sol-loop` |
+| `references/bugs.md`: the line on linters; `references/instructions.md`: opening; `SKILL.md`: the bullets in "Post to GitHub" | `/code-review` |
+| `references/instructions.md`: the presumptive-blocker line | `thermo-nuclear-code-quality-review` |
 | `references/security.md` | `/security-review` |
 
 ## Local edits
 
 These are the only places where the text differs from upstream, beyond deleted sentences. Reapply them after every update and add no others.
 
-- Heading levels are shifted, and `references/bugs.md` and `references/instructions.md` are folded into `SKILL.md`: every review reads both, so nothing is saved by keeping them apart.
+- Heading levels are shifted so each file has one title.
+- "Reviewer" in `SKILL.md` holds what every path needs: when to start a reviewer, the routes, the model and the brief. The reviewers stay in `references/`, so a session that only starts a reviewer does not load them.
 - In "Report", "Very simple English" reads "Very simple language".
 - The reviewers say "the change" where upstream says "this PR" or "the branch", and Must fix where it says High priority, so one skill serves any scope and one scale.
 - "Before you report" gathers the bugs reviewer's "Final Response" and "Critical Rules", and no longer names BugBot.
@@ -48,13 +49,13 @@ These are the only places where the text differs from upstream, beyond deleted s
 - In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details (`orchestrator_capabilities`, IDs, `clientRequestId`), the Sol default, the `git fetch` base rules and usage reporting are gone. "Scope" points to this skill's Scope, and "Reviewer" holds the routes and the model order: the model the user names, else another vendor's, else another model, else the session's. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
 - `references/security.md` opens with lines of its own that hand findings to "Validate" and "Report", map severities to this skill's scale, and limit the file's focus and exclusions to security findings. It says "the change" where upstream says "this branch" and "this PR", and its false-positive section loses the quote markers. The git preamble, the output format, the confidence scales, and the sub-task steps are gone: the same reviewer reads the file, and "Validate" does the filtering. Upstream's second item 16 is renumbered.
 
-Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 3, 6 and 7, the "Coverage" sentence and the pointer to `references/security.md` in "Bugs", the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
+Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 6 and 7, the "Coverage" sentence and the pointer to `security.md` in `references/bugs.md`, the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
 
 Left out of the cut on purpose, for size: gstack's allowlist and `case` bullets under "Enum & Value Completeness", which "every consumer" covers, and thermos's "Over-reporting" second sentence.
 
 ## Quality rules in AGENTS.md
 
-Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer became "Instructions": like the `CLAUDE.md` compliance agents of Anthropic's `/code-review`, it checks the change against the loaded `AGENTS.md` and `CLAUDE.md`, code-quality rules included, and keeps two lines on remedies and the presumptive-blocker line. Its opening is `/code-review`'s wording with `CLAUDE.md` read as the instruction files, and the global instructions added, since they apply to every path. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
+Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer became the instructions reviewer (`references/instructions.md`): like the `CLAUDE.md` compliance agents of Anthropic's `/code-review`, it checks the change against the loaded `AGENTS.md` and `CLAUDE.md`, code-quality rules included, and keeps two lines on remedies and the presumptive-blocker line. Its opening is `/code-review`'s wording with `CLAUDE.md` read as the instruction files, and the global instructions added, since they apply to every path. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
 
 ## Convergence
 
@@ -82,7 +83,7 @@ The structure reviewer in round 1 carried three of the eight code-quality standa
 
 ## Why the review does not delegate
 
-`thermos` launches each reviewer as a subagent. This skill reviews in the session that was asked for the review. A session that wrote the change starts one reviewer subagent: see "Reviewer".
+`thermos` launches each reviewer as a subagent. This skill reviews in the session that was asked for the review. A session that wrote the change starts one reviewer subagent: see "Reviewer" in `SKILL.md`.
 
 The comparison ran on 2026-10-10 and 2026-10-11 with Grok CLI (`grok-4.7-build-fast`) and the same reference files. Two pull requests have a documented defect: `mastodon/mastodon` #34489 (a scope removed while a caller remains) and #27511 (GHSA-ww85-x9cp-5v24, a record loaded without an owner scope). The third is a private 4,600-line pull request where two findings had recurred across earlier runs; the count below is for the one that recurred most.
 
