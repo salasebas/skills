@@ -12,6 +12,7 @@ alwaysApply: true
 - Before designing an integration or a non-trivial pattern, find how the tool's official documentation or an established project solves it, and follow that unless this repository has a reason to differ. Name the source.
 - Make architectural decisions for the long term, and diagnose the root cause before implementing a fix. Choose the durable correction over a stopgap, workaround, or symptom suppression.
 - When opening a pull or merge request that finishes an issue, put `Closes #<issue>` in the description.
+- Use GitHub CLI (`gh`) for GitHub operations, reads and writes alike, instead of the Codex GitHub connector or browser UI. This covers issues, pull requests, comments, labels, native sub-issues and blocking relationships; use `gh api` when no dedicated `gh` command covers an operation. Target the repository explicitly with `-R owner/repo`, or a repository endpoint for `gh api`. If `gh` is missing, unauthenticated or lacks access, report the blocker, and switch interfaces only when the user directs it.
 - Use `rg` instead of `grep` and `fd` instead of `find`.
 - Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
 
