@@ -24,7 +24,7 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | Part | Upstream |
 | --- | --- |
 | `SKILL.md`: opening line, scope default, "Validate" bullets, "Report" format | `ponytail-review` |
-| `SKILL.md`: approval standard, "Lead with what matters", the three bullets after it; `references/instructions.md`: the remedy lines | `code-review-and-quality` |
+| `SKILL.md`: approval standard, "Lead with what matters", the three bullets after it; `references/instructions.md`: "Structural Remedies" | `code-review-and-quality` |
 | `SKILL.md`: "Workflow" steps 1 and 2, and the two reviewer descriptions in step 3 | `thermos` |
 | `SKILL.md`: three "Validate" bullets on quoting the code | gstack `review/SKILL.md`, "Pre-emit verification gate" |
 | `references/bugs.md`: opening, side effects, devex, feature leak, intended breakage, over-reporting, "Before you report" | `thermo-nuclear-review` |
@@ -55,7 +55,7 @@ Left out of the cut on purpose, for size: gstack's allowlist and `case` bullets 
 
 ## Quality rules in AGENTS.md
 
-Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer became the instructions reviewer (`references/instructions.md`): like the `CLAUDE.md` compliance agents of Anthropic's `/code-review`, it checks the change against the loaded `AGENTS.md` and `CLAUDE.md`, code-quality rules included, and keeps two lines on remedies and the presumptive-blocker line. Its opening is `/code-review`'s wording with `CLAUDE.md` read as the instruction files, and the global instructions added, since they apply to every path. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
+Standards 0 to 6 of `thermo-nuclear-code-quality-review`, and gstack's "Enum & Value Completeness" as a rule for writing code, live in the "Code quality" section of this repo's [`rules/AGENTS.md`](../../rules/AGENTS.md), in that file's words: they apply whenever code is written, not only when it is reviewed. The structure reviewer became the instructions reviewer (`references/instructions.md`): like the `CLAUDE.md` compliance agents of Anthropic's `/code-review`, it checks the change against the loaded `AGENTS.md` and `CLAUDE.md`, code-quality rules included, and keeps the remedies and the presumptive-blocker line. Its opening is `/code-review`'s wording with `CLAUDE.md` read as the instruction files, and the global instructions added, since they apply to every path. Standard 7, on sequential orchestration and non-atomic updates, is dropped: it is system design more than everyday code, and the bugs reviewer covers half-applied state. The type rules of standard 5 are in the language skills (`typescript-development`, `python-development`); only its rule against silent fallbacks is in `AGENTS.md`. Anthropic's `/code-review` works the same way: it flags quality only when `CLAUDE.md` asks for it.
 
 ## Convergence
 
@@ -63,7 +63,7 @@ Step 5's one finding per class of bug comes from the Claude Code team's [How the
 
 ## Left out on purpose
 
-- From `code-review-and-quality`: the list of named structural remedies, the five review axes and their question lists, tests first, verify the verification, change sizing, dead code hygiene, dependency discipline, the multi-model review pattern, review speed, handling disagreements, change descriptions, the severity prefix table, the review checklist, common rationalisations, red flags, and the `references/` checklists. See "Why the reviewers are short".
+- From `code-review-and-quality`: the five review axes and their question lists, tests first, verify the verification, change sizing, dead code hygiene, dependency discipline, the multi-model review pattern, review speed, handling disagreements, change descriptions, the severity prefix table, the review checklist, common rationalisations, red flags, and the `references/` checklists. See "Why the reviewers are short".
 - From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. Its standards and the Approval Bar list moved out: see "Quality rules in AGENTS.md".
 - From `ponytail-review`: the `shortcut:` comment convention and the `Lean:` line.
 - From `sol-loop`: the T3 tools, the default to Sol, and the token usage line.

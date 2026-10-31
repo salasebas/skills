@@ -117,10 +117,12 @@ on what you checked.
 Only when the user asks to post the review on the PR, and from the session, not the reviewer. After validation, post one review with a comment on the line of each finding:
 
 ```bash
-gh api repos/<owner>/<repo>/pulls/<number>/reviews --input review.json
+gh api repos/<owner>/<repo>/pulls/<number>/reviews --input - <<'JSON'
+<the review>
+JSON
 ```
 
-Write `review.json` outside the repo. It holds `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`. A `line` must be in the PR's diff, or GitHub rejects the whole review, so a finding outside the diff goes in the top-level `body`. A comment across several lines adds `start_line` and `start_side`.
+The review is JSON with `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`. A `line` must be in the PR's diff, or GitHub rejects the whole review, so a finding outside the diff goes in the top-level `body`. A comment across several lines adds `start_line` and `start_side`.
 
 - For small, self-contained fixes, include a committable suggestion block (a fenced `suggestion` block that replaces the commented lines).
 - Never post a committable suggestion UNLESS committing the suggestion fixes the issue entirely.
