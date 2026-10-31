@@ -7,21 +7,44 @@ description: "Use when the user asks to review a change: uncommitted work, a com
 
 Review a change like the senior developer who will be paged when it breaks.
 
-**The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Perfect code doesn't exist — the goal is continuous improvement. Don't block a change because it isn't exactly how you would have written it. If it improves the codebase and follows the project's conventions, approve it.
+**The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Don't block a change because it isn't exactly how you would have written it.
+
+## Reviewer
+
+When this session wrote the change, start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
+
+- T3 Code: `delegate_task`, role `review`.
+- Codex: `spawn_agent` with `fork_turns: "none"`.
+
+Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
+
+Brief (the reviewer gets no history):
+
+```
+Review only. Do not edit, commit, push, comment on PRs, or start subagents. Run only read-only git and gh commands.
+Repo: <abs path> Base: <sha> Intent: <intent> Out of scope: <scope> Checks: <results>
+See: git diff <base> [-- <paths>]; git status --short (read untracked).
+Follow the review-changes skill's Workflow through validation.
+Reply:
+VERDICT: APPROVE or CHANGES
+S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (stable ids)
+```
+
+Do not edit scoped files while the review runs. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
+
+Any other change, review here.
 
 ## Workflow
 
-1. Determine the review scope from the user request, PR, current branch, or relevant changed files. See [Scope](#scope).
-2. Gather the diff and any file/context excerpts needed to evaluate the change without guessing, plus the original requirements and the project instructions.
-3. Review the change, following each reference file in turn:
-   - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
-   - [`references/instructions.md`](references/instructions.md): compliance with the project's `AGENTS.md` and `CLAUDE.md`, code-quality rules included.
-4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Require a concrete failure scenario, location, impact, and evidence. Zero findings is an acceptable outcome.
-5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
-6. Validate every finding. See [Validate](#validate).
-7. Report. See [Report](#report).
+1. Determine the review scope. See [Scope](#scope).
+2. Gather the diff, the surrounding code, the original requirements, and the project instructions.
+3. Review for [Bugs](#bugs) and [Instructions](#instructions).
+4. Record findings with file references and evidence, as Must fix, Should fix or Nice to have, defined under [Report](#report). Zero findings is an acceptable outcome.
+5. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
+6. [Validate](#validate) every finding.
+7. [Report](#report).
 
-The review is read-only: it lists findings, changes no code, and runs no project code, tests, or network commands. [Loop](#loop) is the one mode that edits.
+The review changes no code and runs only read-only git and gh commands. [Loop](#loop) is the one mode that edits.
 
 ## Scope
 
@@ -37,17 +60,38 @@ Read the surrounding code at the revision under review. When that revision is ch
 
 Confirm the diff is non-empty before reviewing.
 
+## Bugs
+
+Audit the code this change adds or modifies for bugs and security vulnerabilities. Read outside the diff to trace effects, but report nothing about code the change leaves alone.
+
+- **Broken behavior:** correctness, edge cases, error paths, performance, and mismatch with the intent. Simple changes often break something in another module, so trace callers and side effects.
+- **New values:** when the change adds an enum value, status, or type, or widens what an input accepts, read every consumer, allowlist, and branch that handles it, including outside the diff.
+- **Security:** injection, broken authentication or authorization, and exposed secrets or personal data, with a concrete way to exploit it.
+- **Developer setup:** changes to how developers run or build the code: where secrets come from, environment variables, ports, or a new script they must run.
+- **Feature gates:** anything meant to stay behind a feature flag or internal check that leaks past it.
+- **Gate integrity:** a gate is anything that would have made this change fail: a test, threshold, timeout, lint rule, type check, CI job, or snapshot. For each one removed, relaxed, skipped, or bypassed, ask: does this silence the failure it was added for, or does a measurement or decision in this diff justify it? Also flag a test that cannot fail: it asserts its own setup, mirrors the implementation, or has no negative.
+
+Skip what the change clearly means to break when its scope is tight, unless the author seems unaware of the impact or the change looks malicious. Skip what a linter, formatter, or type checker catches.
+
+Finish the research before you report: never write "this is fine if the backend handles it" when you can read the backend.
+
+For a PR with Must fix or Should fix findings, read its discussion with `gh` after your audit, so your eyes stay fresh. Include valid findings you missed and mark where they came from.
+
+## Instructions
+
+Audit the change for compliance with the instructions loaded for this project: the user's global instructions, and the `AGENTS.md` or `CLAUDE.md` files that share a file path with the changed file or its parents. Flag clear, unambiguous violations where you can quote the exact rule being broken. Do not flag issues mentioned in the instructions but explicitly silenced in the code (e.g., via a lint ignore comment).
+
+Treat a broken rule as a presumptive blocker unless the author can justify it clearly. For a structural rule, name the restructuring that removes the problem, and prefer the one that removes moving pieces over one that spreads them around.
+
 ## Validate
 
-Treat each finding as a hypothesis to confirm or refute, not an instruction to modify code.
+Treat each finding as a hypothesis to confirm or refute.
 
-- Every finding needs a concrete case: "this input or situation leads to this wrong result". No case, no finding.
-- For a structure finding, the concrete case is the exact code and the named restructuring that removes it.
+- Every finding needs a concrete case: "this input or situation leads to this wrong result". For a broken rule, the case is the rule and the line that breaks it. No case, no finding.
 - Re-read the lines and confirm: the caller exists, the value can really be empty, the code really is unused.
-- **Quote the specific code line:** file:line and verbatim text. For a missing field, quote its class definition; for a nullable value, its initialization; for a race, both sides.
-- For framework-generated symbols, read and quote their generating metaclass, descriptor, ORM Meta block, migration, decorator or schema. Missing literal names in the class body or grep results do not prove absence.
-- **If you cannot quote the motivating line(s), the finding is unverified.**
-- Propose the smallest fix that works. Prefer fixes that delete code. Never add layers, frameworks or config the problem does not need.
+- Quote file:line and verbatim text. For a missing field, quote its class definition; for a nullable value, its initialization; for a race, both sides. If you cannot quote the motivating lines, the finding is unverified.
+- For framework-generated symbols, read and quote what generates them: metaclass, descriptor, ORM Meta block, migration, decorator or schema. Missing literal names in the class body or grep results do not prove absence.
+- Propose the smallest fix that works. Prefer fixes that delete code.
 - No style taste, no "consider", no vague worries.
 
 Validation is done when every finding is confirmed, refuted and dropped, or named under `Not checked`.
@@ -81,17 +125,7 @@ End with:
 Nothing found: `What this change does:`, then `Looks good. Ship.` and one line
 on what you checked.
 
-**Lead with what matters.** Order findings by leverage: correctness and security first, then structural regressions and missed simplifications, then everything else. Don't bury a real issue under cosmetic nits — a few high-conviction comments beat a long list. If you have one structural problem and ten nits, the structural problem *is* the review.
-
-### Honesty in Review
-
-When reviewing code — whether written by you, another agent, or a human:
-
-- **Don't rubber-stamp.** "LGTM" without evidence of review helps no one.
-- **Don't soften real issues.** "This might be a minor concern" when it's a bug that will hit production is dishonest.
-- **Quantify problems when possible.** "This N+1 query will add ~50ms per item in the list" is better than "this could be slow."
-- **Push back on approaches with clear problems.** Sycophancy is a failure mode in reviews. If the implementation has issues, say so directly and propose alternatives.
-- **Accept override gracefully.** If the author has full context and disagrees, defer to their judgment. Comment on code, not people — reframe personal critiques to focus on the code itself.
+Order findings by leverage: correctness and security first, then structure, then the rest. State a real bug plainly and quantify when you can ("adds ~50ms per item"). If the author has full context and disagrees, defer.
 
 ## Loop
 

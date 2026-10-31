@@ -25,28 +25,7 @@ missing or pre-failing checks in the brief.
 
 ## 2. Start the reviewer
 
-Start one new subagent with fresh context every round, through the environment's orchestrator when it has one, else the harness's own subagents:
-
-- T3 Code: `delegate_task`, role `review`.
-- Codex: `spawn_agent` with `fork_turns: "none"`.
-
-Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
-
-Do not edit scoped files while review runs. Wait for the notice. Do not
-poll or start a second reviewer. Timeout, error, or no reply is not
-approval.
-
-Round 1 brief (the reviewer gets no history):
-
-```
-Review only. Do not edit, commit, push, comment on PRs, start subagents, or run project code, tests, or network commands.
-Repo: <abs path> Base: <sha> Intent: <intent> Out of scope: <scope> Checks: <results>
-See: git diff <base> [-- <paths>]; git status --short (read untracked).
-Follow the review-changes skill's Workflow through validation.
-Reply:
-VERDICT: APPROVE or CHANGES
-S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (stable ids)
-```
+Start one every round as in [Reviewer](../SKILL.md#reviewer). Wait for the notice. Do not poll or start a second reviewer.
 
 ## 3. Answer findings
 
@@ -65,7 +44,7 @@ review grew the diff, cut first. Do not agree just to end the loop.
 ## 4. Next round
 
 Start one only if budget remains and a Must fix or Should fix is open, behavior code
-changed, or approval does not cover the current behavior diff. Send the round 1 brief,
+changed, or approval does not cover the current behavior diff. Send the brief,
 the ledger (`fixed:` / `disagree:` / `declined:` + evidence), the same base
 diff, and the change since last round. Tell the reviewer: open ids and changed code only.
 Mark each old id `resolved` or `still open: <reason>`.
