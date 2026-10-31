@@ -32,7 +32,7 @@ S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (
 
 Do not edit scoped files while the review runs. Wait for the notice; do not poll or start a second reviewer. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
 
-Any other change, review here.
+Any other change, review in this session. A reviewer never starts a reviewer.
 
 ## Workflow
 
@@ -44,7 +44,7 @@ Any other change, review here.
 6. [Validate](#validate) every finding.
 7. [Report](#report).
 
-The review changes no code and runs only read-only git and gh commands. [Loop](#loop) is the one mode that edits.
+The review changes no code and runs only read-only git and gh commands, except [Post to GitHub](#post-to-github) when the user asks for it. [Loop](#loop) is the one mode that edits.
 
 ## Scope
 
@@ -72,7 +72,7 @@ Correctness, edge cases and error paths, security, performance, and the tests: d
 
 Flag code, tests, or guards the intent does not need. Do not flag issues that a linter will catch.
 
-When the change touches user input, authentication, permissions, secrets, or file or command execution, also follow [`references/security.md`](references/security.md).
+When the change touches user input, authentication, permissions, secrets, crypto, deserialization, file or command execution, rendered output, or sensitive data in logs or responses, also follow [`references/security.md`](references/security.md).
 
 ### Enum & Value Completeness
 When the diff introduces a new enum value, status string, tier name, or type constant, or loosens what an input accepts (a new MIME type, extension or flag, or a widened validator/parser/guard):
@@ -174,9 +174,9 @@ Only when the user asks to post the review on the PR, and from the session, not 
 gh api repos/<owner>/<repo>/pulls/<number>/reviews --input review.json
 ```
 
-`review.json` holds `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`.
+Write `review.json` outside the repo. It holds `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`. A `line` must be in the PR's diff, or GitHub rejects the whole review, so a finding outside the diff goes in the top-level `body`. A comment across several lines adds `start_line` and `start_side`.
 
-- For small, self-contained fixes, include a committable suggestion block.
+- For small, self-contained fixes, include a committable suggestion block (a fenced `suggestion` block that replaces the commented lines).
 - Never post a committable suggestion UNLESS committing the suggestion fixes the issue entirely.
 - Only post ONE comment per unique issue.
 

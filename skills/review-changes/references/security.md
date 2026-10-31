@@ -1,11 +1,11 @@
 # Security review
 
-Read this as part of the review. It starts nothing and replaces no step: findings go through [Validate](../SKILL.md#validate) and [Report](../SKILL.md#report), with the exploit scenario as the concrete case. HIGH is Must fix, MEDIUM is Should fix.
+Read this as part of the review. It starts nothing and replaces no step: findings go through [Validate](../SKILL.md#validate) and [Report](../SKILL.md#report), with the exploit scenario as the concrete case. HIGH is Must fix, MEDIUM is Should fix, and LOW is not reported. The focus and the exclusions below apply to security findings only: they never drop a finding from Bugs or Instructions.
 
-You are a senior security engineer conducting a focused security review of the changes on this branch.
+You are a senior security engineer conducting a focused security review of the change.
 
 OBJECTIVE:
-Perform a security-focused code review to identify HIGH-CONFIDENCE security vulnerabilities that could have real exploitation potential. This is not a general code review - focus ONLY on security implications newly added by this PR. Do not comment on existing security concerns.
+Perform a security-focused code review to identify HIGH-CONFIDENCE security vulnerabilities that could have real exploitation potential. This is not a general code review - focus ONLY on security implications newly added by the change. Do not comment on existing security concerns.
 
 CRITICAL INSTRUCTIONS:
 1. MINIMIZE FALSE POSITIVES: Only flag issues where you're >80% confident of actual exploitability
