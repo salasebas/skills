@@ -36,11 +36,11 @@ Any other change, review here.
 
 ## Workflow
 
-1. Determine the review scope. See [Scope](#scope).
-2. Gather the diff, the surrounding code, the original requirements, and the project instructions.
+1. Determine the review scope from the user request, PR, current branch, or relevant changed files. See [Scope](#scope).
+2. Gather the diff and any file/context excerpts needed to evaluate the change without guessing, plus the original requirements and the project instructions.
 3. Review for [Bugs](#bugs) and [Instructions](#instructions).
-4. Record findings with file references and evidence, as Must fix, Should fix or Nice to have, defined under [Report](#report). Zero findings is an acceptable outcome.
-5. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
+4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Zero findings is an acceptable outcome.
+5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
 6. [Validate](#validate) every finding.
 7. [Report](#report).
 
@@ -62,36 +62,71 @@ Confirm the diff is non-empty before reviewing.
 
 ## Bugs
 
-Audit the code this change adds or modifies for bugs and security vulnerabilities. Read outside the diff to trace effects. Report what the change causes: a consumer outside the diff that it breaks counts, an old bug it leaves alone does not.
+Audit the change extremely thoroughly for bugs, changes that break existing features/functionality, and security vulnerabilities.
 
-- **Broken behavior:** correctness, edge cases, error paths, performance, and mismatch with the intent. Simple changes often break something in another module, so trace callers and side effects.
-- **New values:** when the change adds an enum value, status, or type, or widens what an input accepts, read every consumer, allowlist, and branch that handles it, including outside the diff.
-- **Security:** injection, broken authentication or authorization, and exposed secrets or personal data, with a concrete way to exploit it.
-- **Developer setup:** changes to how developers run or build the code: where secrets come from, environment variables, ports, or a new script they must run. A new dependency or an alternative way to run it is not a break.
-- **Feature gates:** anything meant to stay behind a feature flag or internal check that leaks past it.
-- **Gate integrity:** a gate is anything that would have made this change fail: a test, threshold, timeout, lint rule, type check, CI job, or snapshot. For each one removed, relaxed, skipped, or bypassed, ask: does this silence the failure it was added for, or does a measurement or decision in this diff justify it? Also flag a swallowed exception, an added suppression, a mock or fixture presented as proof, and a test that cannot fail: it asserts its own setup, mirrors the implementation, or has no negative.
+Focus on changes in the diff. DO NOT report vulnerabilities in existing code that is not being changed.
 
-Skip what the change clearly means to break when its scope is tight, unless the author seems unaware of the impact or the change looks malicious. Skip what a linter, formatter, or type checker catches.
+Often simple code changes in one place have subtle interactions that break functionality elsewhere. You MUST be extremely thorough in tracing through possible side effects of the changes.
 
-Finish the research before you report: never write "this is fine if the backend handles it" when you can read the backend.
+Correctness, edge cases and error paths, security, performance, and the tests: do they exercise behavior, and would they fail if the change regressed?
 
-For a PR with Must fix or Should fix findings, read its discussion with `gh` after your audit, so your eyes stay fresh. Include valid findings you missed and mark where they came from.
+Flag code, tests, or guards the intent does not need. Do not flag issues that a linter will catch.
+
+When the change touches user input, authentication, permissions, secrets, or file or command execution, also follow [`references/security.md`](references/security.md).
+
+### Enum & Value Completeness
+When the diff introduces a new enum value, status string, tier name, or type constant, or loosens what an input accepts (a new MIME type, extension or flag, or a widened validator/parser/guard):
+- **Trace it through every consumer.** Read (don't just grep — READ) each file that switches on, filters by, or displays that value. If any consumer doesn't handle the new value, flag it.
+- **Loosened acceptance breaks unchanged consumers.** Grep every consumer of the same field and confirm each handles the newly accepted shape; the broken code is usually outside the diff.
+
+### Breaking Devex Guidelines
+It can be easy to break developers' ability to run / build the code locally. Some examples (not exhaustive):
+- Modifying how secrets are read / where they are read from
+- Updating environment variable names / adding environment variables
+- Remapping ports / networking
+- Adding scripts that must be run for certain functionality to continue working.
+
+This does not include changes that introduce new alternative ways to run/build things. Adding dependencies with package managers does not count as a devex breaking change, unless it requires the user to do some very new thing that is not part of their normal development workflow.
+
+### Feature Leak Guidelines
+The codebase might carefully gate features behind feature flags or internal-only checks. You MUST NOT allow any features that are meant to be behind a feature gate leak.
+
+### Gate Integrity
+A gate is anything that would have made this change fail: a test, an assertion, a threshold, a timeout, a lint rule, a type check, a CI job, a snapshot.
+- Read every hunk in the diff where a test is removed or disabled, a snapshot changed without its owning test, a placeholder is committed, the code sniffs the environment, a suppression pragma is added, a gate is bypassed, a gate value is relaxed, or an exception is swallowed. Ask the one question: **does this relaxation silence the failure it was added for, or is it justified by a measurement or decision visible in this diff?**
+- A hunk with no gate semantics, or one justified by a visible measurement or decision, is not a finding.
+- Read also for a mock, fixture or static read presented as the proof a claim needs, and for a test that cannot fail: asserts its own setup, mirrors the implementation, or has no negative.
+
+### Intended Breakage Guidelines
+If you identify a high risk finding, but the intent of the change is to introduce that finding – e.g. break some functionality, remove a feature flag, remove a safeguard – AND the scope of the change is well constrained, you SHOULD NOT waste the author's time by reporting the issue to them. However, if you believe it is likely that they are not aware of the full implications of their change, or you are worried that the change is actually malicious, you should still report the finding.
+
+### Over-reporting Guidelines
+If you report issues as Must fix when they are not in fact meaningful issues, devs will lose trust in you and stop listening to you over time.
+
+### Before you report
+- NEVER present issues with unfinished research. E.g. Never say something like, "The client has issue X, but if handled in the backend then this is ok." if you have access to the backend code and can check for yourself.
+- IF the change is a PR/MR and you have Must fix or Should fix findings, check its discussion using gh/glab cli for comments from other reviewers. If they found issues you missed, evaluate them to determine if they are valid and include them in your report. Flag the findings in your report that came from the discussion.
+- You MUST wait to check the PR/MR discussion until AFTER you have performed your audit. This way you have fresh eyes while you review.
 
 ## Instructions
 
 Audit the change for compliance with the instructions loaded for this project: the user's global instructions, and the `AGENTS.md` or `CLAUDE.md` files that share a file path with the changed file or its parents. Flag clear, unambiguous violations where you can quote the exact rule being broken. Do not flag issues mentioned in the instructions but explicitly silenced in the code (e.g., via a lint ignore comment).
 
-Treat a broken rule as a presumptive blocker unless the author can justify it clearly. For a structural rule, name the restructuring that removes the problem, and prefer the one that removes moving pieces over one that spreads them around.
+When you flag a structural problem, propose the move — not just the problem. Prefer the remedy that removes moving pieces over one that spreads the same complexity around.
+
+Treat a broken rule as a presumptive blocker unless the author can justify it clearly.
 
 ## Validate
 
-Treat each finding as a hypothesis to confirm or refute.
+Treat each finding as a hypothesis to confirm or refute, not an instruction to modify code.
 
-- Every finding needs a concrete case: "this input or situation leads to this wrong result". For a broken rule, the case is the rule and the line that breaks it. No case, no finding.
+- Every finding needs a concrete case: "this input or situation leads to this wrong result". No case, no finding.
+- For a structure finding, the concrete case is the exact code and the named restructuring that removes it.
 - Re-read the lines and confirm: the caller exists, the value can really be empty, the code really is unused.
-- Quote file:line and verbatim text. For a missing field, quote its class definition; for a nullable value, its initialization; for a race, both sides. If you cannot quote the motivating lines, the finding is unverified.
-- For framework-generated symbols, read and quote what generates them: metaclass, descriptor, ORM Meta block, migration, decorator or schema. Missing literal names in the class body or grep results do not prove absence.
-- Propose the smallest fix that works. Prefer fixes that delete code.
+- **Quote the specific code line:** file:line and verbatim text. For a missing field, quote its class definition; for a nullable value, its initialization; for a race, both sides.
+- For framework-generated symbols, read and quote their generating metaclass, descriptor, ORM Meta block, migration, decorator or schema. Missing literal names in the class body or grep results do not prove absence.
+- **If you cannot quote the motivating line(s), the finding is unverified.**
+- Propose the smallest fix that works. Prefer fixes that delete code. Never add layers, frameworks or config the problem does not need.
 - No style taste, no "consider", no vague worries.
 
 Validation is done when every finding is confirmed, refuted and dropped, or named under `Not checked`.
@@ -125,7 +160,25 @@ End with:
 Nothing found: `What this change does:`, then `Looks good. Ship.` and one line
 on what you checked.
 
-Order findings by leverage: correctness and security first, then structure, then the rest. A few high-conviction findings beat a long list, so don't bury a real issue under nits or inflate a severity. State a real bug plainly and quantify when you can ("adds ~50ms per item"). If the author has full context and disagrees, defer.
+**Lead with what matters.** Order findings by leverage: correctness and security first, then structural regressions and missed simplifications, then everything else. Don't bury a real issue under cosmetic nits — a few high-conviction comments beat a long list.
+
+- **Don't soften real issues.** "This might be a minor concern" when it's a bug that will hit production is dishonest.
+- **Quantify problems when possible.** "This N+1 query will add ~50ms per item in the list" is better than "this could be slow."
+- **Accept override gracefully.** If the author has full context and disagrees, defer to their judgment.
+
+### Post to GitHub
+
+Only when the user asks to post the review on the PR, and from the session, not the reviewer. After validation, post one review with a comment on the line of each finding:
+
+```bash
+gh api repos/<owner>/<repo>/pulls/<number>/reviews --input review.json
+```
+
+`review.json` holds `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`.
+
+- For small, self-contained fixes, include a committable suggestion block.
+- Never post a committable suggestion UNLESS committing the suggestion fixes the issue entirely.
+- Only post ONE comment per unique issue.
 
 ## Loop
 

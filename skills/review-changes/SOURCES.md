@@ -1,6 +1,6 @@
 # Sources
 
-`review-changes` is assembled from upstream review skills and condensed. `SKILL.md` keeps upstream's ideas in as few words as they need, and the loop stays close to `sol-loop`. Agents do not need this file to run the skill.
+`review-changes` is assembled from upstream review skills. The upstream authors maintain the wording; this skill keeps their sentences and cuts by deleting, not rewording. Agents do not need this file to run the skill.
 
 ## Pinned upstream files
 
@@ -17,32 +17,40 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) `skills/sol-loop/SKILL.md` | `6efae364201a` (2026-10-24) | `references/loop.md` | MIT, Copyright (c) 2026 Theo Browne |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `SKILL.md` | MIT, Copyright (c) 2026 Garry Tan |
 | [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) `plugins/code-review/commands/code-review.md` | `c905cd8fec34` (2026-10-26) | `SKILL.md` | Apache-2.0, see [`LICENSES/Apache-2.0.txt`](../../LICENSES/Apache-2.0.txt) |
+| [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) `.claude/commands/security-review.md` | `c19afa74097b` (2025-08-06) | `references/security.md` | MIT, Copyright (c) 2025 Anthropic |
 
 ## What each part takes
 
 | Part | Upstream |
 | --- | --- |
-| Opening line, scope default, "Validate", "Report" format | `ponytail-review` |
-| Approval standard, the closing lines of "Report" | `code-review-and-quality` |
+| Opening line, scope default, "Validate" bullets, "Report" format | `ponytail-review` |
+| Approval standard, "Lead with what matters", the three bullets after it, the "Instructions" remedy lines | `code-review-and-quality` |
 | "Workflow" steps 1 and 2 | `thermos` |
-| Quoting and generated-symbol bullets in "Validate" | gstack `review/SKILL.md`, "Pre-emit verification gate" |
-| "Bugs": side effects, developer setup, feature gates, intended breakage, finishing research, the PR discussion | `thermo-nuclear-review` |
-| "Bugs": new values and gate integrity | gstack `review/checklist.md` |
-| "Bugs": skipping what a linter catches; "Instructions": opening | `/code-review` |
-| "Instructions": the restructuring line | `code-review-and-quality` |
+| Three "Validate" bullets on quoting the code | gstack `review/SKILL.md`, "Pre-emit verification gate" |
+| "Bugs": opening, side effects, devex, feature leak, intended breakage, over-reporting, "Before you report" | `thermo-nuclear-review` |
+| "Bugs": "Enum & Value Completeness", "Gate Integrity" | gstack `review/checklist.md` |
+| "Bugs": the line on code the intent does not need; "Reviewer"; `references/loop.md` | `sol-loop` |
+| "Bugs": the line on linters; "Instructions" opening; the bullets in "Post to GitHub" | `/code-review` |
 | "Instructions": the presumptive-blocker line | `thermo-nuclear-code-quality-review` |
-| "Reviewer" and `references/loop.md` | `sol-loop` |
+| `references/security.md` | `/security-review` |
 
 ## Local edits
 
-- `references/bugs.md` and `references/instructions.md` are folded into `SKILL.md`: every review reads both, so nothing is saved by keeping them apart. The start of a reviewer moved from the loop to "Reviewer", since a session that wrote the change needs it too.
-- "Bugs" is condensed from about 1,000 words to about 300. Three calls for extreme thoroughness, the persona, the "Coverage" line (its items are now under "Broken behavior"), the examples under each guideline, and the grep walkthrough are gone. Gate integrity keeps gstack's definition, its one question, and the patterns that are not a relaxed gate; its grouping rule is covered by Workflow step 5.
-- "Instructions" drops the eight named remedies and the lines on nits: the first repeat `AGENTS.md`, and "Report" keeps the second in one sentence, which also carries the over-reporting guideline.
-- "Report" cuts "Lead with what matters" and "Honesty in Review" to three sentences. "Validate" drops "never add layers, frameworks or config", which "prefer fixes that delete code" and `AGENTS.md` cover.
-- The review runs read-only `git` and `gh`, where it used to forbid all network commands while its scope and PR discussion steps need `gh`.
-- In the loop, Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details, the Sol default, the `git fetch` base rules and usage reporting are gone. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
+These are the only places where the text differs from upstream, beyond deleted sentences. Reapply them after every update and add no others.
 
-Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, and the validation completion rule.
+- Heading levels are shifted, and `references/bugs.md` and `references/instructions.md` are folded into `SKILL.md`: every review reads both, so nothing is saved by keeping them apart.
+- In "Report", "Very simple English" reads "Very simple language".
+- The reviewers say "the change" where upstream says "this PR" or "the branch", and Must fix where it says High priority, so one skill serves any scope and one scale.
+- "Before you report" gathers the bugs reviewer's "Final Response" and "Critical Rules", and no longer names BugBot.
+- "Gate Integrity" keeps gstack's definition, its one question, the two unlabelled patterns; its grouping rule is covered by Workflow step 5. The `gstack-gate-diff` scan, the `RH-*` tags, the confidence score and the fix options are gone; the tagged patterns read as one sentence.
+- The three quoting bullets drop gstack's confidence score. An unverified finding follows the existing completion rule: it is dropped or named under `Not checked`.
+- "Reviewer" lets the review run read-only `git` and `gh`, where the brief forbade all network commands while the PR scope and discussion steps need `gh`.
+- In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details (`orchestrator_capabilities`, IDs, `clientRequestId`), the Sol default, the `git fetch` base rules and usage reporting are gone. "Scope" points to this skill's Scope, and "Reviewer" holds the routes and the model order: the model the user names, else another vendor's, else another model, else the session's. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
+- `references/security.md` opens with one line of its own that hands findings to "Validate" and "Report" and maps HIGH and MEDIUM to this skill's scale. The git preamble, the output format, the confidence scales, and the sub-task steps are gone: the same reviewer reads the file, and "Validate" does the filtering. Upstream's second item 16 is renumbered.
+
+Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, the "Coverage" sentence in "Bugs", and the `gh api` line in "Post to GitHub".
+
+Left out of the cut on purpose, for size: gstack's allowlist and `case` bullets under "Enum & Value Completeness", which "every consumer" covers, and thermos's "Over-reporting" second sentence.
 
 ## Quality rules in AGENTS.md
 
@@ -119,8 +127,8 @@ The reviewer prefers another model after a run on 2026-10-29 in T3 Code: three m
    gh api "repos/<owner>/<repo>/compare/<pinned>...<new>" --jq '.files[] | select(.filename == "<path>") | .patch'
    ```
 
-3. Decide whether the change alters what a review should do. If it does, write it here in as few words as it needs.
-4. If upstream added a section, decide whether it belongs here or under "Left out on purpose", and record the decision in this file.
+3. Paste the new upstream wording over the matching section here. Copy and paste; do not reword.
+4. Reapply only the edits listed under "Local edits". If upstream added a section, decide whether it belongs here or under "Left out on purpose", and record the decision in this file.
 5. Update the pinned commit and date in the table.
 
 ## MIT License
