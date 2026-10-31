@@ -7,7 +7,32 @@ description: "Use when the user asks to review a change: uncommitted work, a com
 
 Review a change like the senior developer who will be paged when it breaks.
 
-**The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Perfect code doesn't exist — the goal is continuous improvement. Don't block a change because it isn't exactly how you would have written it. If it improves the codebase and follows the project's conventions, approve it.
+**The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Don't block a change because it isn't exactly how you would have written it.
+
+## Reviewer
+
+Use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
+
+- T3 Code: `delegate_task`, role `review`.
+- Codex: `spawn_agent` with `fork_turns: "none"`.
+
+Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
+
+State intent and out-of-scope in 1-2 sentences, run covering checks, and note missing or failing ones in the brief (the reviewer gets no history):
+
+```
+Review only. Do not edit, commit, push, comment on PRs, or start subagents. Run only read-only git and gh commands.
+Repo: <abs path> Base: <sha> Intent: <intent> Out of scope: <scope> Checks: <results>
+See: git diff <base> [-- <paths>]; git status --short (read untracked).
+Follow the review-changes skill's Workflow through validation.
+Reply:
+VERDICT: APPROVE or CHANGES
+S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (stable ids)
+```
+
+Do not edit scoped files while the review runs. Wait for the notice; do not poll or start a second reviewer. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
+
+Any other change, review in this session. A reviewer never starts a reviewer.
 
 ## Workflow
 
@@ -16,12 +41,12 @@ Review a change like the senior developer who will be paged when it breaks.
 3. Review the change, following each reference file in turn:
    - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
    - [`references/instructions.md`](references/instructions.md): compliance with the project's `AGENTS.md` and `CLAUDE.md`, code-quality rules included.
-4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Require a concrete failure scenario, location, impact, and evidence. Zero findings is an acceptable outcome.
+4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Zero findings is an acceptable outcome.
 5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
-6. Validate every finding. See [Validate](#validate).
-7. Report. See [Report](#report).
+6. [Validate](#validate) every finding.
+7. [Report](#report).
 
-The review is read-only: it lists findings, changes no code, and runs no project code, tests, or network commands. [Loop](#loop) is the one mode that edits.
+The review changes no code and runs only read-only git and gh commands, except [Post to GitHub](#post-to-github) when the user asks for it. [Loop](#loop) is the one mode that edits.
 
 ## Scope
 
@@ -81,17 +106,27 @@ End with:
 Nothing found: `What this change does:`, then `Looks good. Ship.` and one line
 on what you checked.
 
-**Lead with what matters.** Order findings by leverage: correctness and security first, then structural regressions and missed simplifications, then everything else. Don't bury a real issue under cosmetic nits — a few high-conviction comments beat a long list. If you have one structural problem and ten nits, the structural problem *is* the review.
+**Lead with what matters.** Order findings by leverage: correctness and security first, then structural regressions and missed simplifications, then everything else. Don't bury a real issue under cosmetic nits — a few high-conviction comments beat a long list.
 
-### Honesty in Review
-
-When reviewing code — whether written by you, another agent, or a human:
-
-- **Don't rubber-stamp.** "LGTM" without evidence of review helps no one.
 - **Don't soften real issues.** "This might be a minor concern" when it's a bug that will hit production is dishonest.
 - **Quantify problems when possible.** "This N+1 query will add ~50ms per item in the list" is better than "this could be slow."
-- **Push back on approaches with clear problems.** Sycophancy is a failure mode in reviews. If the implementation has issues, say so directly and propose alternatives.
-- **Accept override gracefully.** If the author has full context and disagrees, defer to their judgment. Comment on code, not people — reframe personal critiques to focus on the code itself.
+- **Accept override gracefully.** If the author has full context and disagrees, defer to their judgment.
+
+### Post to GitHub
+
+Only when the user asks to post the review on the PR, and from the session, not the reviewer. After validation, post one review with a comment on the line of each finding:
+
+```bash
+gh api repos/<owner>/<repo>/pulls/<number>/reviews --input - <<'JSON'
+<the review>
+JSON
+```
+
+The review is JSON with `commit_id` (the PR's head SHA), `event` set to `COMMENT`, `body`, and `comments`, each with `path`, `line`, `side` set to `RIGHT`, and `body`. A `line` must be in the PR's diff, or GitHub rejects the whole review, so a finding outside the diff goes in the top-level `body`. A comment across several lines adds `start_line` and `start_side`.
+
+- For small, self-contained fixes, include a committable suggestion block (a fenced `suggestion` block that replaces the commented lines).
+- Never post a committable suggestion UNLESS committing the suggestion fixes the issue entirely.
+- Only post ONE comment per unique issue.
 
 ## Loop
 

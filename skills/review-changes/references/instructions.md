@@ -17,9 +17,4 @@ When you flag a structural problem, propose the move — not just the problem. A
 
 Prefer the remedy that removes moving pieces over one that spreads the same complexity around.
 
-## Approval Bar
-
-Do not flood the review with low-value nits if there are larger structural issues.
-Prefer a smaller number of high-conviction comments over a long list of cosmetic notes.
-
 Treat a broken rule as a presumptive blocker unless the author can justify it clearly.
