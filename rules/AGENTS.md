@@ -25,7 +25,7 @@ alwaysApply: true
 - Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
 
 ## Review
-- To review changes, use the `review-changes` skill. When this session wrote the changes, run the review in a fresh-context subagent.
+- To review changes, use the `review-changes` skill.
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
 ## Verification
