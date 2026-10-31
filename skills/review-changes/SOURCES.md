@@ -30,14 +30,15 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | "Bugs": new values and gate integrity | gstack `review/checklist.md` |
 | "Bugs": skipping what a linter catches; "Instructions": opening | `/code-review` |
 | "Instructions": the restructuring line | `code-review-and-quality` |
+| "Instructions": the presumptive-blocker line | `thermo-nuclear-code-quality-review` |
 | "Reviewer" and `references/loop.md` | `sol-loop` |
 
 ## Local edits
 
 - `references/bugs.md` and `references/instructions.md` are folded into `SKILL.md`: every review reads both, so nothing is saved by keeping them apart. The start of a reviewer moved from the loop to "Reviewer", since a session that wrote the change needs it too.
-- "Bugs" is condensed from about 1,000 words to about 300. Three calls for extreme thoroughness, the persona, the examples under each guideline, and the grep walkthrough are gone. Gate integrity keeps gstack's definition and its one question, and its grouping rule is covered by Workflow step 5.
-- "Instructions" drops the eight named remedies and the lines on nits: the first repeat `AGENTS.md`, the second repeat "Report".
-- "Report" drops "Honesty in Review" down to two sentences.
+- "Bugs" is condensed from about 1,000 words to about 300. Three calls for extreme thoroughness, the persona, the "Coverage" line (its items are now under "Broken behavior"), the examples under each guideline, and the grep walkthrough are gone. Gate integrity keeps gstack's definition, its one question, and the patterns that are not a relaxed gate; its grouping rule is covered by Workflow step 5.
+- "Instructions" drops the eight named remedies and the lines on nits: the first repeat `AGENTS.md`, and "Report" keeps the second in one sentence, which also carries the over-reporting guideline.
+- "Report" cuts "Lead with what matters" and "Honesty in Review" to three sentences. "Validate" drops "never add layers, frameworks or config", which "prefer fixes that delete code" and `AGENTS.md` cover.
 - The review runs read-only `git` and `gh`, where it used to forbid all network commands while its scope and PR discussion steps need `gh`.
 - In the loop, Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details, the Sol default, the `git fetch` base rules and usage reporting are gone. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
 

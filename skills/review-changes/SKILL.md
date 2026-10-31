@@ -11,14 +11,14 @@ Review a change like the senior developer who will be paged when it breaks.
 
 ## Reviewer
 
-When this session wrote the change, start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
+Use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
 
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
 
 Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
 
-Brief (the reviewer gets no history):
+State intent and out-of-scope in 1-2 sentences, run covering checks, and note missing or failing ones in the brief (the reviewer gets no history):
 
 ```
 Review only. Do not edit, commit, push, comment on PRs, or start subagents. Run only read-only git and gh commands.
@@ -30,7 +30,7 @@ VERDICT: APPROVE or CHANGES
 S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (stable ids)
 ```
 
-Do not edit scoped files while the review runs. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
+Do not edit scoped files while the review runs. Wait for the notice; do not poll or start a second reviewer. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
 
 Any other change, review here.
 
@@ -62,14 +62,14 @@ Confirm the diff is non-empty before reviewing.
 
 ## Bugs
 
-Audit the code this change adds or modifies for bugs and security vulnerabilities. Read outside the diff to trace effects, but report nothing about code the change leaves alone.
+Audit the code this change adds or modifies for bugs and security vulnerabilities. Read outside the diff to trace effects. Report what the change causes: a consumer outside the diff that it breaks counts, an old bug it leaves alone does not.
 
 - **Broken behavior:** correctness, edge cases, error paths, performance, and mismatch with the intent. Simple changes often break something in another module, so trace callers and side effects.
 - **New values:** when the change adds an enum value, status, or type, or widens what an input accepts, read every consumer, allowlist, and branch that handles it, including outside the diff.
 - **Security:** injection, broken authentication or authorization, and exposed secrets or personal data, with a concrete way to exploit it.
-- **Developer setup:** changes to how developers run or build the code: where secrets come from, environment variables, ports, or a new script they must run.
+- **Developer setup:** changes to how developers run or build the code: where secrets come from, environment variables, ports, or a new script they must run. A new dependency or an alternative way to run it is not a break.
 - **Feature gates:** anything meant to stay behind a feature flag or internal check that leaks past it.
-- **Gate integrity:** a gate is anything that would have made this change fail: a test, threshold, timeout, lint rule, type check, CI job, or snapshot. For each one removed, relaxed, skipped, or bypassed, ask: does this silence the failure it was added for, or does a measurement or decision in this diff justify it? Also flag a test that cannot fail: it asserts its own setup, mirrors the implementation, or has no negative.
+- **Gate integrity:** a gate is anything that would have made this change fail: a test, threshold, timeout, lint rule, type check, CI job, or snapshot. For each one removed, relaxed, skipped, or bypassed, ask: does this silence the failure it was added for, or does a measurement or decision in this diff justify it? Also flag a swallowed exception, an added suppression, a mock or fixture presented as proof, and a test that cannot fail: it asserts its own setup, mirrors the implementation, or has no negative.
 
 Skip what the change clearly means to break when its scope is tight, unless the author seems unaware of the impact or the change looks malicious. Skip what a linter, formatter, or type checker catches.
 
@@ -125,7 +125,7 @@ End with:
 Nothing found: `What this change does:`, then `Looks good. Ship.` and one line
 on what you checked.
 
-Order findings by leverage: correctness and security first, then structure, then the rest. State a real bug plainly and quantify when you can ("adds ~50ms per item"). If the author has full context and disagrees, defer.
+Order findings by leverage: correctness and security first, then structure, then the rest. A few high-conviction findings beat a long list, so don't bury a real issue under nits or inflate a severity. State a real bug plainly and quantify when you can ("adds ~50ms per item"). If the author has full context and disagrees, defer.
 
 ## Loop
 

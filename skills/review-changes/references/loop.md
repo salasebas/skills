@@ -19,13 +19,11 @@ of scope creep and don't be scared to push back.
 
 ## 1. Scope
 
-Find the scope as in [Scope](../SKILL.md#scope). Use one diff command all rounds. State intent and out-of-scope in 1-2
-sentences. Run covering checks. Do not send code this change breaks. Note
-missing or pre-failing checks in the brief.
+Find the scope as in [Scope](../SKILL.md#scope). Use one diff command all rounds. Do not send code this change breaks.
 
 ## 2. Start the reviewer
 
-Start one every round as in [Reviewer](../SKILL.md#reviewer). Wait for the notice. Do not poll or start a second reviewer.
+Start one every round as in [Reviewer](../SKILL.md#reviewer).
 
 ## 3. Answer findings
 
