@@ -10,6 +10,8 @@ Correctness, edge cases and error paths, security, performance, and the tests: d
 
 Flag code, tests, or guards the intent does not need. Do not flag issues that a linter will catch.
 
+Check moved or extracted code for a dropped guard, and config defaults that flipped.
+
 ## Enum & Value Completeness
 When the diff introduces a new enum value, status string, tier name, or type constant, or loosens what an input accepts (a new MIME type, extension or flag, or a widened validator/parser/guard):
 - **Trace it through every consumer.** Read (don't just grep — READ) each file that switches on, filters by, or displays that value. If any consumer doesn't handle the new value, flag it.
@@ -43,4 +45,3 @@ If you report issues as Must fix when they are not in fact meaningful issues, de
 - NEVER present issues with unfinished research. E.g. Never say something like, "The client has issue X, but if handled in the backend then this is ok." if you have access to the backend code and can check for yourself.
 - IF the change is a PR/MR and you have Must fix or Should fix findings, check its discussion using gh/glab cli for comments from other reviewers. If they found issues you missed, evaluate them to determine if they are valid and include them in your report. Flag the findings in your report that came from the discussion.
 - You MUST wait to check the PR/MR discussion until AFTER you have performed your audit. This way you have fresh eyes while you review.
-- Be EXTREMELY thorough, rigorous, careful, ambitious, and attentive. NOTHING can slip through.
