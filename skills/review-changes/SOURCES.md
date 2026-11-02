@@ -17,7 +17,6 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack) `skills/sol-loop/SKILL.md` | `6efae364201a` (2026-10-24) | `references/loop.md` | MIT, Copyright (c) 2026 Theo Browne |
 | [`garrytan/gstack`](https://github.com/garrytan/gstack) `review/checklist.md` | `ab79e55119b7` (2026-10-11) | `references/bugs.md` | MIT, Copyright (c) 2026 Garry Tan |
 | [`anthropics/claude-plugins-official`](https://github.com/anthropics/claude-plugins-official) `plugins/code-review/commands/code-review.md` | `c905cd8fec34` (2026-10-26) | `SKILL.md`, `references/bugs.md`, `references/instructions.md` | Apache-2.0, see [`LICENSES/Apache-2.0.txt`](../../LICENSES/Apache-2.0.txt) |
-| [`anthropics/claude-code-security-review`](https://github.com/anthropics/claude-code-security-review) `.claude/commands/security-review.md` | `c19afa74097b` (2025-08-06) | `references/security.md` | MIT, Copyright (c) 2025 Anthropic |
 
 ## What each part takes
 
@@ -32,7 +31,6 @@ Each row is one upstream file, the commit that last changed it when it was copie
 | `references/bugs.md`: the line on code the intent does not need; `SKILL.md`: "Reviewer"; `references/loop.md` | `sol-loop` |
 | `references/bugs.md`: the line on linters; `references/instructions.md`: opening; `SKILL.md`: the bullets in "Post to GitHub" | `/code-review` |
 | `references/instructions.md`: the presumptive-blocker line | `thermo-nuclear-code-quality-review` |
-| `references/security.md` | `/security-review` |
 
 ## Local edits
 
@@ -47,9 +45,8 @@ These are the only places where the text differs from upstream, beyond deleted s
 - The three quoting bullets drop gstack's confidence score. An unverified finding follows the existing completion rule: it is dropped or named under `Not checked`.
 - "Reviewer" lets the review run read-only `git` and `gh`, where the brief forbade all network commands while the PR scope and discussion steps need `gh`.
 - In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details (`orchestrator_capabilities`, IDs, `clientRequestId`), the Sol default, the `git fetch` base rules and usage reporting are gone. "Scope" points to this skill's Scope, and "Reviewer" holds the routes and the model order: the model the user names, else another vendor's, else another model, else the session's. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
-- `references/security.md` opens with lines of its own that hand findings to "Validate" and "Report", map severities to this skill's scale, and limit the file's focus and exclusions to security findings. It says "the change" where upstream says "this branch" and "this PR", and its false-positive section loses the quote markers. The git preamble, the output format, the confidence scales, and the sub-task steps are gone: the same reviewer reads the file, and "Validate" does the filtering. Upstream's second item 16 is renumbered.
 
-Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 6 and 7, the "Coverage" sentence and the pointer to `security.md` in `references/bugs.md`, the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
+Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 6 and 7, the "Coverage" sentence in `references/bugs.md`, the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
 
 Left out of the cut on purpose, for size: gstack's allowlist and `case` bullets under "Enum & Value Completeness", which "every consumer" covers, and thermos's "Over-reporting" second sentence.
 
@@ -67,6 +64,7 @@ Step 5's one finding per class of bug comes from the Claude Code team's [How the
 - From `thermo-nuclear-code-quality-review`: the primary questions, the list of what to flag, the list of preferred remedies, and the review tone phrases. Its standards and the Approval Bar list moved out: see "Quality rules in AGENTS.md".
 - From `ponytail-review`: the `shortcut:` comment convention and the `Lean:` line.
 - From `sol-loop`: the T3 tools, the default to Sol, and the token usage line.
+- From Anthropic's `/security-review`, a `references/security.md` was tried and dropped: see the comparison under "Why the review does not delegate".
 
 ## Why the reviewers are short
 
@@ -113,7 +111,7 @@ The loop is that unmeasured case: the session would re-review code it has just w
 
 The reviewer prefers another model after a run on 2026-10-29 in T3 Code: three merged `compitienda` pull requests (#1962, #1935, #1917), one run per reviewer model, each started by a GPT-6.1-Sol coordinator through `delegate_task` and its findings confirmed by that coordinator. Of seven distinct problems, a GPT-6.1-Sol reviewer found 2, GPT-6-Astra 4 and Claude Opus 5.5 6; Sol approved two pull requests that had confirmed problems. Opus took 2.7 to 12.5 minutes, the others 1.5 to 3.7. One run per cell, so this sets a default, not a ranking.
 
-The split of `review-changes` into a shared `SKILL.md` and reference files, with `references/security.md` added, ran on 2026-10-30 and 2026-10-31 in T3 Code against `main` as it stood: two merged `compitienda` pull requests (#1754 and #1985), one run per model and variant, Grok 4.7 Fast and Gemini 3.8 Flash at high effort. Findings were confirmed by reading the code at the pull request's head, not by running it. The old skill's runs found the inter-store wallet bug, an overlapping-retry error and a form that clears its quantity. The new skill's Grok runs found the wallet bug and an edit that loses stock on paid orders. The new skill's Gemini runs reported nothing on either pull request while the thoroughness lines were cut. With those lines back, a rerun on #1985 found the form bug and a rounding mismatch that no other run found, and a rerun on #1754 still approved and missed the wallet bug. One run per cell, so this keeps the thoroughness lines and shows no recall gap between the versions; it does not rank them.
+The split into a shared `SKILL.md` and reference files ran on 2026-10-30 and 2026-10-31 in T3 Code: two merged `compitienda` pull requests (#1754, authorization, and #1985, inventory), one run per model and variant, Grok 4.7 Fast and Gemini 3.8 Flash at high effort. Findings were confirmed by reading the code at the pull request's head. The new variant then also carried a `references/security.md` copied from Anthropic's `/security-review`, loaded for #1754. On #1985 the new variant did at least as well as the old one. On #1754, where that file loaded, both models reported less than with the old skill, and the file added no finding. Its goal is high confidence and little noise, which may carry over to the rest of the review, so it is out. One run per cell: this does not prove the file hurts, only that it earned no place. Gemini's first runs came after this skill had cut upstream's thoroughness lines. Those lines are back because they are upstream's text, not because the rerun proved them.
 
 ## How to update from upstream
 

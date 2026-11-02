@@ -10,8 +10,6 @@ Correctness, edge cases and error paths, security, performance, and the tests: d
 
 Flag code, tests, or guards the intent does not need. Do not flag issues that a linter will catch.
 
-When the change touches user input, authentication, permissions, secrets, crypto, deserialization, file or command execution, rendered output, or sensitive data in logs or responses, also follow [`security.md`](security.md).
-
 ## Enum & Value Completeness
 When the diff introduces a new enum value, status string, tier name, or type constant, or loosens what an input accepts (a new MIME type, extension or flag, or a widened validator/parser/guard):
 - **Trace it through every consumer.** Read (don't just grep — READ) each file that switches on, filters by, or displays that value. If any consumer doesn't handle the new value, flag it.
