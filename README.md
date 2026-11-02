@@ -50,8 +50,8 @@ Follow these steps when the user asks to install or update this setup. The same 
 | [`full-send`](./skills/full-send/SKILL.md), [`full-stop`](./skills/full-stop/SKILL.md) | Say "full send" or "full stop" and the agent takes the change to a PR alone: proof, `review-changes` loop, `file-pr`, `babysit-pr`. Full send merges when the PR is ready; full stop leaves it for you. From [`t3dotgg/tstack`](https://github.com/t3dotgg/tstack). |
 | [`implement`](./skills/implement/SKILL.md), [`implement-spec`](./skills/implement-spec/SKILL.md), [`spec-review`](./skills/spec-review/SKILL.md) | Matt Pocock's ticket flow, kept here so it calls `spec-review`, his two-axis review (Standards and Spec) renamed from `code-review` so it doesn't run when you just ask for a review. From [`mattpocock/skills`](https://github.com/mattpocock/skills). |
 | [`python-development`](./skills/python-development/SKILL.md) | Conventions for Python projects: `uv`, type hints, PEP 723 scripts. |
-| [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, and rules for modelling types. |
-| [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs. |
+| [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, `oxlint`, and rules for modelling types. |
+| [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs, running tests with nextest. |
 | [`golang-development`](./skills/golang-development/SKILL.md) | Conventions for Go projects, with a testing reference. |
 | [`no-comments`](./skills/no-comments/SKILL.md) | Removes comments from a diff with a fresh-context subagent and fixes the code the comments were excusing. Runs when you type `/no-comments`. |
 
