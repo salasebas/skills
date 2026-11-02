@@ -1,6 +1,6 @@
 ---
 name: typescript-development
-description: "Use whenever you write or change TypeScript or JavaScript code: strict mode, pnpm, modelling types."
+description: "Use whenever you write or change TypeScript or JavaScript code: strict mode, pnpm, oxlint, modelling types."
 ---
 
 # TypeScript
@@ -10,6 +10,7 @@ description: "Use whenever you write or change TypeScript or JavaScript code: st
 - Const by default, async/await over promise chains, optional chaining and nullish coalescing
 - Never hardcode styles - use theme/config
 - Use `pnpm` instead of `npm` unless the project explicitly requires another package manager
+- Lint with `oxlint` and format with `oxfmt`, unless the project already configures another linter or formatter
 
 ## Types
 
