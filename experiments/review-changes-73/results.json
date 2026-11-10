@@ -1,0 +1,530 @@
+[
+  {
+    "case": "cross",
+    "variant": "A",
+    "repeat": 1,
+    "seconds": 539.286,
+    "cost_usd": 2.8756,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1426,
+      "cacheReadInputTokens": 4140340,
+      "cacheCreationInputTokens": 139250,
+      "outputTokens": 46922
+    },
+    "total_tokens": 4327938,
+    "uncached_tokens": 187598,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "cross",
+    "variant": "A",
+    "repeat": 2,
+    "seconds": 548.916,
+    "cost_usd": 3.0893,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1436,
+      "cacheReadInputTokens": 5053055,
+      "cacheCreationInputTokens": 138659,
+      "outputTokens": 48661
+    },
+    "total_tokens": 5241811,
+    "uncached_tokens": 188756,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "cross",
+    "variant": "B",
+    "repeat": 1,
+    "seconds": 1457.496,
+    "cost_usd": 7.1759,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1558,
+      "cacheReadInputTokens": 12808960,
+      "cacheCreationInputTokens": 366092,
+      "outputTokens": 129900
+    },
+    "total_tokens": 13306510,
+    "uncached_tokens": 497550,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "cross",
+    "variant": "B",
+    "repeat": 2,
+    "seconds": 1457.443,
+    "cost_usd": 8.9775,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1620,
+      "cacheReadInputTokens": 17068360,
+      "cacheCreationInputTokens": 441282,
+      "outputTokens": 157610
+    },
+    "total_tokens": 17668872,
+    "uncached_tokens": 600512,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "cross",
+    "variant": "C",
+    "repeat": 1,
+    "seconds": 1200.939,
+    "cost_usd": 15.6207,
+    "subagents": 5,
+    "tokens": {
+      "inputTokens": 1852,
+      "cacheReadInputTokens": 25797584,
+      "cacheCreationInputTokens": 839872,
+      "outputTokens": 302556
+    },
+    "total_tokens": 26941864,
+    "uncached_tokens": 1144280,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "cross",
+    "variant": "C",
+    "repeat": 2,
+    "seconds": 891.068,
+    "cost_usd": 12.6741,
+    "subagents": 5,
+    "tokens": {
+      "inputTokens": 1790,
+      "cacheReadInputTokens": 19315955,
+      "cacheCreationInputTokens": 711404,
+      "outputTokens": 252816
+    },
+    "total_tokens": 20281965,
+    "uncached_tokens": 966010,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "A",
+    "repeat": 1,
+    "seconds": 162.172,
+    "cost_usd": 0.8573,
+    "subagents": 1,
+    "tokens": {
+      "inputTokens": 1633,
+      "cacheReadInputTokens": 772032,
+      "cacheCreationInputTokens": 69983,
+      "outputTokens": 13900
+    },
+    "total_tokens": 857548,
+    "uncached_tokens": 85516,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "A",
+    "repeat": 2,
+    "seconds": 232.214,
+    "cost_usd": 1.0576,
+    "subagents": 1,
+    "tokens": {
+      "inputTokens": 1643,
+      "cacheReadInputTokens": 1051829,
+      "cacheCreationInputTokens": 81785,
+      "outputTokens": 17828
+    },
+    "total_tokens": 1153085,
+    "uncached_tokens": 101256,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "B",
+    "repeat": 1,
+    "seconds": 139.129,
+    "cost_usd": 1.1232,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1635,
+      "cacheReadInputTokens": 721880,
+      "cacheCreationInputTokens": 102307,
+      "outputTokens": 18377
+    },
+    "total_tokens": 844199,
+    "uncached_tokens": 122319,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "B",
+    "repeat": 2,
+    "seconds": 172.413,
+    "cost_usd": 1.2165,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1641,
+      "cacheReadInputTokens": 810798,
+      "cacheCreationInputTokens": 102008,
+      "outputTokens": 22481
+    },
+    "total_tokens": 936928,
+    "uncached_tokens": 126130,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "C",
+    "repeat": 1,
+    "seconds": 172.89,
+    "cost_usd": 1.5553,
+    "subagents": 3,
+    "tokens": {
+      "inputTokens": 1659,
+      "cacheReadInputTokens": 1084250,
+      "cacheCreationInputTokens": 141872,
+      "outputTokens": 27275
+    },
+    "total_tokens": 1255056,
+    "uncached_tokens": 170806,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "loop",
+    "variant": "C",
+    "repeat": 2,
+    "seconds": 238.224,
+    "cost_usd": 1.9531,
+    "subagents": 3,
+    "tokens": {
+      "inputTokens": 1677,
+      "cacheReadInputTokens": 1481969,
+      "cacheCreationInputTokens": 165014,
+      "outputTokens": 35968
+    },
+    "total_tokens": 1684628,
+    "uncached_tokens": 202659,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "A",
+    "repeat": 1,
+    "seconds": 585.131,
+    "cost_usd": 5.5204,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1501,
+      "cacheReadInputTokens": 13263322,
+      "cacheCreationInputTokens": 256653,
+      "outputTokens": 40960
+    },
+    "total_tokens": 13562436,
+    "uncached_tokens": 299114,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "A",
+    "repeat": 2,
+    "seconds": 469.844,
+    "cost_usd": 3.5973,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1449,
+      "cacheReadInputTokens": 6566071,
+      "cacheCreationInputTokens": 194560,
+      "outputTokens": 36644
+    },
+    "total_tokens": 6798724,
+    "uncached_tokens": 232653,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "B",
+    "repeat": 1,
+    "seconds": 1237.334,
+    "cost_usd": 12.9914,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1663,
+      "cacheReadInputTokens": 35633926,
+      "cacheCreationInputTokens": 663704,
+      "outputTokens": 118201
+    },
+    "total_tokens": 36417494,
+    "uncached_tokens": 783568,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "B",
+    "repeat": 2,
+    "seconds": 1100.741,
+    "cost_usd": 12.5545,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1643,
+      "cacheReadInputTokens": 35414601,
+      "cacheCreationInputTokens": 643379,
+      "outputTokens": 104412
+    },
+    "total_tokens": 36164035,
+    "uncached_tokens": 749434,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "C",
+    "repeat": 1,
+    "seconds": 1118.824,
+    "cost_usd": 20.7017,
+    "subagents": 5,
+    "tokens": {
+      "inputTokens": 2003,
+      "cacheReadInputTokens": 48148513,
+      "cacheCreationInputTokens": 1098676,
+      "outputTokens": 268809
+    },
+    "total_tokens": 49518001,
+    "uncached_tokens": 1369488,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "mech",
+    "variant": "C",
+    "repeat": 2,
+    "seconds": 1017.975,
+    "cost_usd": 16.6481,
+    "subagents": 5,
+    "tokens": {
+      "inputTokens": 1947,
+      "cacheReadInputTokens": 34537238,
+      "cacheCreationInputTokens": 974858,
+      "outputTokens": 234736
+    },
+    "total_tokens": 35748779,
+    "uncached_tokens": 1211541,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "A",
+    "repeat": 1,
+    "seconds": 238.892,
+    "cost_usd": 1.4197,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1394,
+      "cacheReadInputTokens": 1739585,
+      "cacheCreationInputTokens": 87068,
+      "outputTokens": 19086
+    },
+    "total_tokens": 1847133,
+    "uncached_tokens": 107548,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "A",
+    "repeat": 2,
+    "seconds": 140.633,
+    "cost_usd": 0.8438,
+    "subagents": 0,
+    "tokens": {
+      "inputTokens": 1362,
+      "cacheReadInputTokens": 594572,
+      "cacheCreationInputTokens": 61885,
+      "outputTokens": 11803
+    },
+    "total_tokens": 669622,
+    "uncached_tokens": 75050,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "B",
+    "repeat": 1,
+    "seconds": 380.498,
+    "cost_usd": 2.5665,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1440,
+      "cacheReadInputTokens": 2553876,
+      "cacheCreationInputTokens": 190065,
+      "outputTokens": 47569
+    },
+    "total_tokens": 2792950,
+    "uncached_tokens": 239074,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "B",
+    "repeat": 2,
+    "seconds": 333.682,
+    "cost_usd": 2.5845,
+    "subagents": 2,
+    "tokens": {
+      "inputTokens": 1448,
+      "cacheReadInputTokens": 2838031,
+      "cacheCreationInputTokens": 197871,
+      "outputTokens": 44232
+    },
+    "total_tokens": 3081582,
+    "uncached_tokens": 243551,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "C",
+    "repeat": 1,
+    "seconds": 389.005,
+    "cost_usd": 3.5991,
+    "subagents": 3,
+    "tokens": {
+      "inputTokens": 1490,
+      "cacheReadInputTokens": 3986852,
+      "cacheCreationInputTokens": 274698,
+      "outputTokens": 63721
+    },
+    "total_tokens": 4326761,
+    "uncached_tokens": 339909,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  },
+  {
+    "case": "risk",
+    "variant": "C",
+    "repeat": 2,
+    "seconds": 393.101,
+    "cost_usd": 3.6864,
+    "subagents": 3,
+    "tokens": {
+      "inputTokens": 1492,
+      "cacheReadInputTokens": 4094562,
+      "cacheCreationInputTokens": 280033,
+      "outputTokens": 66124
+    },
+    "total_tokens": 4442211,
+    "uncached_tokens": 347649,
+    "models": [
+      "claude-haiku-5-5",
+      "claude-opus-5-5"
+    ],
+    "worktree_clean": true,
+    "is_error": false
+  }
+]
