@@ -55,10 +55,7 @@ or budget ends. Show both sides in 2-3 lines each. The user decides.
 Budget end is not approval.
 
 Do not push during the loop. Push after agreement only if the user asked
-to push, ship, or update the PR. If you push to a PR, add above the model
-blurb:
-
-`Reviewed with review-changes loop: <N> rounds with <model>. Verdict: approved`.
+to push, ship, or update the PR.
 
 Report: rounds, model, what the reviewer changed, diff size before/after, fixed and
 declined findings with reasons, pushed or not. Fixes made after the last round have not been reviewed: say so, and never present them as reviewed.

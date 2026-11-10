@@ -24,11 +24,6 @@ GOOD
 Write the description with the `pr` skill. If you weighed more than one viable
 approach, add a short `## Alternatives` section: what you rejected and why.
 
-End the description with the public model name and harness that made the
-changes, for example `Created with <model> in <harness>.` Include subagent
-models that wrote part of the change. Use the model name the harness reports.
-If model identity is unavailable, name the harness without guessing a model.
-
 Before submission, check the title, description, quotes, and attachments for
 secrets and private details.
 
