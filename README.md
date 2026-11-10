@@ -53,6 +53,7 @@ Follow these steps when the user asks to install or update this setup. The same 
 | [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, `oxlint`, and rules for modelling types. |
 | [`rust-development`](./skills/rust-development/SKILL.md) | Conventions for Rust projects: workspaces, crate features, public APIs, running tests with nextest. |
 | [`golang-development`](./skills/golang-development/SKILL.md) | Conventions for Go projects, with a testing reference. |
+| [`human-writer`](./skills/human-writer/SKILL.md) | Rewrites text, or writes it, so it reads like a person wrote it: short sentences in ASD-STE100 Simplified Technical English, with the same intent. Runs when you type `/human-writer`. |
 | [`no-comments`](./skills/no-comments/SKILL.md) | Removes comments from a diff with a fresh-context subagent and fixes the code the comments were excusing. Runs when you type `/no-comments`. |
 
 The language skills load only in a project that uses that language. They are copies of sammcj's skills, and the TypeScript one adds pstack's type rules; [`skills/THIRD_PARTY.md`](./skills/THIRD_PARTY.md) has the attribution.
