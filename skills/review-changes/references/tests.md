@@ -1,38 +1,36 @@
 # Tests reviewer
 
-Check that each test earns its upkeep: it catches a failure the other tests miss, and its expected result comes from somewhere other than the code it tests. The goal is useful coverage with little maintenance, not more tests or fewer. Zero findings is a valid result, and the number of tests removed is not a measure of the review.
+A test earns its upkeep when it catches a failure no other test catches, against an oracle (the source of its expected result) that is not the code it tests. Judge every test in scope by that. Zero findings is a valid result; the number of tests removed measures nothing.
 
-This file stands on its own. When the project's `AGENTS.md` or `CLAUDE.md` has its own test rules, check the tests against those too. [`bugs.md`](bugs.md) also looks at tests that cannot fail and at removed gates; report a problem both files find once.
+Check the tests the change adds, changes or removes, and the existing tests of the behavior it changes. Read nearby tests as needed to validate a finding. In a [tests audit](../SKILL.md#tests-audit), check every selected test. Apply the test rules in the project's `AGENTS.md` or `CLAUDE.md` too, when it has them.
 
-## What to check
+## Checks
 
-Check the tests the change adds, changes or removes, and the existing tests of the behavior it changes. Read nearby tests as needed to validate a finding, but do not audit unrelated suites. In a [tests audit](../SKILL.md#tests-audit), check every selected test.
+1. **Oracle.** Name what each case protects and where its expected result comes from: a requirement, a public contract, an invariant, or a reference the code must match. An expected value copied from the code's output, or computed with the helper the code uses, proves only that the code equals itself. A characterization test is sound when keeping today's behavior is the stated goal.
+2. **Assertion.** The assertion must observe the result the test claims: the return value, the error, the side effect, the stored record, the resource limit. A helper that drops the return value cannot prove it, and a test that asserts its own setup cannot fail.
+3. **Red.** A new or changed test needs evidence that it goes red without the fix: a failing run in the PR, check output, or a fix commit it would have caught. A syntax, import or setup failure is the wrong red. Missing evidence goes under `Not checked`; it does not make the test bad.
+4. **Mocks.** Name the real interaction each mock or fake skips. When it skips the part the test claims to check, propose a test that reaches the real part. A fake for a third-party service at its boundary is correct.
+5. **Level.** When the change touches a flow a user or client runs (sign-in, checkout, a CLI command, a public library call) and no test enters where that client does, flag it. When a pure rule (rounding, time zones, parsing) is tested only through a slow outer layer that hides its edge cases, flag that. The level alone is never a finding.
+6. **Duplication.** Compare look-alike tests by starting state, input class, entry point, asserted outcome and failure signal. Tests that differ in any of these protect different things, even when they share a helper, lines or a name. Table rows that reach the same rule and assert the same outcome are duplicates, and a dependency's own input matrix belongs to the dependency's tests.
+7. **Removal.** For each removed test or loosened assertion, name the test that still covers it. Keep regression tests of fixed bugs, entry-point wiring, error paths, state changes, and allocation or performance checks that protect a stated requirement.
 
-1. **What it protects.** Name the behavior or past bug each case guards, and where its expected result comes from: a requirement, a public contract, an invariant, or a named reference the code must match. A test whose expected value was copied from the code's output, or computed with the same helper the code uses, only proves the code equals itself. A characterization test is fine when keeping today's behavior is the stated goal.
-2. **What the assertion sees.** Confirm the assertion observes the result the test claims: the return value, the error, the side effect, the stored record, the resource limit. A helper that drops the return value cannot prove that value's contract. A test that asserts its own setup, or has no way to fail, protects nothing.
-3. **Proof that it fails.** For a new or changed test, look for evidence that it fails without the fix: a red run in the PR, check output, or a fix commit it would have caught. A failure from syntax, imports or setup is not that evidence. Missing evidence goes under `Not checked`; it does not prove the test is bad.
-4. **Mocks.** Name the real interaction a mock or fake skips. A test that mocks the part it claims to check verifies nothing, so propose a test that reaches the real part. A fake for a third-party service at its boundary is not a finding.
-5. **The level.** When the change touches a flow that a user or client runs (sign-in, checkout, a CLI command, a public library call) and no test enters where that client does, flag it: tests of the parts cannot show the wiring, routing or input mapping works. When a pure rule (rounding, time zones, parsing) is tested only through a slow outer layer that hides its edge cases, flag that too. Do not flag a test only for its level.
-6. **Duplication.** Compare tests that look alike by precondition, asserted outcome and failure signal: starting state, storage path, boundary input, entry point. The same helper, the same covered lines, or similar names do not make tests duplicates. Table rows that reach the same rule and assert the same outcome add nothing, and a dependency's own input matrix belongs to the dependency.
-7. **Removed or weakened tests.** For each removed test or loosened assertion, name the test that still covers it. Keep the regression test of a fixed bug, entry-point wiring, error paths, state changes, and allocation or performance checks that protect a stated requirement.
-
-Test length, assertion count, coverage and mutation scores show where to look. They are never findings or quotas by themselves. There is no correct ratio of unit, integration and end-to-end tests.
+Length, assertion count, coverage and mutation scores point where to look; they are never findings or quotas by themselves. No ratio of unit, integration and end-to-end tests is the right one.
 
 ## Severity
 
-A wrong expected value that hides a real bug is Must fix. A risky path with no test that can fail on it, a mock that skips the behavior under test, and proven duplication are Should fix.
+A wrong oracle that hides a real bug is Must fix. A risky path with no test that can go red on it, a mock that skips the behavior under test, and proven duplication are Should fix.
 
 ## Evidence for a removal
 
-A finding that proposes to delete or merge tests also names:
+A finding that proposes to delete or merge tests names:
 
 - the exact cases to remove or merge, with file:line;
 - the exact tests and assertions that keep the protection;
-- why their preconditions, outcomes and failure signals match, for each dimension of a table or matrix;
+- why their starting state, input class, entry point, outcome and failure signal match, for each dimension of a table or matrix;
 - why regression and public-contract coverage survive.
 
-Without that comparison it is not a finding. If the code cannot settle it, keep the tests and name the question under `Not checked`.
+When the code cannot settle that comparison, keep the tests and name the open question under `Not checked`.
 
-## Stay read-only
+## Evidence comes from the record
 
-Do not break working code to watch a test fail, install tools, or run the full suite to complete this checklist. Proving that a test fails is the author's job.
+Work from evidence that already exists: the PR's runs, check output, commits and the code. Breaking working code to watch a test go red, installing tools and running the full suite are the author's job.

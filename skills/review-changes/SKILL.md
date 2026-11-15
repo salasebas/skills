@@ -41,7 +41,7 @@ Any other change, review in this session. A reviewer never starts a reviewer.
 3. Review the change, following each reference file in turn:
    - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
    - [`references/instructions.md`](references/instructions.md): compliance with the project's `AGENTS.md` and `CLAUDE.md`, code-quality rules included.
-   - [`references/tests.md`](references/tests.md): whether the tests the change touches, and the tests of the behavior it changes, catch real failures without duplicating each other.
+   - [`references/tests.md`](references/tests.md): whether each test the change touches, or that covers the behavior it changes, has a real oracle, can go red, and repeats no other test.
 4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Zero findings is an acceptable outcome.
 5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
 6. [Validate](#validate) every finding.
@@ -72,7 +72,7 @@ Runs when the user passes `tests` with the request, or asks in words to audit ex
 - **Reviewer:** an audit runs in this session, even on tests this session wrote. It starts no reviewer.
 - **Report:** after `What this change does:`, which here says what the tests cover, add `Scope:` with what was examined and what was not.
 
-`tests` changes what is reviewed, not what is allowed: no edits, no GitHub posts, no extra subagents, and no [Loop](#loop) unless the user also passes `loop`.
+`tests` changes the scope only. The audit stays read-only, posts nothing, starts no subagents, and enters [Loop](#loop) only when the user also passes `loop`.
 
 ## Validate
 
