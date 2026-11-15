@@ -32,13 +32,14 @@ alwaysApply: true
 - Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. The full suite runs in CI; run it locally only when the user asks.
 
 ## Tests
-- Before adding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario.
-- Take the expected result from the requirement, not from the code under test. Passing tests or another agent's agreement do not establish correctness.
-- See a new test fail before trusting it: run it against the code without the change, or break the behavior it covers.
-- When an existing test fails, fix the code. Change the test's expected result only when the requirement changed, and name that requirement.
-- Prefer a test that enters where a client does (the endpoint, the job, the command, the UI) and runs the real database, faking only third-party services. Go lower only when that layer cannot reach the failure cheaply.
-- Test a business rule once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation.
-- Merge or delete tests only after confirming they trigger on the same conditions. Keep the regression test of a fixed bug.
+- Before adding or materially expanding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario. A different input alone is not a different failure.
+- Take the expected result from the requirement, a public contract, a documented invariant, or a named reference the code must match, never from the output of the code under test. Passing tests, coverage, mutation scores, or another agent's agreement do not establish correctness.
+- Prefer a test that enters where a client does: the endpoint, job, command, or UI of an app, or the public API of a library. Use the real dependencies the project owns (database, files, native extensions) when their interaction is part of the contract, and fake only third-party services, at their boundary. Test a pure rule, such as parsing, rounding, or time zones, directly when no outer layer adds a relevant interaction.
+- Test each business rule's cases once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation. Repeat a case at another layer only when it protects a different failure. Test our decisions about a dependency, not the dependency's own input matrix.
+- See a new test fail for the intended reason before trusting it: run it against the code without the change, or against a temporary fault you then remove. A failure from syntax, imports, or setup does not count.
+- When an existing test fails, fix the code if the test matches the requirement. Change the test or fixture only with evidence that the requirement changed or the expectation was wrong, and name that evidence. Never copy the current output into the test to make it pass.
+- Merge or delete tests only after comparing their preconditions, assertions, and failure signals, and naming the tests that still cover the case. Running the same code or lines does not make tests redundant. Keep the regression test of a fixed bug, distinct entry-point contracts, and boundary and state cases.
+- Keep allocation, performance, and compatibility checks that protect a stated requirement. A mock, many assertions, or a long test is not a defect by itself.
 
 ## Comments
 - Code carries only these comments:
