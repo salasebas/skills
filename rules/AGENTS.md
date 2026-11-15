@@ -32,14 +32,14 @@ alwaysApply: true
 - Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. The full suite runs in CI; run it locally only when the user asks.
 
 ## Tests
-- Before adding or materially expanding a test, name the failure it catches, where the expected result comes from, and why no existing test catches it. Extend the existing test when one already owns the scenario. A different input alone is not a different failure.
-- Take the expected result from the requirement, a public contract, a documented invariant, or a named reference together with the compatibility contract that makes it the reference, never from the output of the code under test. Passing tests, coverage, mutation scores, or another agent's agreement do not establish correctness.
-- Prefer a test that enters where a client does: the endpoint, job, command, or UI of an app, or the public API of a library. Use the real dependencies the project owns (database, files, native extensions) when their interaction is part of the contract, and fake third-party services at their boundary. To isolate a unit, replace only collaborators outside the behavior being checked, and keep a test of the real interaction where it matters. Test a pure rule, such as parsing, rounding, or time zones, directly when no outer layer adds a relevant interaction.
-- Test each business rule's cases once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation. Repeat a case at another layer only when it protects a different failure. Test our decisions about a dependency, not the dependency's own input matrix.
-- See a new test fail for the intended reason before trusting it: run it against the code without the change, or against a temporary fault you then remove, and see it pass with the fix. A failure from syntax, imports, or setup does not count.
-- When an existing test fails, fix the code if the test matches the requirement. Change the test or fixture only with evidence that the requirement changed or the expectation was wrong, and name that evidence. Never copy the current output into the test to make it pass.
-- Merge or delete tests only after comparing their preconditions, assertions, and failure signals, and naming the tests that still cover the case. Running the same code or lines does not make tests redundant. Keep the regression test of a fixed bug, distinct entry-point contracts, and boundary and state cases.
-- Keep allocation, operation-count, performance, and compatibility checks that protect a stated requirement, and assert those contracts rather than incidental private structure. A mock, many assertions, or a long test is not a defect by itself.
+- Before adding a test, name the failure it catches, its oracle (where the expected result comes from), and why no existing test catches it. Extend the existing test when one already owns the scenario.
+- Take the oracle from the requirement or a public contract. The output of the code under test, passing tests, coverage, and another agent's agreement are not oracles.
+- Watch a new test go red for the intended reason before trusting it: run it against the code without the change, or break the behavior it covers. A syntax, import, or setup error is the wrong red.
+- When an existing test fails, fix the code. Change the test only with evidence that the requirement changed or the test was wrong, and name that evidence.
+- Prefer a test that enters where a client does (an app's endpoint, job, command, or UI; a library's public API) with the real dependencies the project owns, faking only third-party services. Test a pure rule, such as parsing or rounding, directly.
+- Test a business rule once, at the layer that owns it. Each entry point that reaches it gets a thin test of its own work: routing, authorization, input mapping, error translation.
+- Add a row to a test table only when it catches a failure the other rows miss; a new input is not a new failure. Test how the code uses a dependency, and leave the dependency's own inputs to its tests.
+- Merge or delete tests only after naming the test that still catches the same failure; running the same lines is not enough. Keep the regression test of a fixed bug.
 
 ## Comments
 - Code carries only these comments:
