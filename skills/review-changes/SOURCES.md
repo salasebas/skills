@@ -48,6 +48,15 @@ These are the only places where the text differs from upstream, beyond deleted s
 
 Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 6 and 7, the "Coverage" and moved-code sentences in `references/bugs.md`, the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
 
+Also written for this repo: "Tests audit" in `SKILL.md` and all of `references/tests.md`, from [#80](https://github.com/salasebas/skills/issues/80). The test rules in `rules/AGENTS.md` ([#79](https://github.com/salasebas/skills/issues/79)) apply when tests are written; `references/tests.md` is the review lens and stands on its own, so the skill works for someone who installs it without those rules. Its checks rest on these sources:
+
+- Hora and Robbes, [Are Coding Agents Generating Over-Mocked Tests?](https://arxiv.org/abs/2602.00409), MSR 2026: agent commits add mocks more often than human ones. Frequency does not make a single mock wrong, so check 4 asks for the skipped interaction.
+- Kun Chen's [deepswe run](https://x.com/kunchenguid/status/2108030810691629403), 2026-10-07: banning the agent from writing tests did not lower its success rate, and most of its tests restated the implementation. One task at a time, so it measures no regression value and no end-to-end tests. Check 1, on where the expected result comes from.
+- Momentic, [Your coding agent shouldn't grade its own homework](https://stackoverflow.blog/2026/11/13/your-coding-agent-shouldn-t-grade-its-own-homework), 2026-11-13: a human audit of 1,000 agent-written unit tests in its own monorepo kept 9.6% as useful; 22.8% duplicated coverage and 22.4% leaned on mocks. Momentic sells end-to-end testing. Checks 4 to 6.
+- Simon Willison, [Agentic manual testing](https://simonwillison.net/guides/agentic-engineering-patterns/agentic-manual-testing/): unit tests from red/green TDD, plus checks of the running program, with what they find turned into permanent tests. Check 5.
+
+None of them sets a ratio of unit, integration and end-to-end tests, so the file sets none.
+
 Left out of the cut on purpose, for size: gstack's allowlist and `case` bullets under "Enum & Value Completeness", which "every consumer" covers, and thermos's "Over-reporting" second sentence.
 
 ## Quality rules in AGENTS.md

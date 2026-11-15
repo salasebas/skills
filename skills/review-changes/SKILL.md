@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: "Use when the user asks to review a change: uncommitted work, a commit, a branch, or a PR. Checks for bugs and for breaks of AGENTS.md and CLAUDE.md, and validates each finding. With `loop`, a fresh reviewer reviews in rounds while this session fixes."
+description: "Use when the user asks to review a change: uncommitted work, a commit, a branch, or a PR. Checks for bugs, for breaks of AGENTS.md and CLAUDE.md, and for tests that catch nothing, and validates each finding. With `tests`, or a request to audit existing tests, it reviews test suites without a diff. With `loop`, a fresh reviewer reviews in rounds while this session fixes."
 ---
 
 # Review Changes
@@ -41,6 +41,7 @@ Any other change, review in this session. A reviewer never starts a reviewer.
 3. Review the change, following each reference file in turn:
    - [`references/bugs.md`](references/bugs.md): bugs, breakages, security, devex regressions, feature-flag leaks, and other branch-audit risks.
    - [`references/instructions.md`](references/instructions.md): compliance with the project's `AGENTS.md` and `CLAUDE.md`, code-quality rules included.
+   - [`references/tests.md`](references/tests.md): whether the tests the change touches, and the tests of the behavior it changes, catch real failures without duplicating each other.
 4. Record findings with file references and evidence, grouped as Must fix, Should fix or Nice to have as defined under [Report](#report). Zero findings is an acceptable outcome.
 5. Deduplicate the findings. When several findings are one class of bug, report it once and list every location, so the fix covers all of them.
 6. [Validate](#validate) every finding.
@@ -60,7 +61,17 @@ Review what the user names: uncommitted or staged changes, a branch, a PR link, 
 
 Read the surrounding code at the revision under review. When that revision is checked out, read the files on disk. Otherwise stay on the current branch and read from the revision: `git show <ref>:<path>` and `git grep <pattern> <ref>`, after `git fetch origin pull/<number>/head` for a PR.
 
-Confirm the diff is non-empty before reviewing.
+Confirm the diff is non-empty before reviewing, except in a tests audit.
+
+### Tests audit
+
+Runs when the user passes `tests` with the request, or asks in words to audit existing tests. A request to review a change is not one.
+
+- **Scope:** the test files or suite the user names, else every test suite in the repository, plus the production code needed to see what they protect. No diff is needed; a clean tree is fine.
+- **Workflow:** step 3 follows only [`references/tests.md`](references/tests.md); the other steps are unchanged.
+- **Report:** after `What this change does:`, which here says what the tests cover, add `Scope:` with what was examined and what was not.
+
+`tests` changes what is reviewed, not what is allowed: no edits, no GitHub posts, no extra subagents, and no [Loop](#loop) unless the user also passes `loop`.
 
 ## Validate
 
