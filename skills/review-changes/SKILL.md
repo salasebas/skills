@@ -68,7 +68,8 @@ Confirm the diff is non-empty before reviewing, except in a tests audit.
 Runs when the user passes `tests` with the request, or asks in words to audit existing tests. A request to review a change is not one.
 
 - **Scope:** the test files or suite the user names, else every test suite in the repository, plus the production code needed to see what they protect. No diff is needed; a clean tree is fine.
-- **Workflow:** step 3 follows only [`references/tests.md`](references/tests.md); the other steps are unchanged.
+- **Workflow:** step 2 gathers the selected tests and that production code instead of a diff. Step 3 follows only [`references/tests.md`](references/tests.md). The other steps are unchanged.
+- **Reviewer:** an audit runs in this session, even on tests this session wrote. It starts no reviewer.
 - **Report:** after `What this change does:`, which here says what the tests cover, add `Scope:` with what was examined and what was not.
 
 `tests` changes what is reviewed, not what is allowed: no edits, no GitHub posts, no extra subagents, and no [Loop](#loop) unless the user also passes `loop`.
