@@ -24,8 +24,11 @@ alwaysApply: true
 - When you add a value to an enum, status, or type, or widen what an input accepts, update every place that switches on, filters, stores, or displays it.
 - Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
 
-## Review
+## Skills
 - To review changes, use the `review-changes` skill.
+- Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
+
+## Review
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
 ## Verification
