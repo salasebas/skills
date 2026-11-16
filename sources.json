@@ -155,13 +155,6 @@
       "skillFolderHash": "b644b684781fd5baae57f6be000a180a4d4448d7",
       "updatedAt": "2026-10-30T05:48:40.704Z"
     },
-    "shell-scripting": {
-      "source": "sammcj/agentic-coding",
-      "sourceUrl": "https://github.com/sammcj/agentic-coding.git",
-      "skillPath": "skills/shell-scripting/SKILL.md",
-      "skillFolderHash": "",
-      "updatedAt": "2026-10-11T07:56:29.263Z"
-    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
