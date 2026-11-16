@@ -29,7 +29,7 @@ Follow these steps when the user asks to install or update this setup. The same 
    | Writing | `cursor/plugins`, `sammcj/agentic-coding` |
    | Everything else | `addyosmani/agent-skills`, `vercel-labs/skills` |
 
-   `writing-documentation-with-diataxis` no longer installs, because its author disabled it. Never pass `-s '*'` for `mattpocock/skills`. It would replace this repo's `implement` and `implement-spec`, and add a `code-review` that competes with `review-changes`.
+   Never pass `-s '*'` for `mattpocock/skills`. It would replace this repo's `implement` and `implement-spec`, and add a `code-review` that competes with `review-changes`.
 
 4. **Update.** Run step 1, then:
 
@@ -93,7 +93,7 @@ These are not copied here. Install any of them with `npx skills add <source> -g 
 | --- | --- |
 | [`mattpocock/skills`](https://github.com/mattpocock/skills) | `ask-matt`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `improve-codebase-architecture`, `pr`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `teach`, `to-spec`, `to-tickets`, `triage`, `wait-what`, `wayfinder`, `writing-for-agents` |
 | [`emilkowalski/skills`](https://github.com/emilkowalski/skills) | `animation-performance`, `animation-vocabulary`, `emil-design-eng`, `improve-animations`, `mobile-native`, `pick-ui-library`, `review-animations` |
-| [`sammcj/agentic-coding`](https://github.com/sammcj/agentic-coding) | `shell-scripting`, `writing-documentation-with-diataxis` |
+| [`sammcj/agentic-coding`](https://github.com/sammcj/agentic-coding) | `shell-scripting` |
 | [`cursor/plugins`](https://github.com/cursor/plugins), `pstack` | `technical-writing`, `unslop` |
 | `cursor/plugins`, `cursor-team-kit` | `deslop` |
 | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) | `vercel-composition-patterns`, `vercel-react-best-practices`, `web-design-guidelines` |

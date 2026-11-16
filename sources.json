@@ -246,13 +246,6 @@
       "skillFolderHash": "3116f3e62dbd02b44a598b1aa690d2a8938e8f89",
       "updatedAt": "2026-10-11T08:15:44.793Z"
     },
-    "writing-documentation-with-diataxis": {
-      "source": "sammcj/agentic-coding",
-      "sourceUrl": "https://github.com/sammcj/agentic-coding.git",
-      "skillPath": "Skills_disabled/diataxis-documentation/SKILL.md",
-      "skillFolderHash": "ef9e7b7ba410a34a856c17f1345c1001cdef1fa6",
-      "updatedAt": "2026-10-04T05:39:19.010Z"
-    },
     "writing-for-agents": {
       "source": "mattpocock/skills",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
