@@ -16,7 +16,7 @@ Use a reviewer when this session wrote the change, and in every round of [Loop](
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
 
-Use the model the user names; if no route runs it, report the blocker. Unnamed: another vendor's model, else another model, else the session's.
+Use the model the user names; if no route runs it, report the blocker. Unnamed: the strongest model from another vendor, else the strongest other model, else the session's, at `high` effort.
 
 State intent and out-of-scope in 1-2 sentences, run covering checks, and note missing or failing ones in the brief (the reviewer gets no history):
 
@@ -84,7 +84,7 @@ Treat each finding as a hypothesis to confirm or refute, not an instruction to m
 - **Quote the specific code line:** file:line and verbatim text. For a missing field, quote its class definition; for a nullable value, its initialization; for a race, both sides.
 - For framework-generated symbols, read and quote their generating metaclass, descriptor, ORM Meta block, migration, decorator or schema. Missing literal names in the class body or grep results do not prove absence.
 - **If you cannot quote the motivating line(s), the finding is unverified.**
-- Propose the smallest fix that works. Prefer fixes that delete code. Never add layers, frameworks or config the problem does not need.
+- Propose the root-cause fix with the least code. Prefer fixes that delete code. Never add layers, frameworks or config the problem does not need.
 - No style taste, no "consider", no vague worries.
 
 Validation is done when every finding is confirmed, refuted and dropped, or named under `Not checked`.

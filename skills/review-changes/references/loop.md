@@ -2,7 +2,7 @@
 
 Use a reviewer to review your code in a loop.
 
-Make the most minimal possible changes to appease the reviewer. Be careful
+Make the fewest changes that fix each finding at its root cause. Be careful
 of scope creep and don't be scared to push back.
 
 ## Budget
@@ -30,7 +30,7 @@ Start one every round as in [Reviewer](../SKILL.md#reviewer).
 Check each finding and severity yourself. Another path, rare case, or
 small cost is Nice to have, whatever label it came with.
 
-- Agree: smallest fix. Prefer delete or narrow over new lock, cache,
+- Agree: root-cause fix, least code. Prefer delete or narrow over new lock, cache,
   helper, or option. Fix the case that happened. Add one focused test
   that fails without the fix, if intent needs it.
 - Disagree: say why, with evidence (file:line, test, output).
