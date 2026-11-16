@@ -31,7 +31,7 @@ alwaysApply: true
 
 ## Skills
 - To review changes, use the `review-changes` skill.
-- Before you write, change, or review code, load the skill for its language: `rust-development`, `typescript-development`, `python-development`, `golang-development`, or `shell-scripting` for shell scripts.
+- Before you write, change, or review code, load the skill for its language: `rust-development`, `typescript-development`, `python-development`, or `golang-development`.
 - Before you write or change UI, load `good-css` for any styles (CSS files, Tailwind classes, inline styles) and `vercel-react-best-practices` for React or Next.js code.
 - When you create a React component or change its props, load `vercel-composition-patterns`.
 - Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
