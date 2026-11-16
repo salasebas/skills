@@ -35,6 +35,8 @@ alwaysApply: true
 - Before you write or change UI, load `good-css` for any styles (CSS files, Tailwind classes, inline styles) and `vercel-react-best-practices` for React or Next.js code.
 - When you create a React component or change its props, load `vercel-composition-patterns`.
 - Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
+- When you write or change an animation, load `motion`.
+- When you write or change Playwright tests, load `playwright-best-practices`.
 - Before you write or review documentation (READMEs, guides, RFCs), read `~/.agents/skills/technical-writing/SKILL.md` and follow it; the skill cannot be invoked as a tool.
 - Before you create or edit a skill, `AGENTS.md`, or `CLAUDE.md`, load `writing-for-agents`.
 
