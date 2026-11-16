@@ -48,6 +48,8 @@ one appears.
    branch, create a branch first.
 2. **Prove it.** Get proof for every change you made. See "Proof".
 3. **Get feedback.** Run the `review-changes` skill with `loop` to verify changes.
+   When the user names the reviewer's model, pass it to the skill; the skill
+   still runs every round.
 4. **File the PR** with the `file-pr` skill. Rebase onto the latest default
    branch first. Add one short line to the description that says how you proved
    the change.
