@@ -20,7 +20,7 @@ alwaysApply: true
 - Before designing an integration, an architecture, or a non-trivial pattern, study the prior art: the tool's documentation and established projects that solved the same problem. Judge whether each solution holds up and fits this repository, build on what does, and name the sources.
 
 ## UI
-- Before UI or design-related work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
+- Before UI work, read the project's `DESIGN.md` or similar design files (a design system, tokens, a style guide) when they exist, and take colors, typography, spacing and component styles from them.
 
 ## Code quality
 - Prefer the version that deletes complexity over one that moves it around: when behavior can stay the same with fewer branches, helpers, modes, or layers, write that version.
