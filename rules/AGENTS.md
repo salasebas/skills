@@ -31,6 +31,7 @@ alwaysApply: true
 
 ## Skills
 - To review changes, use the `review-changes` skill.
+- Before you write, change, or review code, load the skill for its language: `rust-development`, `typescript-development`, `python-development`, or `golang-development`.
 - Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
 
 ## Review
