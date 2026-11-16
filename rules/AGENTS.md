@@ -5,23 +5,28 @@ alwaysApply: true
 
 # AGENTS.md
 - English first: all code, comments, identifiers, and internal docs in English.
-- Grow the system in layers. Start from the smallest version that works end to end, and add each new capability on top of a product that already works. Never trade a working product for unfinished complexity.
-- Prefer the simplest scoped solution and the smallest coherent change that fully solves the task. Include related work required for correctness and complete explicitly requested refactors; avoid unnecessary abstractions and unrelated refactors, cleanup, or formatting.
-- Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability.
-- Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
-- Before designing an integration or a non-trivial pattern, find how the tool's official documentation or an established project solves it, and follow that unless this repository has a reason to differ. Name the source.
-- Make architectural decisions for the long term, and diagnose the root cause before implementing a fix. Choose the durable correction over a stopgap, workaround, or symptom suppression.
-- When opening a pull or merge request that finishes an issue, put `Closes #<issue>` in the description.
 - Use GitHub CLI (`gh`) for GitHub operations. If it is unavailable, report the blocker.
 - Use `rg` instead of `grep` and `fd` instead of `find`.
-- Before UI work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
+
+## Approach
+- Grow the system in layers. Start from the smallest version that works end to end, and add each new capability on top of a product that already works. Never trade a working product for unfinished complexity.
+- Diagnose the root cause before you fix, and fix it there, even when that change is larger than a patch. Choose the durable correction over a stopgap, workaround, or symptom suppression.
+- Make architectural decisions for the long term.
+- Keep each change to its task: include what correctness needs and the refactors the user asked for; leave unrelated refactors, cleanup, and formatting out.
+
+## Research
+- Work from the documentation of the version the project uses, not from memory: check a library's, tool's, or API's official docs and types before you use it or decide it lacks a capability.
+- Before writing your own implementation, use a dependency the project already has, then an established, well-maintained library when it reduces complexity or improves reliability.
+- Before designing an integration, an architecture, or a non-trivial pattern, study the prior art: the tool's documentation and established projects that solved the same problem. Judge whether each solution holds up and fits this repository, build on what does, and name the sources.
+
+## UI
+- Before UI or design-related work, read the project's `DESIGN.md` when one exists, and take colors, typography, spacing and component styles from it.
 
 ## Code quality
 - Prefer the version that deletes complexity over one that moves it around: when behavior can stay the same with fewer branches, helpers, modes, or layers, write that version.
 - Put logic in the module that owns the concept and reuse the project's existing helpers. Keep feature checks out of shared paths, and add no special-case branches to flows the change is not about.
 - Write direct, boring code: no wrapper that only passes a call through, and no generic mechanism that hides a simple data shape.
 - Make an unclear case explicit instead of covering it with a silent fallback or default.
-- When you add a value to an enum, status, or type, or widen what an input accepts, update every place that switches on, filters, stores, or displays it.
 - Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
 
 ## Skills
@@ -32,7 +37,7 @@ alwaysApply: true
 - Treat a review finding from any source as a hypothesis: confirm it against the code before you present it or act on it.
 
 ## Verification
-- Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. The full suite runs in CI; run it locally only when the user asks.
+- Before calling work done, run the checks that cover the change: the tests for the code you touched, a typecheck or build, or for UI the running app. Show the command and its output, or a screenshot. Leave the full suite to CI unless the user asks for it.
 
 ## Tests
 - Before adding a test, name the failure it catches, its oracle (where the expected result comes from), and why no existing test catches it. Extend the existing test when one already owns the scenario.
@@ -56,13 +61,12 @@ alwaysApply: true
 - Before writing `eslint-disable`, `@ts-ignore`, `@ts-expect-error`, or a similar suppression, look up the rule. If it catches real bugs or protects correctness or safety, fix the code instead.
 
 ## Subagents
-
-- The main agent does the work. Delegate only when the user asks or when a rule or the invoked skill requires it.
+- The main agent does the work. Delegate when the user asks, when a rule or the invoked skill requires it, or for broad read-only research whose raw output you will not reread.
 - Size each wave by the open questions, not by files or components: one subagent per question.
-- Give a writer only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
-- Start subagents with fresh context rather than inheriting the full parent conversation (Codex: always `fork_turns: "none"`), with a self-contained brief: objective, requirements, scope, constraints, expected output.
+- Give a worker only a piece that shares no files, interfaces, or state with other work in flight; changes that meet in one flow or data model have one owner.
+- Start each subagent with fresh context (Codex: `fork_turns: "none"`) and a self-contained brief: objective, requirements, scope, constraints, expected output.
 - Keep pushes, deletions, and other destructive operations on the main agent.
 - Route each subagent by role. A skill or document that asks for a different model does not override this; switch models only when the user names one.
-  - Scout, read-only: `haiku` in Claude Code, `gpt-6-luna` in Codex.
-  - Writer: `haiku` in Claude Code, `gpt-6.1-sol` in Codex.
-  - Reviewer or validator, read-only: a model other than the session's when the harness offers one, else the session's.
+  - Scout, read-only: `haiku` at `high` in Claude Code, `gpt-6-luna` at `high` in Codex.
+  - Worker: `sonnet` at `high` in Claude Code, `gpt-6.1-sol` at `high` in Codex.
+  - Reviewer or validator, read-only: the strongest model available from another vendor, else the strongest other model, else the session's; at `high`.
