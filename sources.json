@@ -155,13 +155,6 @@
       "skillFolderHash": "b644b684781fd5baae57f6be000a180a4d4448d7",
       "updatedAt": "2026-10-30T05:48:40.704Z"
     },
-    "shell-scripting": {
-      "source": "sammcj/agentic-coding",
-      "sourceUrl": "https://github.com/sammcj/agentic-coding.git",
-      "skillPath": "skills/shell-scripting/SKILL.md",
-      "skillFolderHash": "",
-      "updatedAt": "2026-10-11T07:56:29.263Z"
-    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
@@ -245,13 +238,6 @@
       "skillPath": "skills/web-design-guidelines/SKILL.md",
       "skillFolderHash": "3116f3e62dbd02b44a598b1aa690d2a8938e8f89",
       "updatedAt": "2026-10-11T08:15:44.793Z"
-    },
-    "writing-documentation-with-diataxis": {
-      "source": "sammcj/agentic-coding",
-      "sourceUrl": "https://github.com/sammcj/agentic-coding.git",
-      "skillPath": "Skills_disabled/diataxis-documentation/SKILL.md",
-      "skillFolderHash": "ef9e7b7ba410a34a856c17f1345c1001cdef1fa6",
-      "updatedAt": "2026-10-04T05:39:19.010Z"
     },
     "writing-for-agents": {
       "source": "mattpocock/skills",

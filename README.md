@@ -26,10 +26,10 @@ Follow these steps when the user asks to install or update this setup. The same 
    | --- | --- |
    | Always: skills here call `pr`, `tdd` and `babysit-pr` | `mattpocock/skills`, `t3dotgg/tstack` |
    | Frontend | `emilkowalski/skills`, `vercel-labs/agent-skills`, `vojtaholik/good-css`, `motiondivision/ai-kit`, `currents-dev/playwright-best-practices-skill`, `vercel-labs/agent-browser` |
-   | Writing | `cursor/plugins`, `sammcj/agentic-coding` |
+   | Writing | `cursor/plugins` |
    | Everything else | `addyosmani/agent-skills`, `vercel-labs/skills` |
 
-   `writing-documentation-with-diataxis` no longer installs, because its author disabled it. Never pass `-s '*'` for `mattpocock/skills`. It would replace this repo's `implement` and `implement-spec`, and add a `code-review` that competes with `review-changes`.
+   Never pass `-s '*'` for `mattpocock/skills`. It would replace this repo's `implement` and `implement-spec`, and add a `code-review` that competes with `review-changes`.
 
 4. **Update.** Run step 1, then:
 
@@ -37,7 +37,7 @@ Follow these steps when the user asks to install or update this setup. The same 
    npx skills update -g
    ```
 
-   It compares each skill's folder with the source repo, so it picks up fixes without a version bump. It cannot check `shell-scripting`.
+   It compares each skill's folder with the source repo, so it picks up fixes without a version bump.
 
 5. **Check.** `npx skills list -g` shows the skills, and `cmp` on the file from step 1 and `~/.agents/AGENTS.md` is silent unless the user kept local changes. An error saying PromptScript does not support global installation is harmless.
 
@@ -93,7 +93,6 @@ These are not copied here. Install any of them with `npx skills add <source> -g 
 | --- | --- |
 | [`mattpocock/skills`](https://github.com/mattpocock/skills) | `ask-matt`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-me`, `grill-with-docs`, `grilling`, `handoff`, `improve-codebase-architecture`, `pr`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `teach`, `to-spec`, `to-tickets`, `triage`, `wait-what`, `wayfinder`, `writing-for-agents` |
 | [`emilkowalski/skills`](https://github.com/emilkowalski/skills) | `animation-performance`, `animation-vocabulary`, `emil-design-eng`, `improve-animations`, `mobile-native`, `pick-ui-library`, `review-animations` |
-| [`sammcj/agentic-coding`](https://github.com/sammcj/agentic-coding) | `shell-scripting`, `writing-documentation-with-diataxis` |
 | [`cursor/plugins`](https://github.com/cursor/plugins), `pstack` | `technical-writing`, `unslop` |
 | `cursor/plugins`, `cursor-team-kit` | `deslop` |
 | [`vercel-labs/agent-skills`](https://github.com/vercel-labs/agent-skills) | `vercel-composition-patterns`, `vercel-react-best-practices`, `web-design-guidelines` |
