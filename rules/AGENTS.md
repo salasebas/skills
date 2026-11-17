@@ -31,7 +31,7 @@ alwaysApply: true
 
 ## Skills
 - To review changes, use the `review-changes` skill.
-- Before you write, change, or review code, load the skill for its language: `rust-development`, `typescript-development`, `python-development`, or `golang-development`.
+- Before you write, change, or review code, load the skill for its language: `rust-best-practices`, `typescript-development`, `python-development`, or `golang-development`.
 - Before you write or change UI, load `good-css` for any styles (CSS files, Tailwind classes, inline styles) and `vercel-react-best-practices` for React or Next.js code.
 - When you create a React component or change its props, load `vercel-composition-patterns`.
 - Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
@@ -63,6 +63,7 @@ alwaysApply: true
   - Non-obvious behavior forced by an external dependency, platform, vendor, or protocol we cannot reshape. Surprises in our own code get a rename, extract, type, or rearchitecture that makes the behavior obvious without prose.
   - `// prettier-ignore`. Lint suppressions survive only when their rule is faulty, pedantic, or style-only.
   - Doc comments that define a public API contract.
+  - `// SAFETY:` on each `unsafe` block, stating why its invariants hold.
   - Issue or RFC links that explain a constraint code cannot express.
 - When you are not sure an exception applies, leave the comment out.
 - Before writing `eslint-disable`, `@ts-ignore`, `@ts-expect-error`, or a similar suppression, look up the rule. If it catches real bugs or protects correctness or safety, fix the code instead.

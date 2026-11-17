@@ -51,12 +51,12 @@ Follow these steps when the user asks to install or update this setup. The same 
 | [`implement`](./skills/implement/SKILL.md), [`implement-spec`](./skills/implement-spec/SKILL.md), [`spec-review`](./skills/spec-review/SKILL.md) | Matt Pocock's ticket flow, kept here so it calls `spec-review`, his two-axis review (Standards and Spec) renamed from `code-review` so it doesn't run when you just ask for a review. From [`mattpocock/skills`](https://github.com/mattpocock/skills). |
 | [`python-development`](./skills/python-development/SKILL.md) | Conventions for Python projects: `uv`, type hints, PEP 723 scripts. |
 | [`typescript-development`](./skills/typescript-development/SKILL.md) | Conventions for TypeScript and JavaScript projects: strict mode, `pnpm`, `oxlint`, and rules for modelling types. |
-| [`rust-development`](./skills/rust-development/SKILL.md) | Rust preferences for API design, compatibility, crate features, and scoped checks. Defers to the Rust API Guidelines for everything else. |
+| [`rust-best-practices`](./skills/rust-best-practices/SKILL.md) | Rules for writing Rust: ownership, API design, errors, crates, docs, and tests, with a review checklist and a digest of each source guide. The repository's own conventions win over it. From [`morganlinton/BeautifulRust`](https://github.com/morganlinton/BeautifulRust). |
 | [`golang-development`](./skills/golang-development/SKILL.md) | Conventions for Go projects, with a testing reference. |
 | [`human-writer`](./skills/human-writer/SKILL.md) | Rewrites text, or writes it, so it reads like a person wrote it: short sentences in ASD-STE100 Simplified Technical English, with the same intent. Runs when you type `/human-writer`. |
 | [`no-comments`](./skills/no-comments/SKILL.md) | Removes comments from a diff with a fresh-context subagent and fixes the code the comments were excusing. Runs when you type `/no-comments`. |
 
-The language skills load only in a project that uses that language. They are copies of sammcj's skills, and the TypeScript one adds pstack's type rules; [`skills/THIRD_PARTY.md`](./skills/THIRD_PARTY.md) has the attribution.
+The language skills load only in a project that uses that language. The Python, TypeScript and Go skills are copies of sammcj's skills, and the TypeScript one adds pstack's type rules. The Rust skill is a trimmed copy of BeautifulRust's `rust-best-practices`; [`skills/THIRD_PARTY.md`](./skills/THIRD_PARTY.md) has the attribution.
 
 `review-changes` is assembled from other review skills. [`SOURCES.md`](./skills/review-changes/SOURCES.md) records where each part came from, why the skill is shaped the way it is, and how to update it.
 
