@@ -7,7 +7,7 @@ description: "Use whenever you write, change, or review Rust code: ownership, AP
 
 Distilled from five Rust style and design guides, with a digest of each in `references/`. Where they disagree, this file says which to follow.
 
-The repository's conventions, edition, toolchain, MSRV, and design records (ADRs, architecture docs, migration guides) win over this file. A change that reverses a design record updates that record in the same change.
+The repository's conventions, edition, toolchain, and MSRV win over this file. A design record (an ADR or an architecture note) wins when it states its reason. One without a reason is an open question: report it rather than follow it. Code, rustdoc, and tests describe current behaviour, so a design record that disagrees with them is stale. A change that reverses a design record updates that record in the same change.
 
 To review Rust code, also read [`references/review.md`](references/review.md).
 
