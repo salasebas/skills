@@ -5,9 +5,16 @@ description: Use when the user asks to open or file a PR. Checks for an existing
 
 # File PR
 
-Before filing, check whether a PR for this branch already exists. Review the
-diff locally against the base branch (usually `origin/main`) to make sure its
-contents match the goal.
+Before filing, check whether a PR for this branch already exists. Check the
+staged diff before committing. Before opening or updating the PR, inspect the
+full branch diff with `git diff <base>...HEAD` against the target branch,
+including earlier commits. Include the changes needed to deliver or maintain
+the requested result.
+
+Keep scratch scripts, traces, and one-off migration parity checks local.
+Record their results and reproduction steps in the PR evidence. If a parity
+check finds an uncovered failure that can recur after the migration, commit a
+focused regression that asserts the supported contract directly.
 
 PR titles usually become commit messages, so follow the repository's title
 conventions. Look at recently merged PRs and Git history for examples. Prefer a
