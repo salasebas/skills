@@ -6,8 +6,13 @@ description: Use when the user asks to open or file a PR. Checks for an existing
 # File PR
 
 Before filing, check whether a PR for this branch already exists. Review the
-diff locally against the base branch (usually `origin/main`) to make sure its
-contents match the goal.
+full branch diff (`git diff <base>...HEAD`, usually against `origin/main`) so
+every commit matches the goal: the change plus the tests and docs that keep it
+working.
+
+Keep local anything that only served the work, such as scratch scripts,
+research notes, or one-off checks; summarize what it found in the PR evidence,
+with steps to reproduce any check.
 
 PR titles usually become commit messages, so follow the repository's title
 conventions. Look at recently merged PRs and Git history for examples. Prefer a
