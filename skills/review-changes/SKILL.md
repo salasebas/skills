@@ -11,7 +11,7 @@ Review a change like the senior developer who will be paged when it breaks.
 
 ## Reviewer
 
-Use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
+Use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Outside Loop, one review request gets one reviewer. Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
 
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
@@ -48,6 +48,8 @@ Any other change, review in this session. A reviewer never starts a reviewer.
 7. [Report](#report).
 
 The review changes no code and runs only read-only git and gh commands, except [Post to GitHub](#post-to-github) when the user asks for it. [Loop](#loop) is the one mode that edits.
+
+A plain review ends at the report. Then fix only the findings the user names, and say those fixes are unreviewed. Fixing and then reviewing again is [Loop](#loop) under any name, so it runs only with `loop`.
 
 ## Scope
 
