@@ -45,7 +45,7 @@ These are the only places where the text differs from upstream, beyond deleted s
 - "Gate Integrity" keeps gstack's definition, its one question, the two unlabelled patterns; its grouping rule is covered by Workflow step 5. The `gstack-gate-diff` scan, the `RH-*` tags, the confidence score and the fix options are gone; the tagged patterns read as one sentence.
 - The three quoting bullets drop gstack's confidence score. An unverified finding follows the existing completion rule: it is dropped or named under `Not checked`.
 - "Reviewer" lets the review run read-only `git` and `gh`, where the brief forbade all network commands while the PR scope and discussion steps need `gh`.
-- In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details (`orchestrator_capabilities`, IDs, `clientRequestId`), the Sol default, the `git fetch` base rules and usage reporting are gone. "Scope" points to this skill's Scope, and "Reviewer" holds the routes and the model order: the model the user names, else the strongest from another vendor, else the strongest other model, else the session's, at `high` effort. The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
+- In "Loop", Sol reads "the reviewer" and the blocker / should / nit labels read Must fix / Should fix / Nice to have. The T3 tool details (`orchestrator_capabilities`, IDs, `clientRequestId`), the Sol default, the `git fetch` base rules and usage reporting are gone. "Scope" points to this skill's Scope, and "Reviewer" holds the routes and the model order: see "When a review runs, and on which model". The brief asks for this skill's Workflow where `sol-loop` gives its own review rules, and the report adds that fixes after the last round are unreviewed.
 
 Written for this repo, with no upstream: the scope commands and the rule for a revision that is not checked out, the concrete case for a structure finding, the validation completion rule, Workflow steps 6 and 7, the "Coverage" and moved-code sentences in `references/bugs.md`, the lines around the brief in "Reviewer", and the opening, the `gh api` line and the payload notes in "Post to GitHub".
 
@@ -120,6 +120,25 @@ A [second round](https://github.com/salasebas/skills/blob/08096e507ade1442e52b16
 The loop is that unmeasured case: the session would re-review code it has just written, with its own conclusions still in context. So every round goes to a new reviewer subagent, as `sol-loop` does with a separate reviewer model. This rests on that reasoning (anchoring), not on a comparison here; none has been run on loop rounds.
 
 The reviewer prefers another model after a run on 2026-10-29 in T3 Code: three merged `compitienda` pull requests (#1962, #1935, #1917), one run per reviewer model, each started by a GPT-6.1-Sol coordinator through `delegate_task` and its findings confirmed by that coordinator. Of seven distinct problems, a GPT-6.1-Sol reviewer found 2, GPT-6-Astra 4 and Claude Opus 5.5 6; Sol approved two pull requests that had confirmed problems. Opus took 2.7 to 12.5 minutes, the others 1.5 to 3.7. One run per cell, so this sets a default, not a ranking.
+
+## When a review runs, and on which model
+
+From [#81](https://github.com/salasebas/skills/issues/81). In `compitienda` #2204 an agent finished a CI change and started a reviewer subagent unasked. The global rule then read "To review changes, use the `review-changes` skill", which says how to review but not when, and the skill's "use a reviewer when this session wrote the change" turned the agent's own call into a reason to delegate.
+
+**Decision:** keep the skill and the independent reviewer, and start them only on a request: the user asks for a review, or a workflow the user invoked includes one (`full-send` and `full-stop` run the loop). That request is the permission for the reviewer and every loop round, so those workflows ask nothing more. Implementing or fixing a change keeps its own checks and code reading and starts no review. `loop` still needs its own opt-in ([#72](https://github.com/salasebas/skills/issues/72)), and a plain review stays read-only. The rule in `rules/AGENTS.md` names the trigger, so it no longer reads as "review every change".
+
+**Model:** capability first, independence second. The old order, another vendor before anything else, could pick a weaker reviewer only because its vendor differed. The 2026-10-29 run above points the same way: the most capable reviewer found the most problems. A different family helps among comparable candidates. The policy names no model, so it does not go stale with the catalog, and the reviewer line in `rules/AGENTS.md` says the same in short.
+
+Examples, with tiers rather than names:
+
+- "Fix this bug": the session fixes it, runs the tests, and reports. No reviewer.
+- "Review my branch", on code this session wrote: a reviewer subagent, without asking first.
+- "Full send": the loop runs every round without asking.
+- The user names a model no route runs: report it and start no reviewer.
+- Session on a mid tier, a top-tier model from another family offered: that model.
+- Session on the top tier, the only other family offered is a lower tier, and the same provider offers a lower tier too: the strongest of those, preferring the other family if they are comparable.
+- Only the session's provider offered: its most capable other model.
+- Only the session's model offered: the session reviews and says that no independent reviewer was available. A second copy of the same model adds no independence.
 
 The split into a shared `SKILL.md` and reference files ran on 2026-10-30 and 2026-10-31 in T3 Code: two merged `compitienda` pull requests (#1754, authorization, and #1985, inventory), one run per model and variant, Grok 4.7 Fast and Gemini 3.8 Flash at high effort. Findings were confirmed by reading the code at the pull request's head. The new variant then also carried a `references/security.md` copied from Anthropic's `/security-review`, loaded for #1754. On #1985 the new variant did at least as well as the old one. On #1754, where that file loaded, both models reported less than with the old skill, and the file added no finding. Its goal is high confidence and little noise, which may carry over to the rest of the review, so it is out. One run per cell: this does not prove the file hurts, only that it earned no place. Gemini's first runs came after this skill had cut upstream's thoroughness lines. Those lines are back because they are upstream's text, not because the rerun proved them.
 

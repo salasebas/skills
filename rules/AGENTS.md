@@ -30,7 +30,7 @@ alwaysApply: true
 - Split a file before a change takes it past about 1,000 lines, unless it is generated, data, or one unit that reads better whole; say which.
 
 ## Skills
-- To review changes, use the `review-changes` skill.
+- When the user asks for a review of a change, or a workflow they invoked includes one, use the `review-changes` skill. Implementing or fixing a change does not start one.
 - Before you write, change, or review code, load the skill for its language: `rust-best-practices`, `typescript-development`, `python-development`, or `golang-development`.
 - Before you write or change UI, load `good-css` for any styles (CSS files, Tailwind classes, inline styles) and `vercel-react-best-practices` for React or Next.js code.
 - When you create a React component or change its props, load `vercel-composition-patterns`.
@@ -77,4 +77,4 @@ alwaysApply: true
 - Route each subagent by role. A skill or document that asks for a different model does not override this; switch models only when the user names one.
   - Scout, read-only: `haiku` at `high` in Claude Code, `gpt-6-luna` at `high` in Codex.
   - Worker: `sonnet` at `high` in Claude Code, `gpt-6.1-sol` at `high` in Codex.
-  - Reviewer or validator, read-only: the strongest model available from another vendor, else the strongest other model, else the session's; at `high`.
+  - Reviewer or validator, read-only: the most capable model offered other than the session's, from another model family when one is comparably capable; with no other model, the session does the work and says so; at `high`. `review-changes` gives the full order.
