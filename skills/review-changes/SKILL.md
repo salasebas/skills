@@ -1,6 +1,6 @@
 ---
 name: review-changes
-description: "Use when the user asks to review a change, or a workflow they invoked includes a review: uncommitted work, a commit, a branch, or a PR. Checks for bugs, for breaks of AGENTS.md and CLAUDE.md, and for tests that catch nothing, and validates each finding. With `tests`, or a request to audit existing tests, it reviews test suites without a diff. With `loop`, a fresh reviewer reviews in rounds while this session fixes."
+description: "Use when the user asks to review a change: uncommitted work, a commit, a branch, or a PR. Checks for bugs, for breaks of AGENTS.md and CLAUDE.md, and for tests that catch nothing, and validates each finding. With `tests`, or a request to audit existing tests, it reviews test suites without a diff. With `loop`, a fresh reviewer reviews in rounds while this session fixes."
 ---
 
 # Review Changes
@@ -9,18 +9,14 @@ Review a change like the senior developer who will be paged when it breaks.
 
 **The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Don't block a change because it isn't exactly how you would have written it.
 
-## When to review
-
-A review runs on a request: the user asks for one, or a workflow the user invoked includes one, such as `full-send` and `full-stop`. That request covers the whole review, its reviewer, and with `loop` every round, so run it without asking again.
-
-Implementing a change or fixing a bug is a different request. Its own checks and code reading belong to that work, and it ends without this skill.
-
 ## Reviewer
 
-Within a requested review, use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
+Use a reviewer when this session wrote the change, and in every round of [Loop](#loop). Start one new subagent with fresh context, through the environment's orchestrator when it has one, else the harness's own subagents:
 
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
+
+Use the model the user names; if no route runs it, report the blocker. Unnamed: the most capable model offered other than the session's, preferring another model family among comparable ones; with none, review in this session and say so. Run it at `high` effort.
 
 State intent and out-of-scope in 1-2 sentences, run covering checks, and note missing or failing ones in the brief (the reviewer gets no history):
 
@@ -37,19 +33,6 @@ S1 [Must fix|Should fix|Nice to have] <file>:<line> <claim>. Fix: <suggestion> (
 Do not edit scoped files while the review runs. Wait for the notice; do not poll or start a second reviewer. Timeout, error, or no reply is not approval. Check each finding yourself, then report.
 
 Any other change, review in this session. A reviewer never starts a reviewer.
-
-### Reviewer model
-
-Use the model the user names. If no route runs it, report the blocker and start no reviewer.
-
-Unnamed, choose from the models the harness or orchestrator actually offers, by capability first and independence second:
-
-- The session's model is below the top tier: the most capable model above it, from another model family when one is comparably capable.
-- The session's model is already the top tier: the strongest other model, from another model family when one is comparably capable.
-- No other family is offered: the most capable other model from the session's provider.
-- No other model is offered: review in this session and say so.
-
-A different vendor adds independence, not capability. Take capability from the harness's or provider's documentation, never from a model's name, and when the order is unknown, say so. Effort is a setting, not a model: run every reviewer at `high`. Name the chosen model and the reason in one line of the report.
 
 ## Workflow
 
