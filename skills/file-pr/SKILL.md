@@ -12,8 +12,7 @@ working.
 
 Keep local anything that only served the work, such as scratch scripts,
 research notes, or one-off checks; summarize what it found in the PR evidence,
-with steps to reproduce any check. When a check exposes a failure that could
-recur, commit a focused regression test for it.
+with steps to reproduce any check.
 
 PR titles usually become commit messages, so follow the repository's title
 conventions. Look at recently merged PRs and Git history for examples. Prefer a
