@@ -37,7 +37,7 @@ alwaysApply: true
 - Use any relevant Emil Kowalski skill wherever it fits: UI polish, component design, and motion.
 - When you write or change an animation, load `motion`.
 - When you write or change Playwright tests, load `playwright-best-practices`.
-- Before you write or review documentation (READMEs, guides, RFCs), read `~/.agents/skills/technical-writing/SKILL.md` and follow it; the skill cannot be invoked as a tool.
+- Before you write or review documentation (READMEs, guides, RFCs), read and follow `~/.agents/skills/technical-writing/SKILL.md`.
 - Before you create or edit a skill, `AGENTS.md`, or `CLAUDE.md`, load `writing-for-agents`.
 
 ## Review
