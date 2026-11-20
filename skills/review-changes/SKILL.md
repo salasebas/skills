@@ -16,7 +16,7 @@ Use a reviewer when this session wrote the change, and in every round of [Loop](
 - T3 Code: `delegate_task`, role `review`.
 - Codex: `spawn_agent` with `fork_turns: "none"`.
 
-Use the model the user names; if no route runs it, report the blocker. Unnamed: the strongest model from another vendor, else the strongest other model, else the session's, at `high` effort.
+Use the model the user names; if no route runs it, report the blocker. Unnamed: the most capable model offered other than the session's, preferring another model family among comparable ones; with none, review in this session and say so. Default effort is `high`.
 
 State intent and out-of-scope in 1-2 sentences, run covering checks, and note missing or failing ones in the brief (the reviewer gets no history):
 

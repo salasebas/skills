@@ -77,4 +77,4 @@ alwaysApply: true
 - Route each subagent by role. A skill or document that asks for a different model does not override this; switch models only when the user names one.
   - Scout, read-only: `haiku` at `high` in Claude Code, `gpt-6-luna` at `high` in Codex.
   - Worker: `sonnet` at `high` in Claude Code, `gpt-6.1-sol` at `high` in Codex.
-  - Reviewer or validator, read-only: the strongest model available from another vendor, else the strongest other model, else the session's; at `high`.
+  - Reviewer or validator, read-only: the most capable model offered other than the session's, preferring another model family among comparable ones; with none, the session does it and says so; at `high`.
