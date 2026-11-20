@@ -142,4 +142,4 @@ The review is JSON with `commit_id` (the PR's head SHA), `event` set to `COMMENT
 
 ## Loop
 
-Runs when the user passes `loop` with the request: follow [`references/loop.md`](references/loop.md). Without it, the review is a single pass.
+Runs when the user passes `loop` with the request: follow [`references/loop.md`](references/loop.md). Without it, the review is a single pass that ends at the report, and fixes only what the user asks for.
