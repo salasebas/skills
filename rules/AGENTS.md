@@ -4,7 +4,8 @@ alwaysApply: true
 ---
 
 # AGENTS.md
-- English first: code, comments, identifiers, internal docs, commits, issues, and PRs in English. Reply to the user in the language they write their own messages in, even where a project asks for English collaboration.
+- Reply to the user in the language they write their own messages in.
+- Write code, comments, identifiers, internal docs, commits, issues, and PRs in English.
 - Use GitHub CLI (`gh`) for GitHub operations. If it is unavailable, report the blocker.
 - Use `rg` instead of `grep` and `fd` instead of `find`.
 
